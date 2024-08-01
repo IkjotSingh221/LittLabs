@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/static/css/main.3dedf510.css",
+    "main.js": "/static/js/main.50483a6c.js",
+    "static/js/453.d855a71b.chunk.js": "/static/js/453.d855a71b.chunk.js",
+    "static/media/dashboardOwl.png": "/static/media/dashboardOwl.9638575a05ea4e72215c.png",
+    "static/media/LofiTrack1.mp3": "/static/media/LofiTrack1.4dd30ff1591684a18ea3.mp3",
+    "static/media/StudyLofiMusic.mp3": "/static/media/StudyLofiMusic.f82d7134bcd0199826a3.mp3",
+    "static/media/LofiTrack2.mp3": "/static/media/LofiTrack2.3ca0a3434390faceb885.mp3",
+    "static/media/LoginBG.png": "/static/media/LoginBG.d73fd1fdbda641149ba2.png",
+    "static/media/sun.png": "/static/media/sun.76a9633c25dc84c15c4c.png",
+    "static/media/Owl Day.png": "/static/media/Owl Day.263a0bf48e7202036ffa.png",
+    "static/media/Lit Lab Day.png": "/static/media/Lit Lab Day.ad66371356e7b02df108.png",
+    "static/media/chatbot.avif": "/static/media/chatbot.c0f3d7b8a74fd7e63344.avif",
+    "index.html": "/index.html",
+    "main.3dedf510.css.map": "/static/css/main.3dedf510.css.map",
+    "main.50483a6c.js.map": "/static/js/main.50483a6c.js.map",
+    "453.d855a71b.chunk.js.map": "/static/js/453.d855a71b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3dedf510.css",
+    "static/js/main.50483a6c.js"
+  ]
+}
