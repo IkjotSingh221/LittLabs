@@ -3,7 +3,7 @@ pyrebase4
 shutil
 tempfile
 langchain
-langchain_community
+langchain-community
 fastapi
 python-dotenv
 google-cloud-firestore
