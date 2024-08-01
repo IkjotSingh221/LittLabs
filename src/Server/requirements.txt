@@ -1,6 +1,6 @@
 uvicorn
 pyrebase4
-shutil
+shutils
 tempfile
 langchain
 langchain-community
@@ -12,3 +12,4 @@ google-generative-ai
 pydantic
 PyPDF2
 pypdf
+pytest-shutil
