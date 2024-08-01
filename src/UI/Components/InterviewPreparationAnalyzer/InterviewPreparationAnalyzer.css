@@ -1,0 +1,280 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: "Poppins", sans-serif;
+    background: #f0f0f5; 
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.content-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.upload-metrics-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.upload-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    flex: 1;
+}
+
+#video-upload-form {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+}
+
+#drop-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 310px;
+    border: 2px dashed #dcdcdc;
+    border-radius: 15px;
+    background-color: #fafafa;
+    cursor: pointer;
+    text-align: center;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+    margin-bottom: 10px;
+}
+
+#drop-area:hover {
+    border-color: #0056b3;
+    background-color: #f0f8ff;
+}
+
+#video-view {
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.uploaded-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.drop-label {
+    font-size: 18px;
+    color: #555;
+    margin: 20px;
+    font-weight: 500;
+}
+
+#submit-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    background-color: #007bff;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+#submit-btn:hover {
+    background-color: #0056b3;
+}
+
+#error {
+    width: 100%;
+    max-width: 600px;
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.review-box {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #ffffff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.review-box h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #333;
+    text-align: center;
+}
+
+.review-box p {
+    font-size: 16px;
+    color: #555;
+    text-align: left;
+}
+
+.meter-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 500px;
+    margin-right: 30px;
+}
+
+.meter {
+    display: flex;
+    align-items: center;
+    background: #e9ecef;
+    border-radius: 15px;
+    padding: 10px;
+    box-sizing: border-box;
+    position: relative;
+    /* Allow absolute positioning of .meter-score */
+}
+
+.meter-label {
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
+    flex-basis: 120px;
+    /* Ensure labels take up a fixed space */
+    flex-shrink: 0;
+    /* Prevent labels from shrinking */
+    text-align: left;
+    /* Align text to the left */
+    margin-right: 10px;
+    /* Space between label and bar */
+}
+
+.meter-bar-container {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    /* Allow bar to take remaining space */
+    position: relative;
+}
+
+.meter-bar {
+    height: 40px;
+    width: 300px;
+    border-radius: 15px;
+    margin-right: 30px;
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.meter-score {
+    position: absolute;
+    right: 5px;
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
+    margin-left: 30px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .upload-metrics-container {
+        flex-direction: column;
+    }
+
+    .meter-container {
+        width: 100%;
+        margin-top: 30px;
+        margin-right: 0;
+    }
+
+    #video-upload-form {
+        padding: 20px;
+    }
+
+    #drop-area {
+        height: 250px;
+    }
+
+    .drop-label {
+        font-size: 16px;
+    }
+
+    #submit-btn {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+
+    .review-box {
+        padding: 15px;
+    }
+
+    .review-box h3 {
+        font-size: 18px;
+    }
+
+    .review-box p {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 5px;
+    }
+
+    .upload-metrics-container {
+        gap: 10px;
+    }
+
+    #drop-area {
+        height: 200px;
+    }
+
+    .drop-label {
+        font-size: 14px;
+    }
+
+    #submit-btn {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    .review-box {
+        padding: 10px;
+    }
+
+    .review-box h3 {
+        font-size: 16px;
+    }
+
+    .review-box p {
+        font-size: 12px;
+    }
+}

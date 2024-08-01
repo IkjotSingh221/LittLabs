@@ -1,0 +1,174 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap");
+
+.theme-dark {
+    --high-contrast-color: #fff;
+    --low-contrast-color: #ddd;
+    --background-color: #000;
+    --accent-color: #2eb5be;
+}
+
+.theme-light {
+    --high-contrast-color: #000;
+    --low-contrast-color: #333;
+    --background-color: #fff;
+    --accent-color: #efb839;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+#LP-section {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  padding: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--background-color)
+}
+
+header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 2;
+}
+
+header a {
+  text-decoration: none;
+  font-weight: 900;
+  font-size: 35px;
+  letter-spacing: 1px;
+  color: var(--high-contrast-color);
+}
+
+header .logo {
+  position: relative;
+  top: 20px;
+  width: 80px;
+}
+
+header ul {
+  position: relative;
+  display: flex;
+}
+
+header ul li {
+  list-style: none;
+}
+
+header ul li a {
+  display: inline-block;
+  color: var(--low-contrast-color);
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-left: 40px;
+  text-decoration: none;
+}
+
+.content {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.content .textBox {
+  position: relative;
+  max-width: 600px;
+}
+
+.content .textBox h2 {
+  color: var(--low-contrast-color);
+  font-size: 3em;
+  font-weight: 500;
+  line-height: 1.4em;
+}
+
+.content .textBox h2 span {
+  color: #efb839;
+  font-size: 0.9em;
+  font-weight: 900;
+}
+
+.content .textBox p {
+  color: var(--low-contrast-color)
+}
+
+.content .textBox a {
+  display: inline-block;
+  margin-top: 20px;
+  background: #efb839;
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 40px;
+  font-weight: 500;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+
+.content .imgBox {
+  width: 600px;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 50px;
+  margin-top: 50px;
+}
+
+.content .imgBox img {
+  width: 540px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.circle {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  height: 100%;
+  overflow: hidden;
+}
+
+.circle .image-container {
+  width: 100%;
+  height: 100%;
+  transform: translate(35%, 45%) scale(1.8);
+}
+
+.circle img {
+  width: 100%;
+  height: 100%;
+
+  animation: rotation 10s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}

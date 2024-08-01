@@ -1,0 +1,404 @@
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #f0f0f0;
+}
+
+
+#signInSignUpBox {
+  position: relative;
+  width: 55vw;
+  height: 80vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+}
+#overlay {
+  left: 0;
+  width: 40%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+#signUp {
+  transform: translateX(0);
+  transition-duration: 1s;
+}
+#signIn {
+  transform: translateX(20%);
+  transition-duration: 1s;
+}
+
+.overlay-moveHalfRight #signIn {
+  transform: translateX(0);
+  transition-duration: 1s;
+}
+
+.overlay-moveHalfRight {
+  animation-name: move-slide-right;
+  animation-fill-mode: forwards;
+  animation-duration: 1s;
+}
+
+@keyframes move-slide-right {
+  0% {
+    left: 0;
+  }
+  50% {
+    width: 50%;
+  }
+  100% {
+    left: 60%;
+    background-position: 100%;
+  }
+}
+
+.overlayInner-moveHalfLeft #signUp {
+  transform: translateX(-20%);
+  transition-duration: 1s;
+}
+
+.overlay-moveHalfLeft {
+  animation-name: move-slide-back-right;
+  animation-fill-mode: forwards;
+  animation-duration: 1s;
+}
+
+@keyframes move-slide-back-right {
+  0% {
+    left: 60%;
+    background-position: right;
+  }
+  50% {
+    width: 50%;
+  }
+  100% {
+    left: 0;
+    background-position: left;
+  }
+}
+
+#overlayInner {
+  position: absolute;
+  width: 200%;
+  display:flex;
+  justify-content: center;
+}
+
+.overlayInner-moveHalfLeft {
+  animation-name: move-slide-left;
+  animation-fill-mode: forwards;
+  animation-duration: 1s;
+}
+
+@keyframes move-slide-left {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: -100%;
+    background-position: left;
+  }
+}
+
+.overlayInner-moveHalfRight {
+  animation-name: move-slide-back-left;
+  animation-fill-mode: forwards;
+  animation-duration: 1s;
+}
+
+@keyframes move-slide-back-left {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 0;
+    background-position: left;
+  }
+}
+
+#overlayInner > div {
+  flex: 1;
+}
+
+#forms {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -100;
+  display: flex;
+  width: 90%;
+  overflow: hidden;
+  margin-left: 1.7rem;
+}
+#forms > div {
+  flex: 1;
+}
+#signUpForm,
+#signInForm {
+  overflow: hidden;
+}
+#signUpForm .holder {
+  transform: translateX(0);
+  transition-duration: 1s;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+#signUpForm.shiftLeft .holder {
+  transform: translateX(-100%);
+  transition-duration: 1s;
+}
+#signInForm .holder {
+  transform: translateX(10%);
+  transition-duration: 1s;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+#signInForm.shiftRight .holder {
+  transform: translateX(100%);
+  transition-duration: 1s;
+}
+
+
+#signInForm,
+#signUpForm {
+  border-radius: 20px;
+  text-align: center;
+}
+#signInForm h1,
+#signUpForm h1 {
+  margin-top: 4.5rem;
+}
+#signInForm p,
+#signUpForm p {
+  font-size: 0.8rem;
+  margin-top: 1.6rem;
+}
+#signInForm input,
+#signUpForm input {
+  border: none;
+  background-color: rgb(236, 236, 236);
+  line-height: 35px;
+  padding: 5px 10px;
+  width: 80%;
+}
+
+#signInForm #forgot-password{
+  display:block;
+  margin: 10%;
+  font-size: 0.8rem;
+}
+
+input:focus {
+    outline: none;
+}
+
+.signup-signin-button {
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(to right, #964992, #fa86b6, #f85479);
+  border-radius: 20px;
+  border: none;
+  padding: 10px 40px;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  position:relative;
+  z-index: 20;
+}
+
+.signup-signin-button:hover::after {
+  z-index: -1;
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, #964992, #fa86b6, #f85479);
+  left: 0;
+  top: 0;
+  border-radius: 20px;
+}
+
+.signup-signin-button:hover::before {
+  opacity: 1;
+}
+
+.signup-signin-button::before{
+  content: '';
+  position:absolute;
+  top: -2px;
+  left:-2px;
+  filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  background: linear-gradient(45deg, #964992, #fa86b6, #f85479);
+  z-index: -10;
+  border-radius: 20px;
+  animation: glowing 20s linear infinite;
+  transition: opacity .3s ease-in-out;
+  opacity:0;
+}
+
+.signup-signin-button:focus {
+  outline: none;
+}
+
+.signup-signin-button:hover{
+  background:#fff;
+
+}
+
+.signup-signin-button:active {
+  padding: 9px 38px;
+  transition-duration: 0.1s;
+}
+#signInSignUpBox {
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+#forms > div {
+  background-color: #fff;
+}
+#overlay {
+  background-image: url('../../Assets/LoginBG.png');
+  background-size: cover;
+  background-position: left;
+  border: none;
+}
+
+#signUp,
+#signIn {
+  text-align: center;
+  padding: 140px 40px;
+  color: #fff;
+}
+#signUp button,
+#signIn button {
+  margin-top: 20px;
+  text-transform: uppercase;
+  color: #fff;
+  background-color: transparent;
+  border-radius: 20px;
+  border: 1px solid rgb(255, 255, 255);
+  padding: 10px 40px;
+  cursor: pointer;
+}
+
+@media (max-width: 830px) {
+  #overlay {
+    display: none;
+  }
+  #signUpForm {
+    display: block;
+  }
+  #signInForm {
+    display: none;
+  }
+  .signin::after {
+    content: "Sign In";
+    display: block;
+    font-size: 10px;
+    margin-top: 5%;
+  }
+}
+
+#social-media-holder {
+  display: flex;
+  justify-content: center;
+  align-items: space-between; 
+}
+
+#social-media-holder button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 10px;
+}
+
+.input{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(236, 236, 236);
+  margin-top: 0.8rem;
+  width: 20vw;
+}
+
+.input box-icon{
+  margin-left: 1%;
+  opacity:0.5;
+  width: 18px;
+}
+
+#social-media-holder button{
+  display: flex;
+  border:none;
+  text-align: center;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  line-height: 40px;
+  color: rgb(0, 0, 0);
+  background: #dddddd;
+  transition: transform 0.3s ease;
+}
+
+.social-media-button {
+  overflow: hidden;
+  position: relative; 
+}
+
+.social-media-button:first-child {
+  background: linear-gradient(to top, #0081fb, #0081fb); 
+}
+
+.social-media-button:nth-child(2) {
+  background: linear-gradient(to top, #ea4335, #ea4335); 
+}
+
+.social-media-button:nth-child(3) {
+  background: linear-gradient(to top, #08a0e9, #08a0e9); 
+}
+
+.social-media-button:before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: top 0.3s ease;
+}
+
+.social-media-button:first-child:before {
+  background: linear-gradient(to top, #0081fb, #0081fb);
+}
+
+.social-media-button:nth-child(2):before {
+  background: linear-gradient(to top, #ea4335, #ea4335);
+}
+
+.social-media-button:nth-child(3):before {
+  background: linear-gradient(to top, #08a0e9, #08a0e9); 
+}
+
+.social-media-button:hover::before {
+  top: 0;
+}
+
+.social-media-button box-icon {
+  display: block;
+  color: #ffffff;
+  z-index: 10;
+}
+
+.social-media-button:hover {
+  transform: translateY(-5px);
+}

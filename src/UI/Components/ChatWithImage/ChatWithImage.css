@@ -1,0 +1,144 @@
+#ImageNotePage{
+    height:100vh;
+    width: 100vw;
+    display:flex;
+    gap:5px;
+}
+
+#pageMain{
+    flex:1;
+    border:2px solid #ccc;
+    border-radius: 20px;
+    height:100vh;
+    overflow:hidden;
+    
+}
+
+#pageNavBar{
+    height:10vh;
+    background: none;
+    background: rgb(63, 63, 164);
+    padding:20px;
+}
+
+#nav-bar-text{
+    font-size: 30px;
+    color:white;
+    z-index: 1000;
+}
+
+#pageMessagingArea{
+    height:75vh;
+    display:flex;
+    justify-content: center;
+    background: none;
+    position: relative;
+    /* opacity:0.13; */
+    padding-top: 5px;
+    z-index: 1;
+    padding-bottom: 5px;
+}
+
+#pageInputArea{
+    height:15vh;
+    width:100%;
+    display:flex;
+    /* justify-content: center; */
+    align-items: center;
+    background: none;
+    flex-direction: column;
+}
+
+#pageInputArea form{
+    width:60%;
+    display:flex;
+    justify-content: center;
+    background: white;
+    height:fit-content;
+    border-radius: 30px;
+    align-items: center;
+    padding:0 8px;
+    z-index: 500;
+    margin-top: 5px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+#fileUploader{
+    display:none;
+}
+
+#textMessage{
+    width: 85%;
+    height: 50px;
+    font-size: 15px;
+    background: none;
+    border: none;
+    margin:0 5px;
+}
+
+#pageInputArea form button{
+    border-radius: 50%;
+    padding:5px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: linear-gradient(to right, rgb(63, 63, 164), rgb(97, 151, 213));
+}
+
+#Messages{
+    width:60%;
+    background: none;
+    position:relative;
+    height:100%;
+    overflow-y: scroll;
+}
+
+#Messages::-webkit-scrollbar{
+    display:none;
+}
+
+#imagemessage img{
+    height:150px;
+    width:auto;
+}
+
+#imagechatbubble{
+    /* width:fit-content;
+    height:fit-content;*/
+    /* padding: 5px; */
+} 
+
+.userchat{
+    margin-left: auto;
+    background: rgb(209, 225, 230);
+    max-width: 70%;
+    width:fit-content;
+    height: fit-content;
+    padding:8px;
+    border-radius: 20px;
+    color:rgb(45, 45, 116);
+    margin-bottom: 8px;
+}
+
+.chatbotchat{
+    margin-left: 0;
+    background: linear-gradient(to left, rgb(63, 63, 164), rgb(97, 151, 213));
+    max-width: 70%;
+    width:fit-content;
+    height:fit-content;
+    color:white;
+    padding:8px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+}
+
+#imageininput{
+    height:20px;
+    display:block;
+}
+
+#pageInputArea form label box-icon{
+    margin-top: 4px;
+    margin-left: 9px;
+}

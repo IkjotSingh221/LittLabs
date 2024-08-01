@@ -1,0 +1,62 @@
+.progress-circles {
+    width: 45%;
+    height: 45%;
+    position: relative;
+    
+}
+
+.progress-circles__svg {
+    transform: rotate(-90deg);  
+}
+
+.progress-circles__bg,
+.progress-circles__progress {
+    fill: none;
+    stroke-width: 10; 
+}
+
+/* .progress-circles__bg{
+    stroke: #e6e6e6;
+} */
+
+.progress-circles__bg:first-child{ 
+    stroke: #F5C7D8;
+}
+
+.progress-circles__bg:nth-child(2){
+    stroke: #FDDCCC;
+}
+
+.progress-circles__bg:nth-child(3){
+    stroke: #FFEBD8;
+}
+
+.progress-circles__progress {
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1s ease-out;
+}
+
+.progress-circles__progress--outer {
+    stroke: #D54C79; /* Tomato */ 
+    stroke-dasharray: 440;
+    stroke-width: 10;
+}
+
+.progress-circles__progress--middle {
+    stroke: #FB6D49; /* SteelBlue */
+    stroke-dasharray: 346;
+    stroke-width: 10;
+}
+
+.progress-circles__progress--inner {
+    stroke: #FFAE47; /* LimeGreen */
+    stroke-dasharray: 251;
+    stroke-width: 10;
+}
+
+.progress-circles__text {
+    font-size: 1.5em;
+    font-family: Arial, sans-serif;
+    fill: #333;
+    transform: rotate(90deg); /* Counter the SVG rotation */
+}
