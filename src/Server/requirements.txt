@@ -1,7 +1,7 @@
 uvicorn
 pyrebase4
 shutils
-tempfile
+temp
 langchain
 langchain-community
 fastapi
