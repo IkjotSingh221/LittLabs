@@ -1,0 +1,12 @@
+uvicorn
+pyrebase4
+shutil
+tempfile
+langchain
+langchain_community
+fastapi
+python-dotenv
+google-cloud-firestore
+firebase-admin
+google-generative-ai
+pydantic
