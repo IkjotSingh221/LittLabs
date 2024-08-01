@@ -8,7 +8,7 @@ fastapi
 python-dotenv
 google-cloud-firestore
 firebase-admin
-google-generative-ai
+google-generativeai
 pydantic
 PyPDF2
 pypdf
