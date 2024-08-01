@@ -42,6 +42,6 @@ Sample format of .env file:
 VARIABLE_NAME="VALUE"
 
 **Additional Links:**
-Frontend only (Prototype link) = [Frontend](left-jacynth/littlabs-backend)
+Frontend only (Prototype link): [Frontend](left-jacynth/littlabs-backend)   <br>
 Working Demo Video: [Demo](https://drive.google.com/drive/folders/1m46WE_D7PgfAf6haS4lL5hUkuBv8zPqO)
 
