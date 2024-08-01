@@ -10,3 +10,5 @@ google-cloud-firestore
 firebase-admin
 google-generative-ai
 pydantic
+PyPDF2
+pypdf
