@@ -10,6 +10,7 @@
 
 **Note:**
 * Ensure you have a `.env` file configured with environment variables like Gemini API Key and Firebase configurations.
+Make sure to attach your specific serviceaccountkey.json file as well.
 Your Firebase configurations can be seen in the account settings in the following format
 ```
 // Import the functions you need from the SDKs you need
