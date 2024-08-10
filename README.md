@@ -1,3 +1,9 @@
+## Minds behind this project
+[Harshita Khattar](https://github.com/hkhattar22) <br>
+[Ikjot Singh](https://github.com/IkjotSingh221) <br>
+[Prisha Sawhney](https://github.com/prishasawhney) <br>
+[Anmol Mago](https://github.com/terminal-lucidity) <br>
+
 ## Running the Application Locally
 
 ### Frontend
@@ -45,4 +51,6 @@ VARIABLE_NAME="VALUE"
 **Additional Links:**
 Frontend only (Prototype link): [Frontend](left-jacynth/littlabs-backend)   <br>
 Working Demo Video: [Demo](https://drive.google.com/drive/folders/1m46WE_D7PgfAf6haS4lL5hUkuBv8zPqO)
+
+
 
