@@ -7,7 +7,7 @@ const Song = ({ title, artist,index, handleTrackClick }) => {
    
 
     return (
-       <div id="trackSong" onClick={()=>handleTrackClick(index)}>
+       <div id="trackSong" onClick={()=>handleTrackClick(index)}> 
         <box-icon name='play' ></box-icon>
         <div id="trackcontent">
             <h4>{title}</h4>

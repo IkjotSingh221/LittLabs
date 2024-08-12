@@ -13,3 +13,4 @@ pydantic
 PyPDF2
 pypdf
 pytest-shutil
+langchain-google-genai

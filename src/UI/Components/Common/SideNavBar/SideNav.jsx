@@ -1,13 +1,91 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./SideNav.css";
 import SideNavTaskTypeList from "./SideNavTaskTypeList";
 import { createNewTaskType, deleteTaskTypeList } from "../../../API/todo.api";
+import { readTodos, readTaskType } from "../../../API/todo.api.js";
+import { readNotes } from '../../../API/note.api.js';
+import lottie from "lottie-web";
+import { defineElement } from "@lordicon/element";
+defineElement(lottie.loadAnimation);
 
-const NavBar = ({ tasks, taskTypeList, setTaskTypeList, username }) => {
+const NavBar = ({ tasks, setTasks, taskTypeList, setTaskTypeList, notes, setNotes,username }) => {
   const [newTaskTypeName, setNewTaskTypeName] = useState("");
   const [newTaskTypeColor, setNewTaskTypeColor] = useState("#ffffff");
   const [uncompletedTasksCount, setUncompletedTasksCount] = useState(0);
+
+  useEffect(()=>{
+    loadTasks(username);
+    loadTaskTypeList(username);
+    loadNotes(username);
+  },[]);
+
+  useEffect(()=>{
+    loadTasks(username);
+  },[tasks]);
+
+  useEffect(()=>{
+    loadTaskTypeList(username);
+  },[taskTypeList]);
+
+  useEffect(()=>{
+    loadNotes(username);
+  },[notes]);
+
+
+  const loadTasks = async (username) => {
+    try {
+      const todos = await readTodos(username);
+      const mappedTasks = todos.map((task) => {
+        return {
+          taskKey: task.taskKey,
+          taskName: task.taskName,
+          taskDescription: task.taskDescription,
+
+          dueDate: task.dueDate,
+          taskColor: task.taskColor,
+          taskType: task.taskType,
+          isCompleted: task.isCompleted,
+        };
+      });
+      setTasks(mappedTasks);
+    } catch (error) {
+      console.error("Error loading tasks:", error);
+    }
+  };
+
+  const loadTaskTypeList = async (username) => {
+    try {
+      const taskTypes = await readTaskType(username);
+      const mappedTaskTypeList = taskTypes.map((taskType) => {
+        return {
+          taskTypeKey: taskType.taskTypeKey,
+          taskTypeName: taskType.taskTypeName,
+          taskColor: taskType.taskTypeColor,
+        };
+      });
+      setTaskTypeList(mappedTaskTypeList);
+    } catch (error) {
+      console.error("Error loading task types:", error);
+    }
+  };
+
+  const loadNotes = async (username) => {
+    try {
+      const notesList = await readNotes(username);
+      const mappedNotesList = notesList.map((note) => {
+        return {
+          noteKey: note.noteKey,
+          noteTitle: note.noteTitle,
+          noteText: note.noteText,
+          creationDate: note.creationDate
+        };
+      });
+      setNotes(mappedNotesList);
+    } catch (error) {
+      console.error("Error loading task types:", error);
+    }
+  };
 
   useEffect(() => {
     const countUncompletedTasks = tasks.filter(
@@ -41,12 +119,16 @@ const NavBar = ({ tasks, taskTypeList, setTaskTypeList, username }) => {
       const taskType = {
         username: username,
         taskTypeName: newTaskTypeName,
-        taskTypeColor: newTaskTypeColor
-      }
-      const response = await createNewTaskType(taskType)
+        taskTypeColor: newTaskTypeColor,
+      };
+      const response = await createNewTaskType(taskType);
       setTaskTypeList((prevList) => [
         ...prevList,
-        { taskTypeKey: response.taskTypeKey, taskTypeName: newTaskTypeName, taskColor: newTaskTypeColor },
+        {
+          taskTypeKey: response.taskTypeKey,
+          taskTypeName: newTaskTypeName,
+          taskColor: newTaskTypeColor,
+        },
       ]);
 
       setNewTaskTypeName("");
@@ -60,7 +142,7 @@ const NavBar = ({ tasks, taskTypeList, setTaskTypeList, username }) => {
       username: username,
       taskTypeKey: deleteKey,
     };
-    
+
     setTaskTypeList(
       taskTypeList.filter((taskType) => taskType.taskTypeKey !== deleteKey)
     );
@@ -70,15 +152,21 @@ const NavBar = ({ tasks, taskTypeList, setTaskTypeList, username }) => {
   };
 
   return (
-    <div id="menu" style={{ flex: isNavbarOpen ? 0.2 : 0.04 }}>
+    <div id="menu" style={{ flex: isNavbarOpen ? 0.7 : 0.1 }}>
       <div id="userprofile">
-        <box-icon name="user" onClick={toggleNavbar}></box-icon>
+        <lord-icon
+          src="https://cdn.lordicon.com/zfmcashd.json"
+          trigger="hover"
+          state="hover-jump"
+          style={{ width: "50px", height: "50px" }}
+          onClick={toggleNavbar}
+        ></lord-icon>
         <p
           id="username"
           style={{
             display: isNavbarOpen ? "flex" : "none",
             position: "relative",
-            top: 4,
+            top: 11,
             left: 4,
           }}
         >
@@ -87,20 +175,22 @@ const NavBar = ({ tasks, taskTypeList, setTaskTypeList, username }) => {
       </div>
 
       <div id="tasks">
-        <p style={{ display: isNavbarOpen ? "block" : "none" }}>Services</p>
+        <p style={{ display: isNavbarOpen ? "block" : "none"}}>Services</p>
         <ul>
-          <Link to="/dashboard">
+          <NavLink to="/dashboard" activeClassName="active">
             <div className="tasks">
-              <box-icon name='dashboard' type='solid' ></box-icon>
+              <box-icon name="dashboard" type="solid"></box-icon>
               <li style={{ display: isNavbarOpen ? "block" : "none" }}>
                 Dashboard
               </li>
             </div>
-          </Link>
-          <Link to="/todo">
+          </NavLink>
+          <NavLink to="/todo" activeClassName="active">
             <div className="tasks">
               <box-icon name="chevrons-right"></box-icon>
-              <li style={{ display: isNavbarOpen ? "block" : "none" }}>To Do</li>
+              <li style={{ display: isNavbarOpen ? "block" : "none" }}>
+                To Do
+              </li>
               <div
                 className="number"
                 style={{ display: isNavbarOpen ? "block" : "none" }}
@@ -108,47 +198,55 @@ const NavBar = ({ tasks, taskTypeList, setTaskTypeList, username }) => {
                 <span>{uncompletedTasksCount}</span>
               </div>
             </div>
-          </Link>
-          <Link to="/calendar">
+          </NavLink>
+          <NavLink to="/calendar" activeClassName="active">
             <div className="tasks">
               <box-icon name="calendar"></box-icon>
               <li style={{ display: isNavbarOpen ? "block" : "none" }}>
                 Calendar
               </li>
             </div>
-          </Link>
-          <Link to="/notes">
+          </NavLink>
+          <NavLink to="/notes" activeClassName="active">
             <div className="tasks">
               <box-icon name="note"></box-icon>
               <li style={{ display: isNavbarOpen ? "block" : "none" }}>
                 Notes
               </li>
             </div>
-          </Link>
-          <Link to="/interview-prep">
+          </NavLink>
+          <NavLink to="/interview-prep" activeClassName="active">
             <div className="tasks">
-              <box-icon name='laptop'></box-icon>
+              <box-icon name="laptop"></box-icon>
               <li style={{ display: isNavbarOpen ? "block" : "none" }}>
                 Interview Preparation
               </li>
             </div>
-          </Link>
-          <Link to="/imagechat">
+          </NavLink>
+          <NavLink to="/imagechat" activeClassName="active">
             <div className="tasks">
-              <box-icon name='image-add'></box-icon>
+              <box-icon name="image-add"></box-icon>
               <li style={{ display: isNavbarOpen ? "block" : "none" }}>
                 SnapSolver
               </li>
             </div>
-          </Link>
-          <Link to="/flashcard">
+          </NavLink>
+          <NavLink to="/flashcard" activeClassName="active">
             <div className="tasks">
-              <box-icon name='brain'></box-icon>
+              <box-icon name="brain"></box-icon>
               <li style={{ display: isNavbarOpen ? "block" : "none" }}>
                 Memory Cards
               </li>
             </div>
-          </Link>
+          </NavLink>
+          <NavLink to="/notesummary" activeClassName="active">
+            <div className="tasks">
+              <box-icon name='book-open'></box-icon>
+              <li style={{ display: isNavbarOpen ? "block" : "none" }}>
+                Summarizer
+              </li>
+            </div>
+          </NavLink>
         </ul>
       </div>
 

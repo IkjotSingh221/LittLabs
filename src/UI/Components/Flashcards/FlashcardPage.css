@@ -1,156 +1,225 @@
 .flip-card {
-    background-color: transparent;
-    width: 190px;
-    height: 254px;
-    perspective: 1000px;
-    font-family: sans-serif; 
-  }
-  
-  .title {
-    font-size: 1.5em;
-    font-weight: 900;
-    text-align: center;
-    margin: 0;
-  }
-  
-  .flip-card-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    transition: transform 0.8s;
-    transform-style: preserve-3d;
-  }
-  
-  .flip-card.flipped .flip-card-inner {
-    transform: rotateY(180deg);
-  }
-  
-  .flip-card-front, .flip-card-back {
-    box-shadow: 0 8px 14px 0 rgba(0,0,0,0.2);
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    justify-content: top;
-    width: 100%;
-    height: 100%;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    border: none;
-    border-radius: 1rem;
-    overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.5);
-    cursor: pointer;
-    font-size: 13px;
-  }
-  .flip-card-front p{
-    margin:10px;
-  }
+  background-color: transparent;
+  width: 190px;
+  height: 254px;
+  perspective: 1000px;
+  font-family: sans-serif; 
+}
 
-  .flip-card-back{
-    justify-content: center;
-  }
-  
-  .flip-card-front {
-    background: linear-gradient(120deg, bisque, rgb(255, 231, 222), rgb(255, 211, 195));
-    color: white;
-  }
-  
-  .flip-card-back {
-    background: linear-gradient(120deg, rgb(255, 174, 145), coral);
-    color: white;
-    transform: rotateY(180deg);
-  }
+.title {
+  font-size: 1.5em;
+  font-weight: 900;
+  text-align: center; 
+  margin: 0;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.flip-card.flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  box-shadow: 0 8px 14px 0 rgba(0,0,0,0.2);
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: top;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border: none;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  font-size: 13px;
+}
+.flip-card-front p{
+  margin:10px;
+}
+
+.flip-card-back{
+  justify-content: center;
+}
+
+.flip-card-front {
+  background: linear-gradient(120deg, bisque, rgb(255, 231, 222), rgb(255, 211, 195));
+  color: white;
+}
+
+.flip-card-back {
+  background: linear-gradient(120deg, rgb(255, 174, 145), coral);
+  color: white;
+  transform: rotateY(180deg);
+}
 
 #FlashCardPage{
-    display:flex;
-    gap:10px;
-    height:100vh;
+  display:flex; 
+  gap:10px;
+  height:100vh;
 }
 
 #flashcardmain{
-    flex:1;
-    border: 2px solid #ccc;
-    border-radius: 20px;
-    padding:10px;
-    overflow-y: scroll;
-    height:100vh;
+  flex:1;
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  padding:10px;
+  overflow-y: scroll;
+  height:100vh;
+  position:relative;
+}
+
+#flashcardmain::-webkit-scrollbar {
+width: 18px; /* Width of the scrollbar */
+}
+
+#flashcardmain::-webkit-scrollbar-track { 
+background: white; /* Background of the scrollbar track */
+border-radius: 10px; /* Rounding the corners of the track */
+}
+
+#flashcardmain::-webkit-scrollbar-thumb {
+background-color: #2020c3; /* Color of the scrollbar thumb */
+border-radius: 10px; /* Rounding the corners of the thumb */
+border: 3px solid #ccc; /* Adds space around the thumb */
+}
+
+#flashcardmain::-webkit-scrollbar-thumb:hover {
+background-color: #111190; /* Darker color when hovering over the scrollbar thumb */
 }
 
 #flashtop-bar{
-    height:10vh;
-    width:100%;
-    border-radius: 20px;
-    margin-bottom: 10px;
-    padding:5px;
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    gap:10px;
+  height:70px;
+  width:100%;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  padding:5px;
+  display:flex;
+  align-items: center;
+  justify-content: space-around; 
+  gap:10px;
+  /* border: 2px solid #ccc; */
+  /* position:absolute; */
+  top:2%;
+}
+
+#selectnotesbutton{
+cursor: pointer;
+width:20%;
+height: fit-content;
+border-radius:15px;
+border: none;
+background: #765BEE;
+color:white;
+text-align: center;
+}
+
+#addpdfbutton{
+display:flex;
+flex-direction: column;
+background: #765BEE;
+height: 40px;
+width:20%;
+border-radius: 15px;
+text-align: center;
+align-items: center;
+}
+
+#addpdfbutton button{
+background: none;
+border:none;
+color:white;
+height:fit-content;
+padding:10px;
+width:100%;
+}
+
+#submitnote{
+height:40px;
+width:100px;
+padding:10px;
+border-radius: 15px;
+border:none;
+background: #765BEE;
+color:white;
+}
+
+#selectnotesbutton{
+padding:10px;
+}
+
+#selectnotesbutton:focus{
+border:none;
+outline:none;
+}
+
+#pdfuploadbox{
+z-index: 500;
 }
 
 #flashcards{
-    padding:10px;
-    display:flex;
-    flex-wrap: wrap;
-    gap:20px;
+  padding:10px;
+  display:flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap:20px;
+  position: relative;
+  top: 85px;
 
 }
 
 #cheatsheet{
-    z-index: 1000;
-    position:absolute;
-    background: white;
-    height:55%;
-    width:100%;
-    bottom:-44%;
-    transition: bottom 0.5s ease;
-    padding: 10px;
-    cursor: pointer;
-    font-size: 12px;
+  z-index: 1000;
+  position:absolute;
+  background: white;
+  height:55%;
+  width:100%;
+  bottom:-44%;
+  transition: bottom 0.5s ease;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 12px;
 }
 
 .flip-card-front:hover #cheatsheet{
-    bottom:0;
+  bottom:0;
 }
 
 #uploadpdf{  
-  width:60%;
-  background:none;
-  height:100%;
-  padding:10px;
-  display:flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px dashed rgb(128,128,128);
-  border-radius: 10px;
-  color: rgb(71, 70, 70);
-  cursor: pointer;
-  transition: 0.3s ease;
+width:100%;
+background:none;
+height:90%;
+padding:10px;
+display:flex;
+align-items: center;
+justify-content: center;
+border: 2px dashed rgb(128,128,128);
+border-radius: 10px;
+color: rgb(71, 70, 70);
+cursor: pointer;
+transition: 0.3s ease;
+margin-top: 10px;
 }
 
 #uploadpdf:hover{
-  border: 2px dashed green; 
-  background: rgb(221, 229, 221);
-}
-
-#pdfsubmit{
-  width:20%;
-  background: none;
-  height:100%;
-  border-radius: 40px;
-  cursor:pointer;
-  border:none;
-  background: linear-gradient(to bottom right, #88b85a, #a0d568, #88b85a);
-  color:white;
-  font-size: 17px;
-  transition: 0.5s ease;
+border: 2px dashed rgb(45, 45, 222); 
+background: rgb(231, 238, 253);
 }
 
 #pdfsubmit:hover{
-  transform:scale(1.05);
+transform:scale(1.05);
 }
 
 #pdfsubmit:active{
-  transform:scale(0.9);
+transform:scale(0.9);
 }
+

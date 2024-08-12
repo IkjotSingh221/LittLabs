@@ -24,16 +24,6 @@ export const readNotes = async (username) => {
   }
 };
 
-// export const deleteNoteByKey = async (note) => {
-//   try {
-//     const response = await axios.delete(`${BASE_URL}/notes/delete`, { data: note });
-//     return response.data;
-//   } catch (error) {
-//     console.error('Error deleting note:', error);
-//     throw error;
-//   }
-// };
-
 export const deleteNoteByKey = async (note) => {
   try {
     const response = await axios.delete(`${BASE_URL}/notes/delete`, {
@@ -42,5 +32,22 @@ export const deleteNoteByKey = async (note) => {
     console.log('Note deleted:', response.data);
   } catch (error) {
     console.error('Error deleting note:', error);
+  }
+};
+
+export const updateNote = async (noteData) => {
+  try {
+    const response = await axios.put(`${BASE_URL}/notes/update`, noteData, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    if (error.response) {
+      throw new Error(error.response.data.detail || "Failed to update note");
+    } else {
+      throw new Error("Failed to update note");
+    }
   }
 };

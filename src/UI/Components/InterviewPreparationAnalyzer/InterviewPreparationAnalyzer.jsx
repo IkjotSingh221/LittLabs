@@ -5,44 +5,44 @@ import { readTodos, readTaskType } from "../../API/todo.api";
 import {ThreeDots} from 'react-loader-spinner';
 import Chatbot from "../Common/ChatBot/ChatBot.jsx";
 
-const InterviewPrepAnalyzer = ({ tasks, setTasks, taskTypeList, setTaskTypeList, username }) => {
+const InterviewPrepAnalyzer = ({ username }) => {
 
-  useEffect(() => { 
-    loadTasks(username);
-    loadTaskTypeList(username);
-  }, [username]);
+  // useEffect(() => { 
+  //   loadTasks(username);
+  //   loadTaskTypeList(username);
+  // }, [username]);
 
-  const loadTasks = async (username) => {
-    try {
-      const todos = await readTodos(username);
-      const mappedTasks = todos.map((task) => ({
-        taskKey: task.taskKey,
-        taskName: task.taskName,
-        taskDescription: task.taskDescription,
-        dueDate: task.dueDate,
-        taskColor: task.taskColor,
-        taskType: task.taskType,
-        isCompleted: task.isCompleted,
-      }));
-      setTasks(mappedTasks);
-    } catch (error) {
-      console.error("Error loading tasks:", error);
-    }
-  };
+  // const loadTasks = async (username) => {
+  //   try {
+  //     const todos = await readTodos(username);
+  //     const mappedTasks = todos.map((task) => ({
+  //       taskKey: task.taskKey,
+  //       taskName: task.taskName,
+  //       taskDescription: task.taskDescription,
+  //       dueDate: task.dueDate,
+  //       taskColor: task.taskColor,
+  //       taskType: task.taskType,
+  //       isCompleted: task.isCompleted,
+  //     }));
+  //     setTasks(mappedTasks);
+  //   } catch (error) {
+  //     console.error("Error loading tasks:", error);
+  //   }
+  // };
 
-  const loadTaskTypeList = async (username) => {
-    try {
-      const taskTypes = await readTaskType(username);
-      const mappedTaskTypeList = taskTypes.map((taskType) => ({
-        taskTypeKey: taskType.taskTypeKey,
-        taskTypeName: taskType.taskTypeName,
-        taskColor: taskType.taskTypeColor,
-      }));
-      setTaskTypeList(mappedTaskTypeList);
-    } catch (error) {
-      console.error("Error loading task types:", error);
-    }
-  };
+  // const loadTaskTypeList = async (username) => {
+  //   try {
+  //     const taskTypes = await readTaskType(username);
+  //     const mappedTaskTypeList = taskTypes.map((taskType) => ({
+  //       taskTypeKey: taskType.taskTypeKey,
+  //       taskTypeName: taskType.taskTypeName,
+  //       taskColor: taskType.taskTypeColor,
+  //     }));
+  //     setTaskTypeList(mappedTaskTypeList);
+  //   } catch (error) {
+  //     console.error("Error loading task types:", error);
+  //   }
+  // };
 
   const [videoSrc, setVideoSrc] = useState('');
   const [scores, setScores] = useState({
@@ -95,12 +95,12 @@ const InterviewPrepAnalyzer = ({ tasks, setTasks, taskTypeList, setTaskTypeList,
       if (!data) {
         throw new Error("Invalid response structure.");
       }
-      const vocabulary = data.vocabulary;
-      const confidence_level = data.confidence_level;
-      const engaging_ability = data.engaging_ability;
-      const speaking_style = data.speaking_style;
-      const overall_average = data.overall_average;
-      const review = data.review;
+      const vocabulary = data.video_analysis.vocabulary;
+      const confidence_level = data.video_analysis.confidence_level;
+      const engaging_ability = data.video_analysis.engaging_ability;
+      const speaking_style = data.video_analysis.speaking_style;
+      const overall_average = data.video_analysis.overall_average;
+      const review = data.video_analysis.review;
       // error might be here
 
       setScores({ vocabulary, confidence: confidence_level, engaging: engaging_ability, speakingStyle: speaking_style, overallPerformance: overall_average });
@@ -123,14 +123,8 @@ const InterviewPrepAnalyzer = ({ tasks, setTasks, taskTypeList, setTaskTypeList,
     return '#00BF11';
   };
 
-  return (
+  return ( 
     <div className="container">
-      <NavBar
-        tasks={tasks}
-        taskTypeList={taskTypeList}
-        setTaskTypeList={setTaskTypeList}
-        username={username}
-      />
       <div className="content-wrapper">
         <div className="upload-metrics-container">
           <div className="upload-area">
@@ -161,7 +155,7 @@ const InterviewPrepAnalyzer = ({ tasks, setTasks, taskTypeList, setTaskTypeList,
             </form>
             {loading && (
               <div className="loader">
-                <ThreeDots type="ThreeDots" color="#00BFFF" height={80} width={80} />
+                <ThreeDots type="ThreeDots" color="#4F29F0" height={80} width={80} />
               </div>
             )}
             <div id="error">{error}</div>

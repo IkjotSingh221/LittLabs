@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
+import "./App.css";
 import LandingPage from "./UI/Components/MainPage/LandingPage";
 import LoginSignup from "./UI/Components/LoginSignupPage/LoginSignup";
 import ToDoPage from "./UI/Components/ToDoPage/ToDoPage";
@@ -10,8 +11,14 @@ import Flashcards from './UI/Components/Flashcards/FlashcardPage';
 import ChatWithImage from "./UI/Components/ChatWithImage/ChatWithImage";
 import Dashboard from "./UI/Components/Dashboard/Dashboard";
 import InterviewPrepAnalyzer from "./UI/Components/InterviewPreparationAnalyzer/InterviewPreparationAnalyzer";
+import NoteSummary from "./UI/Components/NoteSummarizer/NoteSummarizer";
+import SideNav from "./UI/Components/Common/SideNavBar/SideNav";
+// import InteractionPage from "./UI/Components/InteractionPage/interactionPage";
 
 function App() {
+  const location = useLocation();
+  const shouldShowSideNav = !['/', '/login-signup'].includes(location.pathname);
+
   const [error, setError] = useState("");
   function getCookie(name) {
     const value = `; ${document.cookie}`;
@@ -25,8 +32,20 @@ function App() {
   const [taskTypeList, setTaskTypeList] = useState([]);
   const [notes, setNotes] = useState([]);
   return (
-    <Router> 
-      <div>
+    // <Router> 
+      <div className="app-container">
+      {shouldShowSideNav && (
+        <SideNav 
+          tasks={tasks} 
+          setTasks={setTasks}
+          taskTypeList={taskTypeList} 
+          setTaskTypeList={setTaskTypeList} 
+          notes={notes}
+          setNotes={setNotes}
+          username={username} 
+        />
+      )}
+        <div className="content-container">
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route
@@ -41,15 +60,20 @@ function App() {
           <Route path="/imagechat" element={<ChatWithImage tasks={tasks} setTasks={setTasks} taskTypeList={taskTypeList} setTaskTypeList={setTaskTypeList} notes={notes} setNotes={setNotes} username={username}/>}></Route>
           <Route path="/interview-prep" element={<InterviewPrepAnalyzer tasks={tasks} setTasks={setTasks} taskTypeList={taskTypeList} setTaskTypeList={setTaskTypeList} notes={notes} setNotes={setNotes} username={username}/>}></Route>
           <Route path="/calendar" element={<Calendar tasks={tasks} setTasks={setTasks} taskTypeList={taskTypeList} setTaskTypeList={setTaskTypeList} notes={notes} setNotes={setNotes} username={username}/>}></Route>
-          {/* <Route path="" element={}></Route>
-          <Route path="" element={}></Route>
-          <Route path="" element={}></Route>
-          <Route path="" element={}></Route>
-          <Route path="" element={}></Route> */}
+          <Route path="/notesummary" element={<NoteSummary tasks={tasks} setTasks={setTasks} taskTypeList={taskTypeList} setTaskTypeList={setTaskTypeList} notes={notes} setNotes={setNotes} username={username}/>}></Route>
+          
         </Routes>
+        </div>
+        
       </div>
-    </Router>
+    // </Router>
   );
 }
 
-export default App;
+export default function AppWrapper() {
+  return(
+    <Router>
+      <App/>
+    </Router>
+  );
+}

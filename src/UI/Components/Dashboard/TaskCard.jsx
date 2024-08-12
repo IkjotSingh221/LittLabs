@@ -19,7 +19,7 @@ const formatDate = (date) => {
   return isNaN(d.getTime()) ? 'Invalid Date' : d.toLocaleDateString(); // Format or handle invalid dates
 };
 
-export default function TaskCard({ taskName, taskDescription, dueDate }) {
+export default function TaskCard({ taskKey, taskName, taskDescription, dueDate, toggleComplete }) {
   return (
     <Paper
       sx={{
@@ -36,7 +36,7 @@ export default function TaskCard({ taskName, taskDescription, dueDate }) {
     >
       <Grid container spacing={1}>
 
-        <Grid item>
+        <Grid item onClick={(e)=>toggleComplete(taskKey)}>
           <ButtonBase sx={{ width: 50, height: 50 }}>
             <TaskAltIcon sx = {{fill: "#184ccf"}}/>
           </ButtonBase>

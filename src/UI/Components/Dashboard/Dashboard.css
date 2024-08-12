@@ -1,7 +1,6 @@
 #dashBoardPage{
     display: flex;
-    height:100vh;
-    width:100vw;
+    flex:3;
 }
 
 #dashBoardMain{
@@ -30,14 +29,14 @@
 #Welcomeuser{
     color:white;
     font-size: 3vw;
-    padding-left: 10%;
+    padding-left: 5%;
     padding-top: 2%;
 }
 
 #Quote{
     width:55%;
     color:white;
-    margin-left: 10%;
+    margin-left: 5%;
     margin-top: 1%;
 }
 
@@ -45,15 +44,17 @@
     height: 140%;
     top:-10%;
     position:absolute;
-    right: 10%;
+    right: 5%;
     filter: drop-shadow(0 4px 8px rgba(255, 255, 255, 0.2));
+    transform: scaleX(-1);
 
 }
 
 #bottom{
-    height: 75vh;
+    height: 70vh;
     width:100%;
     position: relative;
+    top: 3%;
 }
 
 #Cards{
@@ -97,4 +98,11 @@
 
 #Card1:hover, #Card2:hover{
     transform: scale(1.01);
+}
+
+#quoteText{
+
+}
+#quoteAuthor{
+    
 }

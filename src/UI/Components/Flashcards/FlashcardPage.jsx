@@ -1,70 +1,33 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import "./FlashcardPage.css";
 import "boxicons";
-import NavBar from "../Common/SideNavBar/SideNav.jsx";
 import Flashcard from "./Flashcard.jsx";
-import { readTaskType, readTodos } from "../../API/todo.api.js";
 import { generateFlashcardsWithGemini } from "../../API/flashcard.api.js";
 import { ThreeDots } from "react-loader-spinner";
 import Chatbot from "../Common/ChatBot/ChatBot.jsx";
 
-const Flashcards = ({
-  tasks,
-  setTasks,
-  taskTypeList,
-  setTaskTypeList,
-  username,
-}) => {
+const Flashcards = ({ username, notes }) => {
   const colors = ["#ac92eb", "#4fc1e8", "#a0d568", "#ffce54", "#ed5564"];
   const darkerColors = ["#9474c4", "#41a3c0", "#88b85a", "#d4a647", "#c24651"];
   const [flashcards, setFlashcards] = useState([]);
   const [acceptedFiles, setAcceptedFiles] = useState([]);
   const [pdfName, setPdfName] = useState('');
   const [loading, setLoading] = useState(false);
+  const [selectedNote, setSelectedNote] = useState('');
+  const [pdfuploadbox, openpdfuploadbox] = useState(false);
+  const [showError, setShowError] = useState('');
 
-  useEffect(() => {
-    loadTasks(username);
-    loadTaskTypeList(username);
-  }, [username]);
-
-  const loadTasks = async (username) => {
-    try {
-      const todos = await readTodos(username);
-      const mappedTasks = todos.map((task) => ({
-        taskKey: task.taskKey,
-        taskName: task.taskName,
-        taskDescription: task.taskDescription,
-        dueDate: task.dueDate,
-        taskColor: task.taskColor,
-        taskType: task.taskType,
-        isCompleted: task.isCompleted,
-      }));
-      setTasks(mappedTasks);
-    } catch (error) {
-      console.error("Error loading tasks:", error);
-    }
-  };
-
-  const loadTaskTypeList = async (username) => {
-    try {
-      const taskTypes = await readTaskType(username);
-      const mappedTaskTypeList = taskTypes.map((taskType) => ({
-        taskTypeKey: taskType.taskTypeKey,
-        taskTypeName: taskType.taskTypeName,
-        taskColor: taskType.taskTypeColor,
-      }));
-      setTaskTypeList(mappedTaskTypeList);
-    } catch (error) {
-      console.error("Error loading task types:", error);
-    }
+  const setPdfBoxOpenClose = () => {
+    openpdfuploadbox(!pdfuploadbox);
   };
 
   const onDrop = useCallback((files) => {
-    setAcceptedFiles(files); // Store the files in state
-    
+    setAcceptedFiles(files);
+
     if (files.length > 0) {
-      setPdfName(files[0].name); 
+      setPdfName(files[0].name);
+      openpdfuploadbox(false);
     }
   }, []);
 
@@ -73,60 +36,91 @@ const Flashcards = ({
     accept: "application/pdf",
   });
 
-  const generateFlashcards = async (event) => {
-    event.preventDefault();
-
-    if (acceptedFiles.length === 0) {
-      console.error("No files selected");
-      return;
-    }
-    setLoading(true);
-
-    const formData = new FormData();
-    formData.append("file", acceptedFiles[0]); // Assuming the first file is the one to upload
-
-    try {
-      const response = await generateFlashcardsWithGemini(formData);
-      console.log(response)
-      setFlashcards(response); // Update the state with generated flashcards
-    } catch (error) {
-      console.error("Error generating flashcards:", error);
-    }finally {
-      setLoading(false); // Set loading to false after the request is complete
-    }
+  const handleSelectChange = (event) => {
+    setSelectedNote(event.target.value);
   };
 
+  const generateFlashcards = async (event) => {
+    event.preventDefault();
+    setShowError("");
+  
+    if (acceptedFiles.length === 0 && !selectedNote) {
+      setShowError("Please either select a note or upload a PDF before submitting.");
+      return;
+    }
+  
+    if (pdfName && selectedNote) {
+      setShowError("Please select either a note or a PDF, but not both.");
+      return;
+    }
+  
+    setLoading(true);
+  
+    const formData = new FormData();
+    if (pdfName) {
+      formData.append("file", acceptedFiles[0]);
+    } else if (selectedNote) {
+      formData.append("noteKey", selectedNote);
+      formData.append("username", username);
+    }
+    console.log("FormData being sent:", formData.get("file"), formData.get("noteKey"), formData.get("username"));
+    try {
+      const response = await generateFlashcardsWithGemini(formData);
+      setFlashcards(response);
+    } catch (error) {
+      console.error("Error generating flashcards:", error);
+      setShowError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
   return (
     <div id="FlashCardPage">
-      <NavBar
-        tasks={tasks}
-        taskTypeList={taskTypeList}
-        setTaskTypeList={setTaskTypeList}
-        username={username}
-      />
       <div id="flashcardmain">
+        <div id="instructionText" style={{ justifyContent: 'center', display: 'flex', color: 'red' }}>
+          <p>{showError}</p>
+        </div>
         <form id="PDFForm" method="post" onSubmit={generateFlashcards}>
           <div id="flashtop-bar">
-            <div {...getRootProps()} id="uploadpdf">
-              <input {...getInputProps()} />
-              {pdfName ? (
-                <p>Uploaded file: {pdfName}</p>
-              ) : (
-                <p>Drag & drop some PDFs here, or click to select PDFs to create flashcards</p>
+            <div id="addpdfbutton">
+              <button onClick={(e) => {
+                e.preventDefault();
+                setPdfBoxOpenClose();
+              }}>
+                {pdfName ? (
+                  <p>Uploaded file: {pdfName.length > 15 ? pdfName.slice(0, 12) + "..." : pdfName}</p>
+                ) : (
+                  <p>Add pdf</p>
+                )}
+              </button>
+              {pdfuploadbox && (
+                <div id="pdfuploadbox">
+                  <div {...getRootProps()} id="uploadpdf">
+                    <input {...getInputProps()} />
+                    Drag & drop some PDFs here, or click to select PDFs to create flashcards
+                  </div>
+                </div>
               )}
             </div>
-            <button type="submit" id="pdfsubmit">
-              Submit PDF
-            </button>
+            <select value={selectedNote} onChange={handleSelectChange} id="selectnotesbutton">
+              <option value="">Select a note</option>
+              {notes.map(note => (
+                <option key={note.noteTitle} value={note.noteKey}>
+                  {note.noteTitle}
+                </option>
+              ))}
+            </select>
+            <button type="submit" id="submitnote">Submit</button>
           </div>
         </form>
-        <div id="flashcards" style={{justifyContent:'center'}}>
+        <div id="flashcards" style={{ top: pdfuploadbox ? '85px' : '0px' }}>
           {loading ? (
             <div id="loader">
               <ThreeDots
                 height={80}
                 width={80}
-                color="#4fa94d"
+                color="#0579CF"
               />
             </div>
           ) : (
@@ -136,14 +130,14 @@ const Flashcards = ({
                 question={card.question}
                 answer={card.answer}
                 hint={card.hint}
-                color={colors[index % colors.length]} // Assign color
+                color={colors[index % colors.length]}
                 darkerColors={darkerColors[index % darkerColors.length]}
               />
             ))
           )}
         </div>
       </div>
-      <Chatbot username={username}/>
+      <Chatbot username={username} />
     </div>
   );
 };

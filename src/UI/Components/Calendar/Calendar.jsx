@@ -3,7 +3,6 @@ import dayjs from "dayjs";
 import { generateDate, months } from "./cal-func";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 import "./Calendar.css";
-import NavBar from "../Common/SideNavBar/SideNav.jsx";
 import { createTodo } from "../../API/todo.api.js";
 import { readTodos, readTaskType } from "../../API/todo.api.js";
 import Chatbot from "../Common/ChatBot/ChatBot.jsx";
@@ -154,7 +153,7 @@ export default function Calendar({ tasks, setTasks, taskTypeList, setTaskTypeLis
         const taskDate = parseDate(task.dueDate);
         return (
           taskDate instanceof Date && 
-          taskDate.toDateString() === date.toDate().toDateString() && task.isCompleted===true
+          taskDate.toDateString() === date.toDate().toDateString() && task.isCompleted===false
         );
       })
       .map((task, index) => (
@@ -185,12 +184,6 @@ export default function Calendar({ tasks, setTasks, taskTypeList, setTaskTypeLis
 
   return (
     <div className="calendar-page">
-      <NavBar
-        tasks={tasks}
-        taskTypeList={taskTypeList}
-        setTaskTypeList={setTaskTypeList}
-        username={username}
-      />
       <div className="main-content">
         <div className="calendar-container">
           <div className="leftCol">

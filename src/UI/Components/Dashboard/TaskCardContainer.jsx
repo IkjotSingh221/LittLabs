@@ -3,7 +3,7 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import TaskCard from './TaskCard';
 
-export default function TaskCardContainer({tasks}){
+export default function TaskCardContainer({tasks, toggleComplete}){
     return ( 
         <Paper 
         sx = {{
@@ -28,16 +28,17 @@ export default function TaskCardContainer({tasks}){
         <span id="UpcomingTasks">Upcoming Tasks</span>
         </Typography>
         {tasks.length === 0 ? (
-                <Typography variant='body1' sx={{ p: 2, color:'#c2cdeb' }}>
+                <Typography variant='body1' sx={{ p: 2, color:'#ffffff' }}>
                     Hooray! No tasks to tackle right now. Enjoy the break!
                 </Typography>
             ) : (
                 tasks.map((task) => (
                     <TaskCard 
-                        key={task.taskName + task.dueDate} // Add a unique key for each task
+                        taskKey={task.taskKey} // Add a unique key for each task
                         taskName={task.taskName} 
                         taskDescription={task.taskDescription} 
-                        dueDate={task.dueDate} 
+                        dueDate={task.dueDate}
+                        toggleComplete={toggleComplete} 
                     />
                 ))
             )}

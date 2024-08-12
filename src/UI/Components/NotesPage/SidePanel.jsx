@@ -8,7 +8,7 @@ import Song from './song.jsx';
 
 const SidePanel = () => {
     const [isPlaying, setIsPlaying] = useState(false);
-    const [currentTrack, setCurrentTrack] = useState(0);
+    const [currentTrack, setCurrentTrack] = useState(0); 
     const audioRef = useRef(null);
 
     const tracks = [

@@ -4,7 +4,7 @@ import "./LoginSignup.css";
 import "boxicons";
 import axios from "axios";
 
-const LoginSignup = ({ setError,  setUsername}) => {
+const LoginSignup = ({ setError, error}) => {
   const navigate = useNavigate();
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -30,26 +30,44 @@ const LoginSignup = ({ setError,  setUsername}) => {
     }
   };
 
+  // const handleSignup = async (event) => {
+  //   event.preventDefault();
+  //   if (signupPassword !== signupPassword2) {
+  //     setError("Passwords do not match");
+  //     return;
+  //   }
+  //   try {
+  //     const userData = {email:signupEmail,username:signupUsername, password:signupPassword};
+  //     const response = await axios.post('http://localhost:8000/signup', 
+  //       userData
+  //     );
+  //     console.log('Signup successful:', response.data);
+  //     document.cookie = `username=${response.data.username}; path=/`;
+  //     navigate('/dashboard');
+  //   } catch (err) {
+  //     console.error('Signup failed:', err);
+  //     setError('Failed to create an account. Please try again.');
+  //   }
+  // };
+
   const handleSignup = async (event) => {
     event.preventDefault();
     if (signupPassword !== signupPassword2) {
-      setError("Passwords do not match");
-      return;
+        setError("Passwords do not match");
+        return;
     }
     try {
-      const response = await axios.post('http://localhost:8000/signup', {
-        email: signupEmail,
-        username: signupUsername,
-        password: signupPassword
-      });
-      console.log('Signup successful:', response.data);
-      document.cookie = `username=${response.data.username}; path=/`;
-      navigate('/dashboard'); // Redirect to the landing page after successful signup
+        const userData = { email: signupEmail, username: signupUsername, password: signupPassword };
+        const response = await axios.post('http://localhost:8000/signup', userData);
+        console.log('Signup successful:', response.data);
+        document.cookie = `username=${response.data.username}; path=/`;
+        navigate('/dashboard');
     } catch (err) {
-      console.error('Signup failed:', err);
-      setError('Failed to create an account. Please try again.');
+        console.error('Signup failed:', err.response?.data?.detail || err.message);
+        setError(err.response?.data?.detail || 'Failed to create an account. Please try again.');
     }
-  };
+};
+
 
   const moveSliderLeft = () => {
     document
@@ -150,6 +168,7 @@ const LoginSignup = ({ setError,  setUsername}) => {
                   Sign In
                 </button>
                 <a href="/forgotpass" id="forgot-password">Forgot your password?</a>
+                <p id="error">{error}</p>
               </form>
             </div>
           </div>
@@ -225,6 +244,7 @@ const LoginSignup = ({ setError,  setUsername}) => {
                   />
                 </div>
                 <button type="submit" className="signup-signin-button">Sign Up</button>
+                <p id="error">{error}</p>
               </form>
             </div>
           </div>

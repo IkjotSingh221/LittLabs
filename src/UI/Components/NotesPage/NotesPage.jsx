@@ -1,104 +1,113 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./NotesPage.css";
 import "boxicons";
 import NoteSticker from "./NoteSticker";
-import NavBar from "../Common/SideNavBar/SideNav.jsx";
 import NoteWriter from "./NoteWriter.jsx";
 import NoteViewer from "./NoteViewer.jsx";
 import SidePanel from "./SidePanel.jsx";
-import Chatbot from '../Common/ChatBot/ChatBot.jsx';
+import Chatbot from "../Common/ChatBot/ChatBot.jsx";
 import { readTodos, readTaskType } from "../../API/todo.api.js";
-import { createNote, readNotes, deleteNoteByKey } from "../../API/note.api.js";
+import { createNote, readNotes, deleteNoteByKey, updateNote } from "../../API/note.api.js";
 
 const Notes = ({
-    tasks,
-    setTasks,
-    taskTypeList,
-    setTaskTypeList,
-    username 
+  // tasks,
+  // setTasks,
+  // taskTypeList,
+  // setTaskTypeList,
+  notes,
+  setNotes,
+  username,
 }) => {
-  
-  const colors = ["#e68369", "#e9c46a"];
-  const [editingNoteKey, setEditingNoteKey] = useState(null);
-  const [notes, setNotes] = useState([]);
+  const colors = ["#BAE1FF", "#f5ee89"];
+  const [editingNoteKey, setEditingNoteKey] = useState(false);
+  // const [notes, setNotes] = useState([]);
   const [noteText, setNoteText] = useState("");
   const [noteTitle, setNoteTitle] = useState("");
-  const [viewingNote, setViewingNote] = useState(null);
+  const [viewingNote, setViewingNote] = useState(false);
   const [isNoteWriterVisible, setIsNoteWriterVisible] = useState(false);
   const [isNoteViewerVisible, setIsNoteViewerVisible] = useState(false);
   const [isGlassEffectVisible, setIsGlassEffectVisible] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  useEffect(() => {
-    loadTasks(username);
-    loadTaskTypeList(username);
-    loadNotes(username);
-  }, []);
+  // useEffect(() => {
+  //   loadTasks(username);
+  //   loadTaskTypeList(username);
+    // loadNotes(username);
+  // }, []);
 
-  const loadTasks = async (username) => {
-    try {
-      const todos = await readTodos(username);
-      const mappedTasks = todos.map((task) => {
-        return {
-          taskKey: task.taskKey,
-          taskName: task.taskName,
-          taskDescription: task.taskDescription,
-
-          dueDate: task.dueDate,
-          taskColor: task.taskColor,
-          taskType: task.taskType,
-          isCompleted: task.isCompleted,
-        };
-      });
-      setTasks(mappedTasks);
-    } catch (error) {
-      console.error("Error loading tasks:", error);
-    }
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value.toLowerCase());
   };
 
-  const loadTaskTypeList = async (username) => {
-    try {
-      const taskTypes = await readTaskType(username);
-      const mappedTaskTypeList = taskTypes.map((taskType) => {
-        return {
-          taskTypeKey: taskType.taskTypeKey,
-          taskTypeName: taskType.taskTypeName,
-          taskColor: taskType.taskTypeColor,
-        };
-      });
-      await setTaskTypeList(mappedTaskTypeList);
-    } catch (error) {
-      console.error("Error loading task types:", error);
-    }
-  };
+  const filteredNotes = notes.filter((note) =>
+    note.noteTitle.toLowerCase().includes(searchQuery)
+  );
 
-  const loadNotes = async (username) => {
-    try {
-      const notesList = await readNotes(username);
-      const mappedNotesList = notesList.map((note) => {
-        return {
-          noteKey: note.noteKey,
-          noteTitle: note.noteTitle,
-          noteText: note.noteText,
-          creationDate: note.creationDate
-        };
-      });
-      setNotes(mappedNotesList);
-    } catch (error) {
-      console.error("Error loading task types:", error);
-    }
-  };
+  // const loadTasks = async (username) => {
+  //   try {
+  //     const todos = await readTodos(username);
+  //     const mappedTasks = todos.map((task) => {
+  //       return {
+  //         taskKey: task.taskKey,
+  //         taskName: task.taskName,
+  //         taskDescription: task.taskDescription,
 
+  //         dueDate: task.dueDate,
+  //         taskColor: task.taskColor,
+  //         taskType: task.taskType,
+  //         isCompleted: task.isCompleted,
+  //       };
+  //     });
+  //     setTasks(mappedTasks);
+  //   } catch (error) {
+  //     console.error("Error loading tasks:", error);
+  //   }
+  // };
+
+  // const loadTaskTypeList = async (username) => {
+  //   try {
+  //     const taskTypes = await readTaskType(username);
+  //     const mappedTaskTypeList = taskTypes.map((taskType) => {
+  //       return {
+  //         taskTypeKey: taskType.taskTypeKey,
+  //         taskTypeName: taskType.taskTypeName,
+  //         taskColor: taskType.taskTypeColor,
+  //       };
+  //     });
+  //     await setTaskTypeList(mappedTaskTypeList);
+  //   } catch (error) {
+  //     console.error("Error loading task types:", error);
+  //   }
+  // };
+
+  // const loadNotes = async (username) => {
+  //   try {
+  //     const notesList = await readNotes(username);
+  //     const mappedNotesList = notesList.map((note) => {
+  //       return {
+  //         noteKey: note.noteKey,
+  //         noteTitle: note.noteTitle,
+  //         noteText: note.noteText,
+  //         creationDate: note.creationDate,
+  //       };
+  //     });
+  //     setNotes(mappedNotesList);
+  //   } catch (error) {
+  //     console.error("Error loading task types:", error);
+  //   }
+  // };
 
   const addToNotes = (note) => {
     setNotes((prevNotes) => [...prevNotes, note]);
   };
 
   const deleteNote = async (key) => {
+    console.log("delete");
     const deleteNoteSchema = {
-        username: username,
-        noteKey: key
-    }
+      username: username,
+      noteKey: key,
+    };
     await deleteNoteByKey(deleteNoteSchema);
     const newNotes = notes.filter((note) => note.noteKey !== key);
     setNotes(newNotes);
@@ -110,7 +119,7 @@ const Notes = ({
     setIsGlassEffectVisible(true);
     setNoteTitle("");
     setNoteText("");
-    setEditingNoteKey(null);
+    setEditingNoteKey(false);
   };
 
   const editNote = (noteKey) => {
@@ -118,12 +127,11 @@ const Notes = ({
     if (noteToEdit) {
       setNoteTitle(noteToEdit.noteTitle);
       setNoteText(noteToEdit.noteText);
-      setEditingNoteKey(noteKey);
+      setEditingNoteKey(noteKey); // Set editingNoteKey with the noteKey of the note being edited
     }
     setIsNoteWriterVisible(true);
     setIsNoteViewerVisible(false);
     setIsGlassEffectVisible(true);
-    setEditingNoteKey(noteKey);
   };
 
   const viewnote = (key) => {
@@ -135,7 +143,14 @@ const Notes = ({
   const closeNoteViewer = () => {
     setIsNoteViewerVisible(!isNoteViewerVisible);
     setIsGlassEffectVisible(!isGlassEffectVisible);
-    setViewingNote(null);
+    setEditingNoteKey(false);
+    setViewingNote(false);
+  };
+
+  const closeNoteWriter = () => {
+    setIsNoteWriterVisible(!isNoteWriterVisible);
+    setIsGlassEffectVisible(!isGlassEffectVisible);
+    setEditingNoteKey(false);
   };
 
   const getCurrentDate = () => {
@@ -145,36 +160,51 @@ const Notes = ({
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (noteTitle === "" && noteText === "") return;
-    const newNote = {
+    if (noteTitle === "" || noteText === "") return;
+  
+    const noteData = {
       username: username,
       noteTitle: noteTitle,
       noteText: noteText,
-      creationDate: getCurrentDate(),
+      noteKey: editingNoteKey || undefined, // Include noteKey if editing, otherwise undefined
     };
-    if (editingNoteKey !== null) {
-      setNotes((prevNotes) =>
-        prevNotes.map((n) => (n.noteKey === editingNoteKey ? newNote : n))
-      );
-    } else {
-      const response = await createNote(newNote);
-      newNote.noteKey = response.noteKey;
-      
-      delete newNote.username;
-      addToNotes(newNote);
+  
+    try {
+      if (editingNoteKey) {
+        // Update existing note
+        await updateNote(noteData);
+        setNotes(prevNotes =>
+          prevNotes.map(note =>
+            note.noteKey === editingNoteKey
+              ? { ...note, noteTitle: noteTitle, noteText: noteText }
+              : note
+          )
+        );
+      } else {
+        // Create a new note
+        delete noteData.noteKey;
+        noteData.creationDate = getCurrentDate();
+        const response = await createNote(noteData);
+        noteData.noteKey = response.noteKey; // Get the noteKey from the response
+        delete noteData.username;
+        addToNotes(noteData);
+      }
+  
+      // Reset form and close note writer
+      setNoteTitle("");
+      setNoteText("");
+      setIsGlassEffectVisible(false);
+      setIsNoteWriterVisible(false);
+      setEditingNoteKey(false); // Reset editingNoteKey after submission
+    } catch (error) {
+      console.error("Error saving note:", error);
     }
-    setNoteTitle("");
-    setNoteText("");
-    setIsGlassEffectVisible(!isGlassEffectVisible);
-    setIsNoteWriterVisible(!isNoteWriterVisible);
   };
+  
 
   const discardNote = () => {
     setNoteTitle("");
     setNoteText("");
-    setEditingNoteKey(null);
-    setIsGlassEffectVisible(!isGlassEffectVisible);
-    setIsNoteWriterVisible(!isNoteWriterVisible);
   };
 
   return (
@@ -188,6 +218,8 @@ const Notes = ({
           setNoteText={setNoteText}
           handleSubmit={handleSubmit}
           discardNote={discardNote}
+          closeNoteWriter={closeNoteWriter}
+          editingNoteKey={editingNoteKey}
         />
       )}
       {isNoteViewerVisible && (
@@ -196,25 +228,25 @@ const Notes = ({
           ViewingNoteKey={viewingNote}
           closeNoteViewer={closeNoteViewer}
           editNote={editNote}
+          setEditingNoteKey={setEditingNoteKey}
         />
       )}
+
       <div id="notespage">
-        <NavBar
-          tasks={tasks}
-          taskTypeList={taskTypeList}
-          setTaskTypeList={setTaskTypeList}
-          username={username}
-        />
         <div id="notes-main">
           <div id="top-bar">
             <div id="search-bar">
               <box-icon name="search"></box-icon>
-              <input type="text" placeholder="Search anything..." />
+              <input
+                type="text"
+                placeholder="Search anything..."
+                value={searchQuery}
+                onChange={handleSearch}
+              />
             </div>
           </div>
           <div id="notescontainer">
             <div id="notesbuttons">
-              
               <button id="takeanote" onClick={addnotewriter}>
                 <box-icon name="notepad"></box-icon>
                 <div className="button-text">
@@ -225,47 +257,48 @@ const Notes = ({
                 </div>
               </button>
               <Link to="/imagechat" id="notesbuttons withdrawing">
-              <button id="withdrawing">
-                <box-icon name="paint" type="solid"></box-icon>
-                <div className="button-text">
-                  <div className="button-text-inner">
-                    <h6>New Note</h6>
+                <button id="withdrawing">
+                  <box-icon name="paint" type="solid"></box-icon>
+                  <div className="button-text">
+                    <div className="button-text-inner">
+                      <h6>New Note</h6>
+                    </div>
+                    With Image
                   </div>
-                  With Drawing
-                </div>
-              </button>
+                </button>
               </Link>
               <Link to="/interview-prep" id="notesbuttons withimage">
-              <button id="withimage">
-                <box-icon type="solid" name="image-alt"></box-icon>
-                <div className="button-text">
-                  <div className="button-text-inner">
-                    <h6>New Note</h6>
+                <button id="withimage">
+                  <box-icon type="solid" name="image-alt"></box-icon>
+                  <div className="button-text">
+                    <div className="button-text-inner">
+                      <h6>New Note</h6>
+                    </div>
+                    With Video
                   </div>
-                  With Image
-                </div>
-              </button>
+                </button>
               </Link>
             </div>
-            <SidePanel />
             <div id="notes">
-              {notes.map((note, index) => (
+              {filteredNotes.map((note, index) => (
                 <NoteSticker
                   noteKey={note.noteKey}
                   heading={note.noteTitle}
-                  notetext={note.noteText}
+                  noteText={note.noteText}
                   creationDate={note.creationDate}
                   color={colors[index % colors.length]}
                   deleteNote={deleteNote}
                   editNote={editNote}
-                  viewnote={viewnote}
+                  viewnote={viewnote}                 
                 />
               ))}
             </div>
           </div>
         </div>
+        <SidePanel />
+
+        <Chatbot username={username} />
       </div>
-      <Chatbot username={username}/>
     </>
   );
 };

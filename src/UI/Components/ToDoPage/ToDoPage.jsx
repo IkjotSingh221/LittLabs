@@ -18,48 +18,51 @@ const ToDoPage = ({
 
   useEffect(() => {
     setCurrentDay(new Date().getDate());
-    loadTasks(username);
-    loadTaskTypeList(username);
+    // loadTasks(username);
+    // loadTaskTypeList(username);
   }, []);
 
+  // useEffect(() => {
+  //   loadTasks(username);
+  //   loadTaskTypeList(username);
+  // }, [tasks, taskTypeList]);
 
+  // const loadTasks = async (username) => {
+  //   try {
+  //     const todos = await readTodos(username);
+  //     const mappedTasks = todos.map((task) => {
+  //       return {
+  //         taskKey: task.taskKey,
+  //         taskName: task.taskName,
+  //         taskDescription: task.taskDescription,
 
-  const loadTasks = async (username) => {
-    try {
-      const todos = await readTodos(username);
-      const mappedTasks = todos.map((task) => {
-        return {
-          taskKey: task.taskKey,
-          taskName: task.taskName,
-          taskDescription: task.taskDescription,
+  //         dueDate: task.dueDate,
+  //         taskColor: task.taskColor,
+  //         taskType: task.taskType,
+  //         isCompleted: task.isCompleted,
+  //       };
+  //     });
+  //     setTasks(mappedTasks);
+  //   } catch (error) {
+  //     console.error("Error loading tasks:", error);
+  //   }
+  // };
 
-          dueDate: task.dueDate,
-          taskColor: task.taskColor,
-          taskType: task.taskType,
-          isCompleted: task.isCompleted,
-        };
-      });
-      setTasks(mappedTasks);
-    } catch (error) {
-      console.error("Error loading tasks:", error);
-    }
-  };
-
-  const loadTaskTypeList = async (username) => {
-    try {
-      const taskTypes = await readTaskType(username);
-      const mappedTaskTypeList = taskTypes.map((taskType) => {
-        return {
-          taskTypeKey: taskType.taskTypeKey,
-          taskTypeName: taskType.taskTypeName,
-          taskColor: taskType.taskTypeColor,
-        };
-      });
-      setTaskTypeList(mappedTaskTypeList);
-    } catch (error) {
-      console.error("Error loading task types:", error);
-    }
-  };
+  // const loadTaskTypeList = async (username) => {
+  //   try {
+  //     const taskTypes = await readTaskType(username);
+  //     const mappedTaskTypeList = taskTypes.map((taskType) => {
+  //       return {
+  //         taskTypeKey: taskType.taskTypeKey,
+  //         taskTypeName: taskType.taskTypeName,
+  //         taskColor: taskType.taskTypeColor,
+  //       };
+  //     });
+  //     setTaskTypeList(mappedTaskTypeList);
+  //   } catch (error) {
+  //     console.error("Error loading task types:", error);
+  //   }
+  // };
 
   const toggleAddTaskPanel = () => {
     setIsAddTaskPanelVisible(!isAddTaskPanelVisible);
@@ -78,12 +81,6 @@ const ToDoPage = ({
   return ( 
     <>
       <div id="todopage">
-        <NavBar
-          tasks={tasks}
-          taskTypeList={taskTypeList}
-          setTaskTypeList={setTaskTypeList}
-          username={username}
-        />
 
         <div id="todos">
           <div id="date">
@@ -127,7 +124,7 @@ const ToDoPage = ({
               setTasks={setTasks}
               taskTypeList={taskTypeList}
               hideTaskPanel={toggleAddTaskPanel}
-              username={username}
+              username={username} 
             />
           )}
         </div>

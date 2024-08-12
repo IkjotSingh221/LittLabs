@@ -93,7 +93,7 @@ const AddTaskPanel = ({
         </div>
 
         <div id="chooselist">
-          <label htmlFor="selectList" id="selectListLabel">Type of Task</label>
+          <label htmlFor="selectList" id="selectListLabel">Type of Task</label> 
           <select
             required
             id="selectList"
@@ -113,7 +113,7 @@ const AddTaskPanel = ({
         </div>
         <div id="buttons">
           <button type="button" onClick={removeContent}>
-            Delete Task
+            Reset
           </button>
           <button id="savebutton" type="submit">
             Save Changes

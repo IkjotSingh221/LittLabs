@@ -14,9 +14,11 @@ const ToDoItem = ({ taskKey, task, deleteToDo, toggleComplete }) => {
                 checked={task.isCompleted} 
                 onChange={handleCheckboxChange} 
             />
-            <p>{task.taskName}</p>
+            <p>{task.taskName.length>10? task.taskName.slice(0,10)+"...":task.taskName}</p>
             <div id="todocalender"> 
-                <box-icon name='calendar' size='15px'></box-icon>
+                <div id="tododuedate" >
+                <box-icon name='calendar' size='15px' ></box-icon>
+                </div>
                 {task.dueDate}
             </div>
             <div className="deletetodo" onClick={() => deleteToDo(taskKey)}>

@@ -1,31 +1,41 @@
-import * as React from 'react';
-import { useEffect, useState } from 'react';
-import TaskCardContainer from './TaskCardContainer';
-import ChartsContainer from './ChartHolder';
-import './Dashboard.css';
-import owlImage from '../../Assets/dashboardOwl.png';
-import NavBar from '../Common/SideNavBar/SideNav';
+import * as React from "react";
+import { useEffect, useState } from "react";
+import TaskCardContainer from "./TaskCardContainer";
+import ChartsContainer from "./ChartHolder";
+import "./Dashboard.css";
+import owlImage from "../../Assets/dashboardOwl.png";
 import { readTodos, readTaskType } from "../../API/todo.api.js";
-import { readNotes } from '../../API/note.api.js';
-import { Link } from 'react-router-dom';
-import Chatbot from '../Common/ChatBot/ChatBot.jsx';
+import { readNotes } from "../../API/note.api.js";
+import { Link } from "react-router-dom";
+import Chatbot from "../Common/ChatBot/ChatBot.jsx";
+import { quotes } from "../../Data/Data.js";
+import { completeTodo } from "../../API/todo.api.js";
 
 const loadLordIconScript = () => {
-  const script = document.createElement('script');
+  const script = document.createElement("script");
   script.src = "https://cdn.lordicon.com/lordicon.js";
   script.async = true;
   document.body.appendChild(script);
 };
 
-
-
-export default function Dashboard({ tasks, setTasks, taskTypeList, setTaskTypeList, notes, setNotes, username }) {
+export default function Dashboard({
+  tasks,
+  setTasks,
+  taskTypeList,
+  setTaskTypeList,
+  notes,
+  setNotes,
+  username,
+}) {
+  const [quote, setQuote] = useState("");
+  const [author, setAuthor] = useState("");
 
   useEffect(() => {
     loadLordIconScript();
     loadTasks(username);
     loadTaskTypeList(username);
     loadNotes(username);
+    getRandomQuote(quotes);
   }, []);
 
   const loadTasks = async (username) => {
@@ -82,86 +92,106 @@ export default function Dashboard({ tasks, setTasks, taskTypeList, setTaskTypeLi
     }
   };
 
+  const getRandomQuote = (quotesArray) => {
+    const randomIndex = Math.floor(Math.random() * quotesArray.length);
+    const randomQuote = quotesArray[randomIndex];
+    setAuthor(randomQuote.author);
+    setQuote(randomQuote.quote);
+  };
 
   const parseDate = (dateStr) => {
-    const [day, month, year] = dateStr.split('-').map(Number);
+    const [day, month, year] = dateStr.split("-").map(Number);
     return new Date(year, month - 1, day); // Month is zero-indexed
   };
 
-  const formatDateToOriginal = (date) => {
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
-    const year = date.getFullYear();
-    return `${day}-${month}-${year}`;
+  const getTop5TasksByDate = (tasks) => {
+    return tasks
+      .filter((task) => !task.isCompleted) // Filter out completed tasks
+      .sort((a, b) => {
+        const [dayA, monthA, yearA] = a.dueDate.split("-");
+        const [dayB, monthB, yearB] = b.dueDate.split("-");
+        const dateA = new Date(`${yearA}-${monthA}-${dayA}`);
+        const dateB = new Date(`${yearB}-${monthB}-${dayB}`);
+        return dateA - dateB;
+      })
+      .slice(0, 5); // Retain only the first 5 tasks
   };
 
-  const getFiveLowestRecentDueDates = () => {
-    return tasks
-      .filter(task => !task.isCompleted)
-      .map(task => ({
-        ...task,
-        dueDate: parseDate(task.dueDate)  // Convert dueDate to Date object for sorting
-      }))
-      .sort((a, b) => a.dueDate - b.dueDate)  // Sort by due date ascending
-      .slice(0, 5)  // Get the top 5 most recent tasks
-      .map(task => ({
-        ...task,
-        dueDate: formatDateToOriginal(task.dueDate)  // Convert dueDate back to original format
-      }));
+  const toggleComplete = async (taskKey) => {
+    let currentCompletionStatus = tasks.filter(
+      (task) => task.taskKey === taskKey
+    ).isCompleted;
+    const todo = {
+      username: username,
+      taskKey: taskKey,
+      isCompleted: !currentCompletionStatus,
+    };
+    const response = await completeTodo(todo);
+    setTasks(
+      tasks.map((task) =>
+        task.taskKey === taskKey
+          ? { ...task, isCompleted: !task.isCompleted }
+          : task
+      )
+    );
   };
 
   return (
-    <div id="dashBoardPage">
-      {/* <div id="navibar"></div> */}
-      <NavBar
-        tasks={tasks}
-        taskTypeList={taskTypeList}
-        setTaskTypeList={setTaskTypeList}
-        username={username}
-      />
-      <div id="dashBoardMain">
-        <div id="welcomeCard">
-          <div id="Welcomeuser">Welcome {username}!</div>
-          <div id="Quote">There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain...</div>
-          <img src={owlImage}></img>
-        </div>
-        <div id="bottom">
-          <div id="bottomCards">
-            <div id="scoreCharts">
-              <ChartsContainer tasks={tasks} />
+    <>
+      <div id="dashBoardPage">
+        <div id="dashBoardMain">
+          <div id="welcomeCard">
+            <div id="Welcomeuser">Welcome {username}!</div>
+            <div id="Quote">
+              <span id="quoteText">{quote}</span> <br></br>
+              <span id="quoteAuthor">By {author}</span>
             </div>
-            <div id="Cards">
-              <div id="Card1">
-                <lord-icon
-                  src="https://cdn.lordicon.com/egmlnyku.json"
-                  trigger="hover"
-                  style={{ width: '70px', height: '70px' }}>
-                </lord-icon>
-                <p>We would Love your Feedback!</p>
-                <Link to={'https://forms.gle/8b7ZTfqMe2N7CreP7'}>
-                  <button>Click Here</button></Link>
+            <img src={owlImage}></img>
+          </div>
+          <div id="bottom">
+            <div id="bottomCards">
+              <div id="scoreCharts">
+                <ChartsContainer tasks={tasks} />
               </div>
-              <div id="Card2">
-                <lord-icon
-                  src="https://cdn.lordicon.com/tjiwvnho.json"
-                  trigger="morph"
-                  state="morph-destroyed"
-                  style={{ width: '55px', height: '55px' }}
-                >
-                </lord-icon>
-                <p>Support us in Unlocking the Power of AI to Enhance Education for All!</p>
-                <Link>
-                  <button>Click Here</button></Link>
+              <div id="Cards">
+                <div id="Card1">
+                  <lord-icon
+                    src="https://cdn.lordicon.com/egmlnyku.json"
+                    trigger="hover"
+                    style={{ width: "70px", height: "70px" }}
+                  ></lord-icon>
+                  <p>We would Love your Feedback!</p>
+                  <Link to={"https://forms.gle/8b7ZTfqMe2N7CreP7"}>
+                    <button>Click Here</button>
+                  </Link>
+                </div>
+                <div id="Card2">
+                  <lord-icon
+                    src="https://cdn.lordicon.com/tjiwvnho.json"
+                    trigger="morph"
+                    state="morph-destroyed"
+                    style={{ width: "55px", height: "55px" }}
+                  ></lord-icon>
+                  <p>
+                    Support us in Unlocking the Power of AI to Enhance Education
+                    for All!
+                  </p>
+                  <Link>
+                    <button>Click Here</button>
+                  </Link>
+                </div>
               </div>
             </div>
-
-          </div>
-          <div id="bottomTasks">
-            <TaskCardContainer tasks={getFiveLowestRecentDueDates()} />
+            <div id="bottomTasks">
+              <TaskCardContainer
+                tasks={getTop5TasksByDate(tasks)}
+                toggleComplete={toggleComplete}
+              />
+            </div>
           </div>
         </div>
+        <Chatbot username={username} />
       </div>
-      <Chatbot username={username}/>
-    </div>
+    </>
   );
-};
+}

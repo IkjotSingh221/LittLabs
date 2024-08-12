@@ -3,6 +3,7 @@ import { Grid } from "@mui/material";
 import ChartContainer from "./Chart";
 
 export default function ChartHolder({tasks}) {
+
   return (
 
     <Grid
