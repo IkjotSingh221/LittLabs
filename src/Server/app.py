@@ -93,7 +93,7 @@ async def create_an_account(user_data: SignUpSchema):
         user_doc_ref = db.collection('Users').document(username)
         # print(user_doc_ref.id)
         
-        today = date.today().strftime("%d-%m-%y")
+        today = datetime.today().strftime('%d-%m-%Y')
         # Create empty collections for the user
         sample_note=user_doc_ref.collection('Notes').document()
         sample_note.set({
