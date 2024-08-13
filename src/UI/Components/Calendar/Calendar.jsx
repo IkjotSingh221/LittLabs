@@ -65,46 +65,43 @@ export default function Calendar({ tasks, setTasks, taskTypeList, setTaskTypeLis
 
   const currentDate = dayjs().format("dddd, MMMM D, YYYY");
 
-  useEffect(() => {
-    loadTasks(username);
-    loadTaskTypeList(username);
-  }, [username]);
+
 
   useEffect(() => {
     setSelectedDate(selectDate);
   }, [selectDate]);
 
-  const loadTasks = async (username) => {
-    try {
-      const todos = await readTodos(username);
-      const mappedTasks = todos.map((task) => ({
-        taskKey: task.taskKey,
-        taskName: task.taskName,
-        taskDescription: task.taskDescription,
-        dueDate: task.dueDate,
-        taskColor: task.taskColor,
-        taskType: task.taskType,
-        isCompleted: task.isCompleted,
-      }));
-      setTasks(mappedTasks);
-    } catch (error) {
-      console.error("Error loading tasks:", error);
-    }
-  };
+  // const loadTasks = async (username) => {
+  //   try {
+  //     const todos = await readTodos(username);
+  //     const mappedTasks = todos.map((task) => ({
+  //       taskKey: task.taskKey,
+  //       taskName: task.taskName,
+  //       taskDescription: task.taskDescription,
+  //       dueDate: task.dueDate,
+  //       taskColor: task.taskColor,
+  //       taskType: task.taskType,
+  //       isCompleted: task.isCompleted,
+  //     }));
+  //     setTasks(mappedTasks);
+  //   } catch (error) {
+  //     console.error("Error loading tasks:", error);
+  //   }
+  // };
 
-  const loadTaskTypeList = async (username) => {
-    try {
-      const taskTypes = await readTaskType(username);
-      const mappedTaskTypeList = taskTypes.map((taskType) => ({
-        taskTypeKey: taskType.taskTypeKey,
-        taskTypeName: taskType.taskTypeName,
-        taskColor: taskType.taskTypeColor,
-      }));
-      setTaskTypeList(mappedTaskTypeList);
-    } catch (error) {
-      console.error("Error loading task types:", error);
-    }
-  };
+  // const loadTaskTypeList = async (username) => {
+  //   try {
+  //     const taskTypes = await readTaskType(username);
+  //     const mappedTaskTypeList = taskTypes.map((taskType) => ({
+  //       taskTypeKey: taskType.taskTypeKey,
+  //       taskTypeName: taskType.taskTypeName,
+  //       taskColor: taskType.taskTypeColor,
+  //     }));
+  //     setTaskTypeList(mappedTaskTypeList);
+  //   } catch (error) {
+  //     console.error("Error loading task types:", error);
+  //   }
+  // };
 
   const openModal = () => setShowModal(true);
   const closeModal = () => {

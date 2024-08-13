@@ -93,7 +93,7 @@ async def create_an_account(user_data: SignUpSchema):
         user_doc_ref = db.collection('Users').document(username)
         # print(user_doc_ref.id)
         
-        today = datetime.today().strftime('%d-%m-%Y')
+        today = datetime.today().strftime('%d-%m-%YY')
         # Create empty collections for the user
         sample_note=user_doc_ref.collection('Notes').document()
         sample_note.set({
@@ -279,12 +279,13 @@ async def delete_task_type(deleteTaskType: DeleteTaskTypeScheme):
 async def chat(userPrompt:ChatSchema):
     tasks = db.collection('Users').document(userPrompt.username).collection('Todos').get()
     task_dict = {}
+    print(userPrompt.username, userPrompt.question)
 
     # Convert Firestore documents to dictionary format
     for task in tasks:
         task_data = task.to_dict()
         if task_data['isCompleted']==False:
-            due = datetime.strptime(task_data['dueDate'], "%d-%m-%Y").date()
+            due = datetime.strptime(task_data['dueDate'], "%d-%m-%Y")
             task_dict[task_data['taskName']] = [task_data['taskDescription'], due, task_data['taskType'], task_data['taskColor']]
     
     model = genai.GenerativeModel('gemini-1.5-flash')
@@ -383,7 +384,7 @@ async def chat(userPrompt:ChatSchema):
 
 @app.post("/upload-video")
 async def process_video(file: UploadFile = File(...)):
-    model = genai.GenerativeModel('gemini-1.5-pro',
+    model = genai.GenerativeModel('gemini-1.5-flash',
                               generation_config={"response_mime_type": "application/json",
                                                  "response_schema": VideoAnalysis})
 

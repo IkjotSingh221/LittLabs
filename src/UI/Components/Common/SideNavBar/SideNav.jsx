@@ -20,17 +20,17 @@ const NavBar = ({ tasks, setTasks, taskTypeList, setTaskTypeList, notes, setNote
     loadNotes(username);
   },[]);
 
-  useEffect(()=>{
-    loadTasks(username);
-  },[tasks]);
+  // useEffect(()=>{
+  //   loadTasks(username);
+  // },[tasks]);
 
-  useEffect(()=>{
-    loadTaskTypeList(username);
-  },[taskTypeList]);
+  // useEffect(()=>{
+  //   loadTaskTypeList(username);
+  // },[taskTypeList]);
 
-  useEffect(()=>{
-    loadNotes(username);
-  },[notes]);
+  // useEffect(()=>{
+  //   loadNotes(username);
+  // },[notes]);
 
 
   const loadTasks = async (username) => {

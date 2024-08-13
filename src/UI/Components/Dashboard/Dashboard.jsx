@@ -32,65 +32,65 @@ export default function Dashboard({
 
   useEffect(() => {
     loadLordIconScript();
-    loadTasks(username);
-    loadTaskTypeList(username);
-    loadNotes(username);
+    // loadTasks(username);
+    // loadTaskTypeList(username);
+    // loadNotes(username);
     getRandomQuote(quotes);
   }, []);
 
-  const loadTasks = async (username) => {
-    try {
-      const todos = await readTodos(username);
-      const mappedTasks = todos.map((task) => {
-        return {
-          taskKey: task.taskKey,
-          taskName: task.taskName,
-          taskDescription: task.taskDescription,
+  // const loadTasks = async (username) => {
+  //   try {
+  //     const todos = await readTodos(username);
+  //     const mappedTasks = todos.map((task) => {
+  //       return {
+  //         taskKey: task.taskKey,
+  //         taskName: task.taskName,
+  //         taskDescription: task.taskDescription,
 
-          dueDate: task.dueDate,
-          taskColor: task.taskColor,
-          taskType: task.taskType,
-          isCompleted: task.isCompleted,
-        };
-      });
-      setTasks(mappedTasks);
-    } catch (error) {
-      console.error("Error loading tasks:", error);
-    }
-  };
+  //         dueDate: task.dueDate,
+  //         taskColor: task.taskColor,
+  //         taskType: task.taskType,
+  //         isCompleted: task.isCompleted,
+  //       };
+  //     });
+  //     setTasks(mappedTasks);
+  //   } catch (error) {
+  //     console.error("Error loading tasks:", error);
+  //   }
+  // };
 
-  const loadTaskTypeList = async (username) => {
-    try {
-      const taskTypes = await readTaskType(username);
-      const mappedTaskTypeList = taskTypes.map((taskType) => {
-        return {
-          taskTypeKey: taskType.taskTypeKey,
-          taskTypeName: taskType.taskTypeName,
-          taskColor: taskType.taskTypeColor,
-        };
-      });
-      setTaskTypeList(mappedTaskTypeList);
-    } catch (error) {
-      console.error("Error loading task types:", error);
-    }
-  };
+  // const loadTaskTypeList = async (username) => {
+  //   try {
+  //     const taskTypes = await readTaskType(username);
+  //     const mappedTaskTypeList = taskTypes.map((taskType) => {
+  //       return {
+  //         taskTypeKey: taskType.taskTypeKey,
+  //         taskTypeName: taskType.taskTypeName,
+  //         taskColor: taskType.taskTypeColor,
+  //       };
+  //     });
+  //     setTaskTypeList(mappedTaskTypeList);
+  //   } catch (error) {
+  //     console.error("Error loading task types:", error);
+  //   }
+  // };
 
-  const loadNotes = async (username) => {
-    try {
-      const notesList = await readNotes(username);
-      const mappedNotesList = notesList.map((note) => {
-        return {
-          noteKey: note.noteKey,
-          noteTitle: note.noteTitle,
-          noteText: note.noteText,
-          creationDate: note.creationDate
-        };
-      });
-      setNotes(mappedNotesList);
-    } catch (error) {
-      console.error("Error loading task types:", error);
-    }
-  };
+  // const loadNotes = async (username) => {
+  //   try {
+  //     const notesList = await readNotes(username);
+  //     const mappedNotesList = notesList.map((note) => {
+  //       return {
+  //         noteKey: note.noteKey,
+  //         noteTitle: note.noteTitle,
+  //         noteText: note.noteText,
+  //         creationDate: note.creationDate
+  //       };
+  //     });
+  //     setNotes(mappedNotesList);
+  //   } catch (error) {
+  //     console.error("Error loading task types:", error);
+  //   }
+  // };
 
   const getRandomQuote = (quotesArray) => {
     const randomIndex = Math.floor(Math.random() * quotesArray.length);
