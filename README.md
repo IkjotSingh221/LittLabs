@@ -42,15 +42,14 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 ```
-You may set these values in the code itself or use .env file (as in our project). 
-Same configurations can be done to retrieve the GEMINI_API_KEY as well from the .env file.
+You may set these values in the code itself or use a .env file (as in our project). 
+The same configurations can be done to retrieve the GEMINI_API_KEY from the .env file.
 
 Sample format of .env file:
 VARIABLE_NAME="VALUE"
 
 **Additional Links:**
-Frontend only (Prototype link): [Frontend](left-jacynth/littlabs-backend)   <br>
-Working Demo Video: [Demo](https://drive.google.com/drive/folders/1m46WE_D7PgfAf6haS4lL5hUkuBv8zPqO)
+Working Demo Video: [Litt Labs](YoutubeLinkToBeAdded)
 
 
 
