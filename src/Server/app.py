@@ -65,10 +65,6 @@ firebaseConfig = {
 firebase = pyrebase.initialize_app(firebaseConfig)
 db = firestore.client()
 
-
-
-
-
 @app.post('/signup')
 async def create_an_account(user_data: SignUpSchema):
     email = user_data.email
@@ -190,7 +186,6 @@ Here's a quick visual guide on how you can make your notes more engaging with ma
    ```markdown
    `This is inline code`
    ```
-<br>
 
    For multi-line code blocks, use triple backticks:  
    ```python

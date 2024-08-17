@@ -297,7 +297,6 @@ transform: scale(1.1);
   padding:30px;
   border-radius: 20px;
   z-index: 2000;
-  overflow-y:scroll;
   left:10%;
   top:5%;
 }
@@ -327,7 +326,7 @@ transform: scale(1.1);
   border-radius: 10px;
   height: 80%;
   line-height: 1.5;
-  overflow: auto;
+  overflow-y: auto;
 }
 
 #viewer-date{
