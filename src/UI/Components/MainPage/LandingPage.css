@@ -91,14 +91,14 @@ header ul li a {
 
 .content .textBox h2 {
   color: var(--low-contrast-color);
-  font-size: 4em;
+  font-size: 3em;
   font-weight: 500;
   line-height: 1.4em;
 }
 
 .content .textBox h2 span {
   color: #efb839;
-  font-size: 1.2em;
+  font-size: 0.9em;
   font-weight: 900;
 }
 

@@ -66,8 +66,11 @@ export default function ChartContainer({tasks, dayOfCompletion}) {
 
   const parseDate = (dateStr) => {
     const [day, month, year] = dateStr.split('-').map(Number);
-    return new Date(year, month - 1, day
-    ); 
+    if (!day || !month || !year) {
+      console.error(`Invalid date string: ${dateStr}`);
+      return null;
+    }
+    return new Date(year, month - 1, day);
   };
 
   const getMidnightDate = (date) => {

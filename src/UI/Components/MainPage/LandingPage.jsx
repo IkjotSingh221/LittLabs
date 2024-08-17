@@ -16,8 +16,8 @@ return (
                 {/* <img src={moon} alt="" /> */}
                 <img src={sun} alt="" />
             </div>
-            
-            
+
+
         </div>
         <header>
         <a href="/" >
@@ -34,7 +34,7 @@ return (
     </header>
     <div className="content">
         <div className="textBox">
-            <h2>It's not ABC<br/>It's <span>123</span></h2>
+            <h2>It's not just learning<br/>It's <span>Littlabs’ brilliance</span></h2>
             <p>Unlock your learning potential with our comprehensive platform designed to support you throughout your educational journey. With our Interview Preparation Analyzer, you’ll gain valuable insights into your interview skills. Create personalized flashcards with ease and solve image-based queries effortlessly. Stay organized and effectively manage your tasks with our Deadline Manager and other organizational tools, including a To-Do List, Notes, and Calendar. Join us at LittLabs and elevate your education today!</p>
             <a href="/">Learn More</a>
         </div>

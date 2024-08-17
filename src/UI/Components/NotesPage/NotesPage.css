@@ -294,7 +294,7 @@ transform: scale(1.1);
   height:90vh;
   width:80vw;
   position:absolute;
-  padding:10px;
+  padding:30px;
   border-radius: 20px;
   z-index: 2000;
   overflow-y:scroll;
@@ -323,8 +323,11 @@ transform: scale(1.1);
 #viewer-text{
   padding:5px;
   margin-top: 5px;
+  margin-left: 10px;
   border-radius: 10px;
   height: 80%;
+  line-height: 1.5;
+  overflow: auto;
 }
 
 #viewer-date{
@@ -945,3 +948,10 @@ margin-top: 2px; /* Example value, adjust as needed */
   gap: 10px;
 }
 
+#viewer-text ol {
+  margin-left: 20px;
+}
+
+#viewer-text ul {
+  margin-left: 20px;
+}

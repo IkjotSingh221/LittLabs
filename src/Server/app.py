@@ -93,13 +93,119 @@ async def create_an_account(user_data: SignUpSchema):
         user_doc_ref = db.collection('Users').document(username)
         # print(user_doc_ref.id)
         
-        today = datetime.today().strftime('%d-%m-%YY')
+        today = datetime.today().strftime('%d-%m-%Y')
         # Create empty collections for the user
         sample_note=user_doc_ref.collection('Notes').document()
         sample_note.set({
         "noteTitle":"First Note",
-        "noteText":"This is your first note, it is an auto-generated text when the user first logs in. This is a note taking platform. You can explore this page to know more.<br>## Some Special Commands <br> /manage my deadlines - this command can be used to manage your deadlines. <br> /youtube resources: \{domain\} - this command is used to fetch youtube resources for a specific domain.<br>/roadmap: \{domain\} - this generates year-round tasks for you to master the specified domain.",
-        "creationDate":"12-08-2024",
+        "noteText":"""### Welcome to Your First Note!
+
+Hey there! 🌟 You've just unlocked the ultimate note-taking platform. Whether you're here to jot down ideas, manage your tasks, or explore new resources, you're in the right place.
+
+Take a moment to explore and get comfy. We’ve got some cool features to help you out:
+
+<br><br>
+
+#### **Special Slash Commands** 🚀
+- **`/manage my deadlines`**: Feeling overwhelmed? Use this command to stay on top of your deadlines like a pro!
+- **`/youtube resources: <domain>`**: Need to dive into a topic? Fetch the best YouTube resources for any domain with just a slash.
+- **`/roadmap: <domain>`**: Want to master something? Generate a year-round plan tailored to your goals.
+
+These commands can be accessed via the chatbot available throughout the app. <br> <br>
+
+
+
+#### **How to Use Markdown** 📝
+Here's a quick visual guide on how you can make your notes more engaging with markdown:
+<br> <br>
+
+
+
+1. **Creating Headers**:  
+   Use different levels of headers to organize your content. For example:  
+   ```markdown
+   # Header 1
+   ## Header 2
+   ### Header 3
+   ```
+   This will create a hierarchy of headings.
+<br> <br>
+
+2. **Making Text Bold or Italic**: 
+
+   - To **bold** text, use double asterisks or underscores: 
+
+
+     ```markdown
+     **This text is bold**
+     __This text is also bold__
+     ```
+
+   - To *italicize* text, use single asterisks or underscores:  
+     ```markdown
+     *This text is italic*
+     _This text is also italic_
+     ```
+<br><br>
+
+3. **Creating Lists**:  
+
+   - **Unordered Lists**: Use asterisks, pluses, or dashes.  
+     ```markdown
+     * Item 1
+     * Item 2
+     ```
+
+   - **Ordered Lists**: Just start with numbers.  
+     ```markdown
+     1. First item
+     2. Second item
+     ```
+
+<br><br>
+4. **Adding Links**:  
+
+   You can add links like this:  
+   ```markdown
+   [Link Text](http://example.com)
+   ```
+<br><br>
+
+5. **Adding an Image or GIF**:  
+<br>
+
+   ![My First Image Hooray](https://media.tenor.com/Iccl_wfwIdwAAAAM/despicable-me-minions.gif)  
+<br>
+
+   Simply use the format:  
+   ```markdown
+   ![Alt text](image_url)
+   ```
+<br><br>
+
+6. **Inserting Code Blocks**:  
+<br>
+
+   For inline code, use backticks:  
+   ```markdown
+   `This is inline code`
+   ```
+<br>
+
+   For multi-line code blocks, use triple backticks:  
+   ```python
+   print("Hello, World!")
+   ```
+<br><br>
+
+#### **Putting It All Together**:
+Combine these elements to create notes that are both functional and visually appealing.
+<br><br>
+#### **Resources**:
+For more details, visit [Markdown Guide](https://www.markdownguide.org/getting-started/).
+<br>
+This is just the beginning—there’s so much more to discover. Happy noting! ✨""",
+        "creationDate":today,
         "noteKey": sample_note.id
     })
         sample_todo=user_doc_ref.collection('Todos').document()
@@ -108,14 +214,14 @@ async def create_an_account(user_data: SignUpSchema):
         "taskDescription": "Explore this Website",
         "taskType": "Explore",
         "dueDate": today,
-        "taskColor": "#F1F3F4",
+        "taskColor": "#A4E1FF",
         "isCompleted": False,
         "taskKey": sample_todo.id
     })
         sample_taskType=user_doc_ref.collection('TaskType').document()
         sample_taskType.set({
         "taskTypeName":"Explore",
-        "taskTypeColor":"#F1F3F4",
+        "taskTypeColor":"#A4E1FF",
         "taskTypeKey": sample_taskType.id
     })  
         
