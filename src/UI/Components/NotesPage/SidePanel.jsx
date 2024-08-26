@@ -11,23 +11,42 @@ const SidePanel = () => {
     const [currentTrack, setCurrentTrack] = useState(0); 
     const audioRef = useRef(null);
 
+    // const tracks = [
+    //     {
+    //         title: "Lofi Track 1",
+    //         artist: "chosic.com",
+    //         src: LofiTrack1
+    //     },
+    //     {
+    //         title: "Lofi Track 2",
+    //         artist: "chosic.com",
+    //         src: LofiTrack2
+    //     },
+    //     {
+    //         title: "Study Lofi Music",
+    //         artist:"",
+    //         src: StudyLofiMusic
+    //     }
+    // ];
+
     const tracks = [
         {
-            title: "Lofi Track 1",
-            artist: "chosic.com",
-            src: LofiTrack1
+            title: "Perfect",
+            artist: "Ed Sheeran",
+            src: "https://mr-jat.in/dlod/6239?&volume=75&showstop=1&showvolume=1" // Replace with actual URL
         },
         {
-            title: "Lofi Track 2",
-            artist: "chosic.com",
-            src: LofiTrack2
+            title: "Apna Bana Le - Bhediya",
+            artist: "Arijit Singh",
+            src: "https://pagalfree.com/musics/128-Apna%20Bana%20Le%20-%20Bhediya%20128%20Kbps.mp3" // Replace with actual URL
         },
         {
-            title: "Study Lofi Music",
-            artist:"",
-            src: StudyLofiMusic
+            title: "Softly - Making Memories",
+            artist: "Karan Aujla",
+            src: "https://pagalfree.com/musics/128-Softly%20-%20Making%20Memories%20128%20Kbps.mp3" // Replace with actual URL
         }
     ];
+    
 
     useEffect(() => {
         // Load the new track when currentTrack changes

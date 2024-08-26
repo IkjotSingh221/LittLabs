@@ -52,20 +52,21 @@
 }
 
 #takeanote, #withimage, #withdrawing{
-  /* width:30%; */
+  width:90%;
   margin: 10px;
-  padding: 10px;
   border-radius: 5px;
   border:none;
   display:flex;
   align-items: center;
-  justify-content:left;
+  justify-content:space-between;
   font-size: 15px;
   background: white;
-  height: 60%;
+  height: 80%;
 } 
 
-
+#takeanoteid, #withimageid, #withdrawingid{
+  width:30%;
+}
 
 #takeanote>box-icon, #withimage>box-icon, #withdrawing>box-icon{
   background: #ecceae;
@@ -282,6 +283,10 @@ transform: scale(1.1);
   padding:0;
 }
 
+.button-text{
+  padding-right: 9%;
+}
+
 .button-text-inner>box-icon{
   background: none;
   width: 8px;
@@ -331,7 +336,7 @@ transform: scale(1.1);
 
 #viewer-date{
   position:absolute;
-  bottom:0px;
+  bottom:14px;
   opacity:0.7;
 }
 
@@ -953,4 +958,8 @@ margin-top: 2px; /* Example value, adjust as needed */
 
 #viewer-text ul {
   margin-left: 20px;
+}
+
+#viewer-text a{
+  color: blue;
 }

@@ -120,3 +120,170 @@ def roadmap_tasktype_setter(db,username):
 
 def parse_due_date(due_date_str):
     return datetime.strptime(due_date_str, "%d-%m-%Y")
+
+def FirstNote():
+    return """### Welcome to Your First Note!
+
+Hey there! 🌟 You've just unlocked the ultimate note-taking platform. Whether you're here to jot down ideas, manage your tasks, or explore new resources, you're in the right place.
+
+Take a moment to explore and get comfy. We’ve got some cool features to help you out:
+
+<br>
+
+#### **Special Slash Commands** 🚀
+- **`/manage my deadlines`**: Feeling overwhelmed? Use this command to stay on top of your deadlines like a pro!
+- **`/youtube resources: <domain>`**: Need to dive into a topic? Fetch the best YouTube resources for any domain with just a slash.
+- **`/roadmap: <domain>`**: Want to master something? Generate a year-round plan tailored to your goals.
+
+These commands can be accessed via the chatbot available throughout the app.
+
+<br>
+
+#### **How to Use Markdown** 📝
+
+Here's a quick visual guide on how you can make your notes more engaging with markdown:
+
+<br>
+
+1. **Creating Headers**:  
+   Use different levels of headers to organize your content. For example:  
+   ```markdown
+   # Header 1
+   ## Header 2
+   ### Header 3
+   ```
+   This will create a hierarchy of headings.
+
+<br>
+
+2. **Making Text Bold or Italic**: 
+
+   - To **bold** text, use double asterisks or underscores: 
+     ```markdown
+     **This text is bold**
+     __This text is also bold__
+     ```
+
+   - To *italicize* text, use single asterisks or underscores:  
+     ```markdown
+     *This text is italic*
+     _This text is also italic_
+     ```
+
+<br>
+
+3. **Creating Lists**:  
+
+   - **Unordered Lists**: Use asterisks, pluses, or dashes.  
+     ```markdown
+     * Item 1
+     * Item 2
+     ```
+
+   - **Ordered Lists**: Just start with numbers.  
+     ```markdown
+     1. First item
+     2. Second item
+     ```
+
+<br>
+
+4. **Adding Links**:  
+
+   You can add links like this:  
+   ```markdown
+   [Link Text](http://example.com)
+   ```
+
+<br>
+
+5. **Adding an Image or GIF**:  
+
+   ![My First Image Hooray](https://media.tenor.com/Iccl_wfwIdwAAAAM/despicable-me-minions.gif)  
+
+   Simply use the format:  
+   ```markdown
+   ![Alt text](image_url)
+   ```
+
+<br>
+
+6. **Inserting Code Blocks**:  
+
+   For inline code, use backticks:  
+   ```markdown
+   `This is inline code`
+   ```
+
+   For multi-line code blocks, use triple backticks:  
+   ```python
+   print("Hello, World!")
+   ```
+
+<br>
+
+7. **Adding Color to Text** 🎨  
+
+   You can add color to your text to make it stand out. You can use plain text color names like 'red', 'green', 'blue', etc., or use hex codes or RGB values. For example:  
+   ```markdown
+   <span style="color: red;">This text is red</span>. But this text is plain <br>
+   <span style="color: #3498db;">This text is blue (using hex code)</span>. But this text is plain <br>
+   <span style="color: rgb(255,165,0);">This text is orange (using RGB)</span>. But this text is plain <br>
+   ```
+
+   **This will be seen as follows:**
+
+   <span style="color: red;">This text is red</span>. But this text is plain <br>
+   <span style="color: #3498db;">This text is blue</span>. But this text is plain <br>
+   <span style="color: rgb(255,165,0);">This text is orange</span>. But this text is plain <br>
+
+<br>
+
+8. **Highlighting Text** 💡  
+
+   Just like text coloring, you can highlight text with different colors. Use plain text names, hex codes, or RGB values for the highlight color. For example:  
+   ```markdown
+   <span style="background-color: #FF9FAE;">This text is highlighted in pink</span>. But this text is plain <br>
+   <span style="background-color: #FDE995;">This text is highlighted in yellow</span>. But this text is plain <br>
+   <span style="background-color: #A6E1C5;">This text is highlighted in light green</span>. But this text is plain <br>
+   <span style="background-color: #A7E0F6;">This text is highlighted in light blue</span>. But this text is plain <br>
+   <span style="background-color: #E1A7FB;">This text is highlighted in light purple</span>. But this text is plain <br>
+   ```
+
+   **This will be seen as follows:**
+
+   <span style="background-color: #FF9FAE;">This text is highlighted in pink</span>. But this text is plain <br>
+   <span style="background-color: #FDE995;">This text is highlighted in yellow</span>. But this text is plain <br>
+   <span style="background-color: #A6E1C5;">This text is highlighted in light green</span>. But this text is plain <br>
+   <span style="background-color: #A7E0F6;">This text is highlighted in light blue</span>. But this text is plain <br>
+   <span style="background-color: #E1A7FB;">This text is highlighted in light purple</span>. But this text is plain <br>
+
+<br>
+
+   **Sample Highlight Color Palette:**
+
+   - Pink: `#FF9FAE`
+   - Yellow: `#FDE995`
+   - Light Green: `#A6E1C5`
+   - Light Blue: `#A7E0F6`
+   - Light Purple: `#E1A7FB`
+
+<br>
+
+**Note:**  
+The `<br>` tag is used to add line breaks. It may be thought of as an `Enter` Key's Equivalent. Another Important element in markdown is the `---` which creates a horizontal line so as to provide sections in your notes.
+
+<br>
+
+#### **Putting It All Together**:
+Combine these elements to create notes that are both functional and visually appealing.
+
+<br>
+
+#### **Resources**:
+For more details, visit [Markdown Guide](https://www.markdownguide.org/getting-started/).
+
+<br>
+
+This is just the beginning—there’s so much more to discover. Happy noting! ✨
+"""

@@ -9,6 +9,10 @@ import SidePanel from "./SidePanel.jsx";
 import Chatbot from "../Common/ChatBot/ChatBot.jsx";
 import { readTodos, readTaskType } from "../../API/todo.api.js";
 import { createNote, readNotes, deleteNoteByKey, updateNote } from "../../API/note.api.js";
+import Lottie from 'react-lottie';
+import NotesAnimation from '../../Assets/Notes.json';
+import ImageAnimation from '../../Assets/Image Solver.json';
+import VideoAnimation from '../../Assets/Interview Prep.json';
 
 const Notes = ({
   // tasks,
@@ -33,7 +37,7 @@ const Notes = ({
   // useEffect(() => {
   //   loadTasks(username);
   //   loadTaskTypeList(username);
-    // loadNotes(username);
+  // loadNotes(username);
   // }, []);
 
   const handleSearch = (event) => {
@@ -161,14 +165,14 @@ const Notes = ({
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (noteTitle === "" || noteText === "") return;
-  
+
     const noteData = {
       username: username,
       noteTitle: noteTitle,
       noteText: noteText,
       noteKey: editingNoteKey || undefined, // Include noteKey if editing, otherwise undefined
     };
-  
+
     try {
       if (editingNoteKey) {
         // Update existing note
@@ -189,7 +193,7 @@ const Notes = ({
         delete noteData.username;
         addToNotes(noteData);
       }
-  
+
       // Reset form and close note writer
       setNoteTitle("");
       setNoteText("");
@@ -200,11 +204,36 @@ const Notes = ({
       console.error("Error saving note:", error);
     }
   };
-  
+
 
   const discardNote = () => {
     setNoteTitle("");
     setNoteText("");
+  };
+
+  const addNoteButtonAnimationOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: NotesAnimation,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice"
+    }
+  };
+  const ImageSolverButtonAnimationOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: ImageAnimation,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice"
+    }
+  };
+  const InterviewPrepButtonAnimationOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: VideoAnimation,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice"
+    }
   };
 
   return (
@@ -247,34 +276,39 @@ const Notes = ({
           </div>
           <div id="notescontainer">
             <div id="notesbuttons">
-              <button id="takeanote" onClick={addnotewriter}>
-                <box-icon name="notepad"></box-icon>
-                <div className="button-text">
-                  <div className="button-text-inner">
-                    <h6>New Note</h6>
-                  </div>
-                  Take a Note
-                </div>
-              </button>
-              <Link to="/imagechat" id="notesbuttons withdrawing">
-                <button id="withdrawing">
-                  <box-icon name="paint" type="solid"></box-icon>
+              <Link to="/notes" id="takeanoteid" >
+                <button id="takeanote" className="thisButton" onClick={addnotewriter}>
+                  <Lottie
+                    options={addNoteButtonAnimationOptions}
+                    height={60}
+                    width={60}
+                  />
                   <div className="button-text">
-                    <div className="button-text-inner">
-                      <h6>New Note</h6>
-                    </div>
-                    With Image
+                    Create a New Note
                   </div>
                 </button>
               </Link>
-              <Link to="/interview-prep" id="notesbuttons withimage">
-                <button id="withimage">
-                  <box-icon type="solid" name="image-alt"></box-icon>
+              <Link to="/imagechat" id="withdrawingid" >
+                <button id="withdrawing" className="thisButton">
+                <Lottie
+                    options={ImageSolverButtonAnimationOptions}
+                    height={60}
+                    width={60}
+                  />
                   <div className="button-text">
-                    <div className="button-text-inner">
-                      <h6>New Note</h6>
-                    </div>
-                    With Video
+                    Solve Your Questions
+                  </div>
+                </button>
+              </Link>
+              <Link to="/interview-prep" id="withimageid">
+                <button id="withimage" className="thisButton">
+                <Lottie
+                    options={InterviewPrepButtonAnimationOptions}
+                    height={60}
+                    width={60}
+                  />
+                  <div className="button-text">
+                  Professionalism check
                   </div>
                 </button>
               </Link>
@@ -289,7 +323,7 @@ const Notes = ({
                   color={colors[index % colors.length]}
                   deleteNote={deleteNote}
                   editNote={editNote}
-                  viewnote={viewnote}                 
+                  viewnote={viewnote}
                 />
               ))}
             </div>
