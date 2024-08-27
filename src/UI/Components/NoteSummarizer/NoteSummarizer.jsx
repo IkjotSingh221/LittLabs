@@ -122,7 +122,7 @@ const NoteSummary = ({
                             <ThreeDots
                                 height={80}
                                 width={80}
-                                color="#4fa94d"
+                                color="#0579CF"
                             />
                         </div>
                     ) : (
