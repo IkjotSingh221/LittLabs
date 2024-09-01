@@ -49,7 +49,7 @@ export default function TaskCard({ taskKey, taskName, taskDescription, dueDate, 
             <Grid item xs>
 
               <Typography variant="subtitle2" component="div"> 
-                {taskName}
+                {taskName.length > 25 ? taskName.slice(0,22) + "..." : taskName}
               </Typography>
 
               <Typography variant="caption">
