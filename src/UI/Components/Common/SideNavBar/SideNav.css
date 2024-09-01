@@ -8,7 +8,7 @@
 
 #userprofile {
   display: flex;
-  align-items: left;
+  align-items: left; 
   margin: 0px;
   width: 200px; 
   height: 50px;
@@ -966,4 +966,15 @@ text-align: center;
 a {
   text-decoration: none;
   color: inherit;
+}
+
+#logoutButton{
+  display:flex;
+  gap:5px;
+  align-items: center;
+  color:#909090;
+  position:absolute;
+  bottom:20px;
+  font-size: 0.95rem;
+  cursor:pointer;
 }

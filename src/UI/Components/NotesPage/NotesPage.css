@@ -188,7 +188,7 @@
 transform: scale(1.1);
 }
 
-#inputnotetext {
+#inputnotetext { 
   width:100%;
   height:450px; 
   padding: 10px;
@@ -201,6 +201,7 @@ transform: scale(1.1);
   position: relative;
   padding-bottom: 20px;
   border: 1px solid #cbcbcb;
+  resize:none;
 }
 
 #inputnotetext:empty::before {
@@ -236,6 +237,7 @@ transform: scale(1.1);
   color: #000;
   position: relative;
   margin-bottom: 5px;
+  resize:none;
 }
 
 #inputnotetext::-webkit-scrollbar {
@@ -953,6 +955,10 @@ margin-top: 2px; /* Example value, adjust as needed */
 }
 
 #viewer-text ol {
+  margin-left: 20px; 
+}
+
+#postMessage ol{
   margin-left: 20px;
 }
 
@@ -960,6 +966,14 @@ margin-top: 2px; /* Example value, adjust as needed */
   margin-left: 20px;
 }
 
+#postMessage ul{
+  margin-left: 20px;
+}
+
 #viewer-text a{
   color: blue;
+}
+
+#postMessage a{
+  color:blue;
 }

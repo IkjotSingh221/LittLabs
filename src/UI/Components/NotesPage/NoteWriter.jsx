@@ -43,7 +43,7 @@ const NoteWriter = ({
         <div id="note-buttons">
             <button type="submit" style={{backgroundColor: 'transparent', border:'none'}}><box-icon name="save" color="#999"></box-icon></button>
           
-          {!editingNoteKey && <box-icon name="reset" color="#999" onClick={discardNote}></box-icon>}
+          {!editingNoteKey && <box-icon name="reset" color="#999" onClick={discardNote}></box-icon>} 
           
         </div>
       </form>

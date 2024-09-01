@@ -8,6 +8,7 @@ import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import ReactDOMServer from "react-dom/server";
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -98,8 +99,14 @@ const NoteSticker = ({
     );
 
     // Convert the React element to a string of HTML
-    const htmlString = htmlContent.props.children;
+
+
+    // const htmlString = htmlContent.props.children;
+    // const pdfContent = htmlToPdfmake(htmlString);
+
+    const htmlString = ReactDOMServer.renderToString(htmlContent);
     const pdfContent = htmlToPdfmake(htmlString);
+
 
     const documentDefinition = {
       content: pdfContent,

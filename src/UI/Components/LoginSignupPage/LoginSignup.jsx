@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LoginSignup.css";
 import "boxicons";
@@ -12,6 +12,15 @@ const LoginSignup = ({ setError, error}) => {
   const [signupUsername, setSignupUsername] = useState("");
   const [signupPassword, setSignupPassword] = useState("");
   const [signupPassword2, setSignupPassword2] = useState("");
+
+  const [shake, setShake] = useState(false);
+
+  useEffect(() => {
+    if (error) {
+      setShake(true);
+      setTimeout(() => setShake(false), 500);
+    }
+  }, [error]);
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -164,7 +173,7 @@ const LoginSignup = ({ setError, error}) => {
                     required
                   />
                 </div>
-                <button type="submit" className="signup-signin-button">
+                <button type="submit" className={`signup-signin-button ${shake ? "shake" : ""}`}>
                   Sign In
                 </button>
                 <a href="/forgotpass" id="forgot-password">Forgot your password?</a>
@@ -243,13 +252,13 @@ const LoginSignup = ({ setError, error}) => {
                     required
                   />
                 </div>
-                <button type="submit" className="signup-signin-button">Sign Up</button>
+                <button type="submit" className={`signup-signin-button ${shake ? "shake" : ""}`}>Sign Up</button>
                 <p id="error">{error}</p>
               </form>
             </div>
           </div>
         </div>
-      </div>
+      </div> 
     </div>
   );
 };

@@ -1,0 +1,93 @@
+/* .myCard{
+    background:rgb(164, 164, 229);
+    display:flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    border:solid 1px #ccc;
+    box-sizing: content-box;
+    padding:5px;
+    align-items: center;
+    flex-wrap: wrap;
+
+
+} */
+
+.myCard {
+    background: linear-gradient(135deg, #ece9e6, #ffffff);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap:12px;
+    border: solid 1px #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    text-align: center;
+    /* margin: 10px; */
+    height: auto; /* Allowing height to adjust based on content */
+    padding:10px;
+}
+
+.card-title {
+    font-size: 1em; /* Reduced font size */
+    /* margin-bottom: 5px; */
+    color: #333;
+}
+
+.score-container {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+#score_id{
+    display: flex;
+    align-items: center;
+}
+.score {
+    font-size: 1.5em; /* Reduced font size */
+    margin: 0;
+}
+
+.score-label {
+    font-size: 0.8em; /* Reduced font size */
+    margin-top: 5px;
+    /* padding: 3px 8px; Reduced padding */
+    border-radius: 4px;
+    color: #fff;
+}
+
+.excellent {
+    font-weight: bold;
+    padding-left: 3px;
+    padding-right: 3px;
+    background-color: #4caf50;
+}
+
+.great {
+    font-weight: bold;
+    padding-left: 3px;
+    padding-right: 3px;
+    background-color: #8bc34a;
+}
+
+.good-start {
+    font-weight: bold;
+    padding-left: 3px;
+    padding-right: 3px;
+    background-color: #ffe600;
+    /* color: #333; */
+}
+
+.needs-improvement {
+    font-weight: bold;
+    padding-left: 3px;
+    padding-right: 3px;
+    background-color: #ff9800;
+}
+
+.changes-required {
+    font-weight: bold;
+    padding-left: 3px;
+    padding-right: 3px;
+    background-color: #f44336;
+}

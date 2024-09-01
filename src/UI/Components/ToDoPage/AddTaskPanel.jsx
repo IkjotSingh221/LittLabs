@@ -36,7 +36,7 @@ const AddTaskPanel = ({
     try {
       const response = await createTodo(newTask);
 
-      newTask.taskKey = response.taskKey;
+      newTask.taskKey = response.message;
       delete newTask.username;
       setTasks([...tasks, newTask]);
       removeContent();
@@ -59,7 +59,7 @@ const AddTaskPanel = ({
   return (
     <div id="createNewTask">
       <div id="undo" onClick={hideTaskPanel}>
-        <box-icon type="solid" name="chevron-right"></box-icon>
+        <box-icon type="solid" name="chevron-right"></box-icon> 
       </div>
       <h2>Task:</h2>
       <form onSubmit={addTaskToTasksList} method="POST" action="">

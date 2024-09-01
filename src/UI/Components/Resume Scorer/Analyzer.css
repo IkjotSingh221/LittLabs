@@ -1,0 +1,110 @@
+.fullScreen{
+    width:100%;
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    /* gap:10px; */
+    /* background: pink; */
+}
+.topbar{
+    background-color: rgb(43, 43, 147);
+    color:white;
+}
+#cards{
+    width:100%;
+    height:20%;
+    display:grid;
+    grid-template-columns: repeat(5,1fr);
+   
+    
+}
+.op{
+    background:white;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    border:solid 1px #ccc;
+    box-sizing: content-box;
+    padding:5px;
+
+
+}
+
+.result{
+    background:white;
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    justify-content: space-evenly;
+    padding: 5px;
+    border-radius: 20px;
+}
+.greetings{
+   margin-top: 30px;
+   margin-bottom: 30px;;
+}
+
+#ovrscore{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    background: white;
+    justify-content: space-evenly;
+}
+#ovrscore h4{
+    margin-top: 20px;
+}
+/* slider */
+ .slider-container {
+    width: 80%;
+    margin: 10px auto;
+    text-align: center;
+    position: relative;
+  }
+  
+  .slider-track {
+    position: relative;
+    height: 15px;
+    background: linear-gradient(to right, red, yellow, green);
+    border-radius: 5px;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  
+  .slider-value-indicator {
+    position: absolute;
+    top: -15px; 
+    transform: translateX(-50%);
+  }
+  
+ 
+  .triangle {
+    position: absolute;
+    /* left: 50%; */
+    /* bottom: 100%; */
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid; /* Default triangle color */
+     transform: translateX(-50%) rotate(180deg);
+    margin-bottom: 0px;
+  }
+  .slider-value {
+    margin-top: 10px;
+    font-size: 16px;
+  }
+
+  .recommend{
+    background: white;
+    overflow-y: scroll;
+    margin-top: 20px;
+    padding:10px;
+    border-radius: 20px;
+  }
+
+  .recommend::-webkit-scrollbar{
+    display:none;
+  }
+  

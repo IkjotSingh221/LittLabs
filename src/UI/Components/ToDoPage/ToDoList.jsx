@@ -47,10 +47,11 @@ const ToDoList = ({ divId, listTitle, tasks, setTasks, username }) => {
     const toggleComplete = async (taskKey) => {
         let currentCompletionStatus = filteredTasks.filter((task)=> (task.taskKey===taskKey))[0].isCompleted;
         const todo = {username:username, taskKey:taskKey, isCompleted:!currentCompletionStatus};
-        const response = await completeTodo(todo);
+        
         setTasks(tasks.map(task => 
             task.taskKey === taskKey ? { ...task, isCompleted: !task.isCompleted } : task
         ));
+        const response = await completeTodo(todo);
     };
 
     

@@ -290,7 +290,7 @@ const Notes = ({
               </Link>
               <Link to="/imagechat" id="withdrawingid" >
                 <button id="withdrawing" className="thisButton">
-                <Lottie
+                  <Lottie
                     options={ImageSolverButtonAnimationOptions}
                     height={60}
                     width={60}
@@ -302,13 +302,13 @@ const Notes = ({
               </Link>
               <Link to="/interview-prep" id="withimageid">
                 <button id="withimage" className="thisButton">
-                <Lottie
+                  <Lottie
                     options={InterviewPrepButtonAnimationOptions}
                     height={60}
                     width={60}
                   />
                   <div className="button-text">
-                  Professionalism check
+                    Professionalism check
                   </div>
                 </button>
               </Link>

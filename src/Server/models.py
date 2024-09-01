@@ -43,6 +43,30 @@ class NoteSchema(BaseModel):
     noteText:str
     creationDate:str
 
+class PostSchema(BaseModel):
+    postDescription: str
+    postCreatedBy: str
+    postCreatedOn: str
+    postLikesCount: int = 0
+    likedByUsers: list[str] = []
+
+class LikeSchema(BaseModel):
+    postKey: str
+    username: str
+
+class CommentSchema(BaseModel):
+    commentDescription: str
+    commentCreatedBy: str
+    commentPostKey: str
+    commentUpvotes: int = 0
+    commentDownvotes: int = 0
+    upvotedByUsers: list[str] = []
+    downvotedByUsers: list[str] = []
+
+class VoteSchema(BaseModel):
+    commentKey: str
+    username: str
+
 class DeleteNoteSchema(BaseModel):
     username:str
     noteKey:str
@@ -67,3 +91,16 @@ class VideoAnalysis(typing.TypedDict):
     speaking_style: int
     overall_average: int
     review: str
+
+
+class ResetPasswordRequest(BaseModel):
+    email: str
+
+class ResumeScore(typing.TypedDict):
+    overallScore:int
+    brevityScore:int
+    impactScore:int
+    styleScore:int
+    skillsScore:int
+    recommendations:str
+    highlightedResume:str

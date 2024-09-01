@@ -9,16 +9,21 @@ import lottie from "lottie-web";
 import { defineElement } from "@lordicon/element";
 defineElement(lottie.loadAnimation);
 
-const NavBar = ({ tasks, setTasks, taskTypeList, setTaskTypeList, notes, setNotes,username }) => {
+const NavBar = ({ tasks, setTasks, taskTypeList, setTaskTypeList, notes, setNotes, username, setUpcoming, setUpcomingButton, upcoming, upcomingButton, studentCorner,
+  setStudentCorner,
+  profCorner,
+  setProfCorner }) => {
   const [newTaskTypeName, setNewTaskTypeName] = useState("");
   const [newTaskTypeColor, setNewTaskTypeColor] = useState("#ffffff");
   const [uncompletedTasksCount, setUncompletedTasksCount] = useState(0);
 
-  useEffect(()=>{
+
+
+  useEffect(() => {
     loadTasks(username);
     loadTaskTypeList(username);
     loadNotes(username);
-  },[]);
+  }, []);
 
   // useEffect(()=>{
   //   loadTasks(username);
@@ -175,7 +180,6 @@ const NavBar = ({ tasks, setTasks, taskTypeList, setTaskTypeList, notes, setNote
       </div>
 
       <div id="tasks">
-        <p style={{ display: isNavbarOpen ? "block" : "none"}}>Services</p>
         <ul>
           <NavLink to="/dashboard" activeClassName="active">
             <div className="tasks">
@@ -187,7 +191,7 @@ const NavBar = ({ tasks, setTasks, taskTypeList, setTaskTypeList, notes, setNote
           </NavLink>
           <NavLink to="/todo" activeClassName="active">
             <div className="tasks">
-              <box-icon name="chevrons-right"></box-icon>
+              <box-icon name='task'></box-icon>
               <li style={{ display: isNavbarOpen ? "block" : "none" }}>
                 To Do
               </li>
@@ -207,19 +211,25 @@ const NavBar = ({ tasks, setTasks, taskTypeList, setTaskTypeList, notes, setNote
               </li>
             </div>
           </NavLink>
+          <NavLink to="/community" activeClassName="active">
+            <div className="tasks">
+              <box-icon name="message-rounded-detail"></box-icon>
+              <li style={{ display: isNavbarOpen ? "block" : "none" }}>
+                Community
+              </li>
+            </div>
+          </NavLink>
+        </ul>
+        <br></br>
+        <div style={{ display: 'flex', cursor: 'pointer' }} onClick={() => { setStudentCorner(!studentCorner); setProfCorner(false); setUpcoming(false); setUpcomingButton(false) }}>
+          <box-icon name="chevrons-right"></box-icon><p style={{ display: isNavbarOpen ? "block" : "none" }}>Student Corner</p>
+        </div>
+        {studentCorner && (<ul>
           <NavLink to="/notes" activeClassName="active">
             <div className="tasks">
               <box-icon name="note"></box-icon>
               <li style={{ display: isNavbarOpen ? "block" : "none" }}>
                 Notes
-              </li>
-            </div>
-          </NavLink>
-          <NavLink to="/interview-prep" activeClassName="active">
-            <div className="tasks">
-              <box-icon name="laptop"></box-icon>
-              <li style={{ display: isNavbarOpen ? "block" : "none" }}>
-                Interview Preparation
               </li>
             </div>
           </NavLink>
@@ -247,12 +257,36 @@ const NavBar = ({ tasks, setTasks, taskTypeList, setTaskTypeList, notes, setNote
               </li>
             </div>
           </NavLink>
-        </ul>
+        </ul>)}
+        <br></br>
+        <div style={{ display: 'flex', cursor: 'pointer' }} onClick={() => { setProfCorner(!profCorner); setStudentCorner(false); setUpcoming(false); setUpcomingButton(false) }}>
+          <box-icon name="chevrons-right"></box-icon><p style={{ display: isNavbarOpen ? "block" : "none" }}>Professional Corner</p>
+        </div>
+        {profCorner && (<ul>
+          <NavLink to="/interview-prep" activeClassName="active">
+            <div className="tasks">
+              <box-icon name="laptop"></box-icon>
+              <li style={{ display: isNavbarOpen ? "block" : "none" }}>
+                Interview Preparation
+              </li>
+            </div>
+          </NavLink>
+          <NavLink to="/scorer" activeClassName="active">
+            <div className="tasks">
+              <box-icon name='file' ></box-icon>
+              <li style={{ display: isNavbarOpen ? "block" : "none" }}>
+                Resume Scorer
+              </li>
+            </div>
+          </NavLink>
+        </ul>)}
       </div>
 
       <div id="lists" style={{ display: isNavbarOpen ? "block" : "none" }}>
-        <p>Upcoming</p>
-        <ul>
+        <div style={{ display: 'flex', cursor: 'pointer' }} onClick={() => { setProfCorner(false); setStudentCorner(false); setUpcoming(!upcoming); setUpcomingButton(!upcoming) }}>
+          <box-icon name="chevrons-right"></box-icon><p>Upcoming</p>
+        </div>
+        {upcoming && (<ul>
           {taskTypeList.map((taskType) => (
             <SideNavTaskTypeList
               key={taskType.taskTypeKey}
@@ -261,8 +295,8 @@ const NavBar = ({ tasks, setTasks, taskTypeList, setTaskTypeList, notes, setNote
               deleteTaskType={deleteTaskType}
             />
           ))}
-        </ul>
-        <button type="button" className="button" onClick={toggleCreateTaskType}>
+        </ul>)}
+        {upcomingButton && (<button type="button" className="button" onClick={toggleCreateTaskType}>
           <span className="button__text">Add List</span>
           <span className="button__icon">
             <svg
@@ -281,7 +315,7 @@ const NavBar = ({ tasks, setTasks, taskTypeList, setTaskTypeList, notes, setNote
               <line y2="12" y1="12" x2="19" x1="5"></line>
             </svg>
           </span>
-        </button>
+        </button>)}
 
         {isCreatingTaskType && (
           <div id="inputnewlist">
@@ -306,7 +340,13 @@ const NavBar = ({ tasks, setTasks, taskTypeList, setTaskTypeList, notes, setNote
           </div>
         )}
       </div>
+      <NavLink to="/" activeClassName="active">
+        <div id="logoutButton">
+          <box-icon name='power-off' color='#aaa' size='20px'></box-icon>
+          {isNavbarOpen && (<p>Logout</p>)}</div>
+      </NavLink>
     </div>
+
   );
 };
 

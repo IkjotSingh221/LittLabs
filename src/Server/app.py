@@ -155,6 +155,20 @@ async def create_access_token(user_data:LoginSchema):
 
 
 
+@app.post("/reset-password")
+async def reset_password(req: ResetPasswordRequest):
+    try:
+        # Send password reset email
+        user = auth.get_user_by_email(req.email)
+        firebase.auth().send_password_reset_email(req.email)
+        return {"message": "Password reset email sent successfully."}
+    except firebase_admin.auth.UserNotFoundError:
+        raise HTTPException(status_code=404, detail="User with this email does not exist.")
+    except firebase_admin.auth.AuthError as e:
+        raise HTTPException(status_code=400, detail=f"Error sending password reset email: {e}")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Internal server error: {e}")
+
 
 
 @app.put("/notes/update")
@@ -369,7 +383,7 @@ async def chat(userPrompt:ChatSchema):
         db.collection('Users').document(userPrompt.username).collection('Roadmap').document(incomplete_rmap_tasks[0]['taskKey']).delete()
         
 
-        return {"response": "Roadmap created successfully! Please check your Todo Page for the updates. New tasks will be revealed as soon as you complete the previous ones."}
+        return {"response": "Roadmap created successfully! Please check your Todo Page for the updates. New tasks will be revealed as soon as you complete the previous ones.", "task": incomplete_rmap_tasks[0]}
     else:
         response = chat.send_message(userPrompt.question)
 
@@ -380,7 +394,7 @@ async def chat(userPrompt:ChatSchema):
 
 @app.post("/upload-video")
 async def process_video(file: UploadFile = File(...)):
-    model = genai.GenerativeModel('gemini-1.5-flash',
+    model = genai.GenerativeModel('gemini-1.5-pro',
                               generation_config={"response_mime_type": "application/json",
                                                  "response_schema": VideoAnalysis})
 
@@ -405,8 +419,8 @@ async def process_video(file: UploadFile = File(...)):
 
         # Generate content using the uploaded video and the prompt
         print("Generating content...")
-        response = model.generate_content([video_file, prompt], request_options={"timeout": 600})
-
+        response = model.generate_content([video_file, prompt])
+        print(response.text)
     return json.loads(response.text)
 
 
@@ -483,6 +497,199 @@ async def generate_flashcards(noteKey: str = Form(None), username: str = Form(No
     response = model.generate_content(prompt)
 
     return json.loads(response.text)
+
+
+
+@app.post("/post/create")
+async def create_post(post: PostSchema):
+    new_post_ref = db.collection('Posts').document()
+    new_post_ref.set({
+        "postDescription": post.postDescription,
+        "postCreatedBy": post.postCreatedBy,
+        "postCreatedOn": post.postCreatedOn,
+        "postLikesCount": post.postLikesCount,
+        "likedByUsers":post.likedByUsers,
+        "postKey": new_post_ref.id
+    })
+    
+    return {"message": new_post_ref.id}
+
+@app.get("/post/read")
+async def read_posts():
+    posts = db.collection('Posts').get()
+    posts_dict = [post.to_dict() for post in posts]
+    return posts_dict
+
+@app.post("/comment/create")
+async def create_comment(comment: CommentSchema):
+    new_comment_ref = db.collection('Comments').document()
+    new_comment_ref.set({
+        "commentDescription": comment.commentDescription,
+        "commentCreatedBy": comment.commentCreatedBy,
+        "commentPostKey": comment.commentPostKey,
+        "commentUpvotes": comment.commentUpvotes,
+        "commentDownvotes": comment.commentDownvotes,
+        "upvotedByUsers": comment.upvotedByUsers,
+        "downvotedByUsers": comment.downvotedByUsers,
+        "commentKey": new_comment_ref.id
+    })
+    
+    return {"message": new_comment_ref.id}
+
+@app.get("/comment/read")
+async def read_comments():
+    comments = db.collection('Comments').get()
+    comments_dict = [comment.to_dict() for comment in comments]
+    return comments_dict
+
+@app.post("/post/like-unlike")
+async def like_post(like: LikeSchema):
+    post_ref = db.collection('Posts').document(like.postKey)
+    post = post_ref.get().to_dict()
+    print(post)
+    if like.username not in post["likedByUsers"]:
+        # Like the post
+        post['likedByUsers'].append(like.username)
+        post_ref.update({
+            "postLikesCount": post['postLikesCount'] + 1,
+            "likedByUsers": post['likedByUsers']
+        })
+        return {"message": "Post liked"}
+    else:
+        # Unlike the post
+        post['likedByUsers'].remove(like.username)
+        post_ref.update({
+            "postLikesCount": post['postLikesCount'] - 1,
+            "likedByUsers": post['likedByUsers']
+        })
+        return {"message": "Post unliked"}
+    
+@app.post("/comment/upvote")
+async def upvote_comment(vote: VoteSchema):
+    comment_ref = db.collection('Comments').document(vote.commentKey)
+    comment = comment_ref.get().to_dict()
+
+    if vote.username not in comment['upvotedByUsers']:
+        # Upvote the comment
+        comment['upvotedByUsers'].append(vote.username)
+        comment_ref.update({
+            "commentUpvotes": comment['commentUpvotes'] + 1,
+            "upvotedByUsers": comment['upvotedByUsers']
+        })
+
+        # If the user had downvoted before, remove their downvote
+        if vote.username in comment['downvotedByUsers']:
+            comment['downvotedByUsers'].remove(vote.username)
+            comment_ref.update({
+                "commentDownvotes": comment['commentDownvotes'] - 1,
+                "downvotedByUsers": comment['downvotedByUsers']
+            })
+
+        return {"message": "Comment upvoted"}
+    else:
+        comment['upvotedByUsers'].remove(vote.username)
+        comment_ref.update({
+            "commentUpvotes": comment['commentUpvotes'] - 1,
+            "upvotedByUsers": comment['upvotedByUsers']
+        })
+        return {"message": "User had already upvoted this comment"}
+    
+@app.post("/comment/downvote")
+async def downvote_comment(vote: VoteSchema):
+    comment_ref = db.collection('Comments').document(vote.commentKey)
+    comment = comment_ref.get().to_dict()
+
+    if vote.username not in comment['downvotedByUsers']:
+        # Downvote the comment
+        comment['downvotedByUsers'].append(vote.username)
+        comment_ref.update({
+            "commentDownvotes": comment['commentDownvotes'] + 1,
+            "downvotedByUsers": comment['downvotedByUsers']
+        })
+
+        # If the user had upvoted before, remove their upvote
+        if vote.username in comment['upvotedByUsers']:
+            comment['upvotedByUsers'].remove(vote.username)
+            comment_ref.update({
+                "commentUpvotes": comment['commentUpvotes'] - 1,
+                "upvotedByUsers": comment['upvotedByUsers']
+            })
+
+        return {"message": "Comment downvoted"}
+    else:
+        comment['downvotedByUsers'].remove(vote.username)
+        comment_ref.update({
+            "commentDownvotes": comment['commentDownvotes'] - 1,
+            "downvotedByUsers": comment['downvotedByUsers']
+        })
+        return {"message": "User already downvoted this comment"}
+
+
+@app.post("/scorer")
+async def generate_resumeReview(file: UploadFile = File(None), jobDescription: str = ""):
+    print(f"Received file: {file.filename if file else 'No file'}")
+
+    # ResumeScorerSchema = {
+    #     "type": "array",
+    #     "items": {
+    #         "type": "object",
+    #         "properties": {
+    #             "overallScore": {"type": "int"},
+    #             "impactScore": {"type": "int"},
+    #             "brevityScore": {"type": "int"},
+    #             "styleScore":{"type":"int"},
+    #             "skillsScore":{"type":"int"},
+    #             "recommendations":{"type":"string"},
+    #             "highlightedResume":{"type":"string"}
+    #         },
+    #         "required": ["overallScore", "impactScore", "brevityScore","styleScore","skillsScore","recommendations"]
+    #     }
+    # }
+
+    content = ""
+
+    if file and file.filename != "":
+        # Process the uploaded PDF file
+        with tempfile.TemporaryDirectory() as tmpdirname:
+            file_location = os.path.join(tmpdirname, file.filename)
+            with open(file_location, "wb") as f:
+                shutil.copyfileobj(file.file, f)
+            
+            loader = PyPDFLoader(file_location)
+            docs = loader.load()
+            
+            text_splitter = RecursiveCharacterTextSplitter(chunk_size=10000, chunk_overlap=2000)
+            splits = text_splitter.split_documents(docs)
+            
+            content = '\n\n\n\n'.join([split.page_content for split in splits])
+            print("Processed PDF content.")
+
+    else:
+        raise HTTPException(status_code=400, detail="No PDF uploaded.")
+
+    # Proceed with the prompt creation and model interaction
+    prompt_template = resumeScorerPrompt(docs,jobDescription)
+
+    model = genai.GenerativeModel(
+        'gemini-1.5-flash',
+        generation_config={
+            "response_mime_type": "application/json",
+            "response_schema": ResumeScore
+        }
+    )
+
+    
+    
+    response = model.generate_content(prompt_template)
+    print(response.text)
+    
+
+    return json.loads(response.text)
+
+
+
+
+
 
 
 @app.post("/imagesolver/")

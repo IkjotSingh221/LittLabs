@@ -226,6 +226,11 @@ animation: fadeIn 0.5s forwards;
   padding: 0;
 }
 
+#postMessage p {
+  margin: 0;
+  padding: 0;
+}
+
 #chatbubble h1,
 #chatbubble h2,
 #chatbubble h3,
@@ -235,8 +240,23 @@ animation: fadeIn 0.5s forwards;
   margin: 5px 0;
 }
 
+#postMessage h1,
+#postMessage h2,
+#postMessage h3,
+#postMessage h4,
+#postMessage h5,
+#postMessage h6 {
+  margin: 5px 0;
+}
+
 #chatbubble ul,
 #chatbubble ol {
+  margin: 5px 0;
+  padding-left: 20px;
+}
+
+#postMessage ul,
+#postMessage ol {
   margin: 5px 0;
   padding-left: 20px;
 }
@@ -248,7 +268,11 @@ animation: fadeIn 0.5s forwards;
 }
 
 #chatbubble a:hover {
-  text-decoration: underline;
+  text-decoration: underline; 
+}
+
+#postMessage a:hover {
+  text-decoration: underline; 
 }
 
 #chatbubble blockquote {
@@ -258,9 +282,27 @@ animation: fadeIn 0.5s forwards;
   border-left: 5px solid #9859f6;
 }
 
+#postMessage blockquote {
+  margin: 5px 0;
+  padding: 10px;
+  background-color: #ccc;
+  border-left: 5px solid #aaa;
+}
+
 #chatbubble code {
   display: inline-block;
   background-color: #c6b2e4;
+  padding: 4px 6px;
+  border-radius: 8px;
+  font-family: monospace;
+  font-size: 0.95rem;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+#postMessage code {
+  display: inline-block;
+  background-color: none;
   padding: 4px 6px;
   border-radius: 8px;
   font-family: monospace;

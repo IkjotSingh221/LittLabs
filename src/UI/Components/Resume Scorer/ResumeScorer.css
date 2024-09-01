@@ -1,0 +1,37 @@
+.page-outside{
+    border:2px solid #ccc;
+    border-radius: 20px;
+    height:98vh;
+    overflow:hidden;
+    position: relative;
+    top:5px;
+    box-sizing: border-box;
+    font-family: "Poppins,sans-serif";
+    display: flex;
+    /* align-items: center; */
+    /* justify-content: center; */
+}
+.Analyze{
+    height:100%;
+    width:50%;
+    padding:10px;
+    border-right: 4px solid #ccc;
+}
+
+.rpv-core_text-layer{
+    height:100%;
+}
+
+#displayResume{
+    width:50%;
+    height:100%;
+}
+
+.pdf-upload{
+    height:100%;
+    width:100%;
+}
+.describe{
+    height:100%;
+    width: 100%;
+}

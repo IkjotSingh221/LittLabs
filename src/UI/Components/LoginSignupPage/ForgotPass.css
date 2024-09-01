@@ -1,0 +1,116 @@
+@import '~boxicons/css/boxicons.min.css';
+
+.forgetpage_container {
+    display: inline-flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    height: 100vh; 
+    width: 100vw; 
+    background-color: #f7f9fc; 
+}
+
+
+.data {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); 
+    padding: 20px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+.animation {
+   
+    max-width: 350px; /* Limit width of animation */
+    margin-left: 50px;
+    margin-right: 130px; /* Space between animation and form */
+}
+
+.title h3 {
+
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #333; 
+}
+
+.title p {
+    font-size: 14px;
+    font-weight: normal;
+    color: #555; 
+    margin-bottom: 20px;
+}
+/* Container for the input and icon */
+.inputclass {
+    /* position: relative; */
+    width: 100%; /* Ensure the container takes full width of the input area */
+    display:flex;
+    align-items: center;
+    gap:5px;
+    background:#eee;
+    padding:10px;
+    border-radius: 20px;
+    margin-bottom: 5%;
+}
+
+/* Styling for the box-icon */
+.inputclass box-icon.icon {
+    position: absolute;
+    left: 10px; /* Adjust this value to move the icon horizontally */
+    top: 50%; /* Position icon in the center vertically */
+    transform: translateY(-50%); /* Center the icon vertically */
+    color: #007bff; /* Icon color */
+    pointer-events: none; /* Prevent the icon from interfering with input interaction */
+}
+
+/* Styling for the input field */
+.emailInput input {
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    box-sizing: border-box;
+    background: none;
+}
+
+
+
+/* Button styling */
+button.ForgotPassword {
+    width: 40%;
+    padding: 10px;
+    border: none;
+    border-radius: 23px;
+    background-color: 
+    #2234AE; /* Primary color */
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button.ForgotPassword:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+
+
+
+@media (max-width: 768px) {
+    .animation{
+        padding-left:10% ;
+    }
+    .forgetpage_container {
+        flex-direction: column; 
+        align-items: center; 
+    }
+
+    .animation, .data {
+        width: 90%; 
+        max-width: none;
+    }
+
+    .data {
+        margin-top: 20px;
+        width:60%; 
+    }
+}

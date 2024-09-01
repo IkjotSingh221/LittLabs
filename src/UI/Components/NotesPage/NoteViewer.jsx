@@ -80,7 +80,7 @@ const NoteViewer = forwardRef(
         <box-icon type='solid' name='pencil'></box-icon>
         </button>
         
-      </div>
+      </div> 
     );
   }
 );

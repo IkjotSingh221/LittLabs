@@ -1,9 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import "boxicons";
 import "./NotesPage.css";
-import LofiTrack1 from '../../Assets/LofiTrack1.mp3';
-import LofiTrack2 from '../../Assets/LofiTrack2.mp3';
-import StudyLofiMusic from '../../Assets/StudyLofiMusic.mp3';
 import Song from './song.jsx';
 
 const SidePanel = () => {

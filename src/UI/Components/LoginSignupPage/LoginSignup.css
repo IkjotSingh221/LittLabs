@@ -4,7 +4,7 @@ body {
 }
 
 
-#signInSignUpBox {
+#signInSignUpBox { 
   position: relative;
   width: 55vw;
   height: 80vh;
@@ -289,6 +289,25 @@ input:focus {
   border: 1px solid rgb(255, 255, 255);
   padding: 10px 40px;
   cursor: pointer;
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+}
+
+.shake {
+  animation: shake 0.5s;
 }
 
 @media (max-width: 830px) {

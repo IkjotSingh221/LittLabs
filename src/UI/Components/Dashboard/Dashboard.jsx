@@ -26,6 +26,8 @@ export default function Dashboard({
   notes,
   setNotes,
   username,
+  setUpcoming,
+  setUpcomingButton
 }) {
   const [quote, setQuote] = useState("");
   const [author, setAuthor] = useState("");
@@ -36,6 +38,9 @@ export default function Dashboard({
     // loadTaskTypeList(username);
     // loadNotes(username);
     getRandomQuote(quotes);
+    setUpcoming(false);
+    setUpcomingButton(false);
+
   }, []);
 
   // const loadTasks = async (username) => {

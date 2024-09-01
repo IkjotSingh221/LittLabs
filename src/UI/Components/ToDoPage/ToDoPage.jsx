@@ -5,13 +5,15 @@ import ToDoList from "./ToDoList";
 import ScoreMeter from "./ScoreMeterHolder";
 import AddTaskPanel from "./AddTaskPanel";
 import Chatbot from "../Common/ChatBot/ChatBot";
-import { readTaskType, readTodos } from "../../API/todo.api"; 
-const ToDoPage = ({ 
+import { readTaskType, readTodos } from "../../API/todo.api";
+const ToDoPage = ({
   tasks,
   setTasks,
   taskTypeList,
   setTaskTypeList,
   username,
+  setUpcoming,
+  setUpcomingButton
 }) => {
   const [currentDay, setCurrentDay] = useState(0);
   const [isAddTaskPanelVisible, setIsAddTaskPanelVisible] = useState(false);
@@ -20,6 +22,8 @@ const ToDoPage = ({
     setCurrentDay(new Date().getDate());
     // loadTasks(username);
     // loadTaskTypeList(username);
+    setUpcoming(true);
+    setUpcomingButton(true);
   }, []);
 
   // useEffect(() => {
@@ -78,13 +82,13 @@ const ToDoPage = ({
     );
   };
 
-  return ( 
+  return (
     <>
       <div id="todopage">
 
         <div id="todos">
           <div id="date">
-            <h1 id="greeting">Hello {username}!</h1>
+            <h1 id="greeting" onClick={(e)=>console.log(tasks)}>Hello {username}!</h1>
             <div id="currentDay">{currentDay}</div>
           </div>
           <button className="addTaskButton" onClick={toggleAddTaskPanel}>
@@ -98,7 +102,7 @@ const ToDoPage = ({
             tasks={tasks}
             setTasks={setTasks}
             toggleComplete={toggleComplete}
-            username={username} 
+            username={username}
           />
           <ToDoList
             divId="tomorrowtasks"
@@ -106,7 +110,7 @@ const ToDoPage = ({
             tasks={tasks}
             setTasks={setTasks}
             toggleComplete={toggleComplete}
-            username={username} 
+            username={username}
           />
           <ToDoList
             divId="thisweektasks"
@@ -118,18 +122,18 @@ const ToDoPage = ({
           />
           <ScoreMeter tasks={tasks} />
 
-          {isAddTaskPanelVisible && (
+          <div className={`addTaskPanel ${isAddTaskPanelVisible ? 'visible' : 'hidden'}`}>
             <AddTaskPanel
               tasks={tasks}
               setTasks={setTasks}
               taskTypeList={taskTypeList}
               hideTaskPanel={toggleAddTaskPanel}
-              username={username} 
+              username={username}
             />
-          )}
+          </div>
         </div>
       </div>
-      <Chatbot username={username}/>
+      <Chatbot username={username} />
     </>
   );
 };

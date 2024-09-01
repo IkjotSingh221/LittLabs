@@ -1,0 +1,163 @@
+.Uploadscreen {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #f0f0f5, #d6e0f0);
+    font-family: 'Arial', sans-serif;
+    padding-top: 0%;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-bottom: 50px;
+    box-sizing: border-box;
+  }
+  
+  #headingg {
+    margin-bottom: 25px;
+    width: 900px;
+    align-items: center;
+    text-align: center;
+}
+#head_para {
+  text-align: center; /* Ensure paragraph text is centered */
+  width: 900px; 
+  height: fit-content;
+  margin: 0 auto; /* Center the paragraph within its container */
+}
+#headingg h1 {
+    margin: 0;
+    font-size: 36px; /* Larger font size for emphasis */
+    color: #333;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Subtle shadow for text */
+}
+
+#headingg p {
+    font-size: 18px; /* Slightly smaller than the heading */
+    color: #555;
+    margin-top: 15px;
+    line-height: 1.5;
+    width: 900px;
+    text-align: center;
+}
+  
+  #pdfdropbox {
+    width: 90%; /* Increased width to cover more of the page */
+    max-width: 900px;
+    padding: 60px; /* Increased padding */
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* More pronounced shadow */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+  
+  #pdfdropbox:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+  }
+  
+  #droppdf {
+    width: 100%;
+    height: 300px; /* Further increased height */
+    padding: 50px;
+    border: 4px dashed #007bff; /* Thicker border for visibility */
+    border-radius: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f7f9fc;
+  }
+  
+  #droppdf:hover {
+    background-color: #e6f2ff;
+    border-color: #0056b3;
+  }
+  
+  .file-label p {
+    margin: 0;
+    font-size: 20px; /* Larger text for clarity */
+    color: #333;
+  }
+  
+  .pdf-info {
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: #e6f7ff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .file-details p {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .remove-button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .remove-button:hover {
+    background-color: #e60000;
+  }
+  
+  #next_button {
+    margin-top: 30px;
+    width: 160px; /* Slightly wider for a more balanced look */
+    height: 50px;
+    background-image: linear-gradient(to right, #007bff, #00c6ff); /* Gradient background */
+    color: white;
+    border: none;
+    border-radius: 30px; /* More rounded corners */
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2); /* Light shadow for a lifting effect */
+  }
+  
+  #next_button:hover {
+    background-image: linear-gradient(to right, #0056b3, #0099cc); /* Darker gradient on hover */
+    box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3); /* Increase shadow on hover */
+    transform: translateY(-3px); /* Slight upward movement */
+  }
+  
+  #next_button:active {
+    background-image: linear-gradient(to right, #004080, #0073e6); /* Even darker gradient */
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2); /* Smaller shadow on click */
+    transform: translateY(1px); /* Slight downward movement */
+  }
+  
+  #next_button:focus {
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.4); /* Add a focus ring with blue glow */
+  }
+  
+  
+  .error {
+    color: red;
+    margin-top: 10px;
+    font-size: 14px;
+  }
+
+ 

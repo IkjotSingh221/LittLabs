@@ -95,12 +95,12 @@ const InterviewPrepAnalyzer = ({ username }) => {
       if (!data) {
         throw new Error("Invalid response structure.");
       }
-      const vocabulary = data.video_analysis.vocabulary;
-      const confidence_level = data.video_analysis.confidence_level;
-      const engaging_ability = data.video_analysis.engaging_ability;
-      const speaking_style = data.video_analysis.speaking_style;
-      const overall_average = data.video_analysis.overall_average;
-      const review = data.video_analysis.review;
+      const vocabulary = data.vocabulary;
+      const confidence_level = data.confidence_level;
+      const engaging_ability = data.engaging_ability;
+      const speaking_style = data.speaking_style;
+      const overall_average = data.overall_average;
+      const review = data.review;
       // error might be here
 
       setScores({ vocabulary, confidence: confidence_level, engaging: engaging_ability, speakingStyle: speaking_style, overallPerformance: overall_average });
