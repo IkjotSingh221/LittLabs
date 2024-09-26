@@ -6,26 +6,28 @@ import News from "./News";
 const DisplayCard = () => {
     const news = [
         {
-            "headline": "New AI Technology Revolutionizes Healthcare",
-            "link": "https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?cs=srgb&dl=pexels-anjana-c-169994-674010.jpg&fm=jpg",
-            "description": "A breakthrough in AI is set to transform patient care by enabling faster and more accurate diagnoses...",
-            "image": "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg"
+            "headline": "Chandrayaan-3’s Pragyan rover discovers big crater",
+            "link": "https://indianexpress.com/article/technology/science/chandrayaan-3-pragyan-rover-discovers-big-crater-9583520/",
+            "description": "The discovery of the ancient crater with a diameter of 160 km continues to prove why Chandrayaan-3 was one of the most...",
+            "image": "https://pbs.twimg.com/media/GYDuv0eW4AEJEMG?format=jpg&name=small"
         },
         {
-            "headline": "Global Markets Respond to Economic Downturn",
-            "link": "https://cdn.pixabay.com/photo/2024/05/26/10/15/bird-8788491_1280.jpg",
-            "description": "Stock markets around the world are reacting to recent economic challenges with significant fluctuations...",
-            "image": "https://gratisography.com/wp-content/uploads/2024/01/gratisography-cyber-kitty-800x525.jpg"
+            "headline": "Two more asteroids heading towards Earth, alerts NASA",
+            "link": "https://indianexpress.com/article/technology/science/two-more-asteroids-heading-towards-earth-9582036/",
+            "description": "Nasa's Jet Propulsion Laboratory reassures that even these asteroids will pass at a safe distance from Earth...",
+            "image": "https://th-thumbnailer.cdn-si-edu.com/lIz8h4FCyAyHEr4s2U4X6udGxbs=/1000x750/filters:no_upscale():focal(1750x1083:1751x1084)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer_public/90/df/90dfeb2c-1659-4b56-969c-9c4255f9c2f7/space_safety_programme_-_near_earth_objects.jpg"
         },
         {
-            "headline": "Renewable Energy Sources Surpass Fossil Fuels",
-            "link": "https://imageio.forbes.com/specials-images/imageserve/5faad4255239c9448d6c7bcd/Best-Animal-Photos-Contest--Close-Up-Of-baby-monkey/960x0.jpg?format=jpg&width=960",
-            "description": "For the first time, renewable energy has overtaken fossil fuels in terms of global energy production...",
+            "headline": "Moving Black Holes Detected",
+            "link": "https://indianexpress.com/article/technology/science/swarm-of-black-holes-detected-moving-through-milky-ways-star-cluster-9579738/",
+            "description": "In around a billion years, the cluster is expected to dissolve entirely, leaving behind only black holes orbiting the Milky Way's centre...",
+            "image": "https://discovery.sndimg.com/content/dam/images/discovery/fullset/2022/10/Blackhole%20GettyImages-956705946.jpg.rend.hgtvcom.1280.1280.suffix/1665028642072.jpeg"
         },
         {
-            "headline": "Tech Giants Announce Collaboration on Cybersecurity",
-            "link": "https://cdn.pixabay.com/photo/2024/02/26/19/39/monochrome-image-8598798_1280.jpg",
-            "description": "Leading technology companies have announced a joint effort to enhance cybersecurity measures worldwide...",
+            "headline": "Earth to get a temporary mini-moon named 2024 PT5",
+            "link": "https://indianexpress.com/article/technology/science/earth-second-moon-2024-pt5-9570443/",
+            "description": "Technically, the 2024 PT5 asteroid isn’t a mini-moon, as it will not complete the full revolution around Earth...",
+            "image": "https://images.indianexpress.com/2024/09/earth-moon-mini-moon.jpg?w=640"
         }
     ];
     return (
