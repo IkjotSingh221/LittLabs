@@ -110,11 +110,12 @@ const ResumeScorer = ({ username }) => {
             <div className="Analyze">
               <Analyzer
                 username={username}
-                overallScore={resumeResponse.overallScore}
-                impactScore={resumeResponse.impactScore}
-                brevityScore={resumeResponse.brevityScore}
-                styleScore={resumeResponse.styleScore}
-                skillsScore={resumeResponse.skillsScore}
+                overallScore={resumeResponse.overallAlignmentScore}
+                impactScore={resumeResponse.impactOfAchievements}
+                brevityScore={resumeResponse.keywordTerminologyMatching}
+                styleScore={resumeResponse.formatAndReadability}
+                skillsScore={resumeResponse.skillsRelevancyScore}
+                roleAlignmentScore={resumeResponse.roleAlignmentScore}
                 recommendations={resumeResponse.recommendations}
               />
             </div>

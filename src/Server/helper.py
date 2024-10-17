@@ -289,39 +289,103 @@ This is just the beginning—there’s so much more to discover. Happy noting! �
 """
 
 def resumeScorerPrompt(docs, jobDescription):
-    return f"""You are an expert in resume evaluation with extensive experience in assessing resumes across various industries and job roles. Your expertise lies in understanding what hiring managers seek and providing precise, actionable feedback to enhance resume quality. I am submitting my resume for your evaluation and request that you analyze it in the context of the specific job position I am targeting.
+    return f""" You are a highly specialized resume evaluator tasked with providing *strict, job-specific feedback* based on the *exact* job description provided. Your evaluation must emphasize precise alignment with the job description, penalizing mismatches and offering *detailed recommendations* on how to improve any deficiencies. The scoring should reflect how well the resume meets the requirements, and your feedback must provide clear, actionable suggestions for improvement.
 
-Job Description: {jobDescription}
+### Job Description:
+{jobDescription}
 
-### Instructions:
+### Resume Content:
+{docs}
 
-#### 1. Resume Scoring:
-   Evaluate the resume against the following criteria and provide a comprehensive score for each. The scoring should be detailed, reflecting the resume's effectiveness in meeting the job description's requirements and tech stack. Ensure that all scores are provided, and no parameters are left out. Each criterion is scored out of 100, with an overall score out of 100. For each score, include a detailed explanation of the reasoning behind the score, and cite specific examples from the resume text where relevant.
+### Evaluation Criteria with Detailed Recommendations:
 
-   - Overall Score (out of 100): Provide an aggregate score that reflects the resume's overall effectiveness for the targeted job. Offer a detailed explanation of the score, outlining key strengths and weaknesses observed, referencing specific text from the resume to support your evaluation.
-   - Brevity Score (Keywords Matching): Assess how well the resume matches the specific keywords and phrases mentioned in the job description. Highlight specific sections or lines from the resume where keywords are used effectively or missing. Suggest precise keywords from the job description that should be integrated and indicate where they could be placed.
-   - Impact Score (Achievements and Metrics): Evaluate the relevance and impact of the achievements listed. Reference specific achievements from the resume that demonstrate quantifiable results and contributions. Suggest how these could be improved or rephrased, providing examples of revised text that better align with job responsibilities and outcomes.
-   - Style Score (Format and Readability): Examine the resume's overall style, including its format, structure, and readability. Provide feedback with direct references to specific formatting issues, such as inconsistent bullet points, awkward layouts, or poor readability, and suggest exact changes to improve these elements.
-   - Skills Score (Skills and Qualifications): Evaluate the relevance, strength, and presentation of both technical and soft skills. Point out specific skills mentioned in the resume that align well with the job requirements or are missing. Suggest edits or additions with references to how these changes would better match the job description.
+#### 1. *Role Alignment (Critical)*
+   - *Role Fit* (out of 100): 
+     Evaluate how closely the resume aligns with the responsibilities and role outlined in the job description.
+     - *Penalization Guidelines*: Penalize heavily if irrelevant roles or responsibilities dominate the resume. Deduct points for any lack of relevant experience related to the job’s specific duties.
+     - *Detailed Recommendations*: 
+       - *If strong alignment*: Highlight the specific experiences in the resume that demonstrate a close fit to the job. 
+       - *If weak alignment*: Identify the mismatched roles or responsibilities. Provide examples of experiences that are irrelevant to the job and recommend replacing or minimizing these. Suggest adding more role-specific experiences or reframing the candidate’s responsibilities to better match the job description.
 
-#### 2. Detailed Recommendations:
-   Provide a comprehensive paragraph of recommendations with full clarity on how to improve the resume. Your feedback should be highly specific, referencing the exact text from the resume that requires adjustment:
+#### 2. *Skills Relevancy (Critical)*
+   - *Skills Match* (out of 100): 
+     Assess the resume’s skills section, focusing solely on the skills required by the job description.
+     - *Penalization Guidelines*: Deduct points if key skills from the job description are missing, underrepresented, or overshadowed by unrelated skills.
+     - *Detailed Recommendations*: 
+       - *If strong alignment*: Mention which key skills match well and how these strengthen the resume’s alignment with the job description.
+       - *If weak alignment*: Clearly identify missing critical skills from the job description and suggest specific skills the candidate should include to improve relevance. If irrelevant skills dominate, recommend downplaying or removing them, and explain how this adjustment would make the resume more focused on the job at hand.
 
-   - Keyword Integration: Identify precise areas in the resume where critical keywords from the job description could be better integrated. Use direct excerpts from the resume and provide suggestions on how to refine the language to better align with the job description.
-   - Achievements Enhancement: Suggest specific ways to quantify achievements more effectively, using current text from the resume as a baseline. Highlight bullet points that could benefit from more detail or clearer metrics, and provide examples of how these could be rewritten.
-   - Skills Alignment: Offer targeted advice on improving the presentation of skills by referencing specific entries from the resume. Point out any gaps between the skills listed and those required by the job, and suggest edits or removals to streamline and strengthen the skills section.
-   - Formatting Improvements: Comment on the resume's formatting and readability by citing exact examples of problematic areas. Suggest precise changes, such as reformatting sections or adjusting layout elements, to make the document more professional and easier to read.
-   - Content Relevance: Highlight specific parts of the resume that include outdated or irrelevant information. Advise on removing or revising these sections, citing the text and offering more relevant alternatives that better align with the job description.
-   - Overall Alignment: Provide an overall assessment of how well the resume aligns with the job description. Mention any critical issues that could hinder the resume's effectiveness, referencing specific resume sections and providing clear guidance on how to correct these issues.
+#### 3. *Keywords and Terminology Matching*
+   - *Keywords Use* (out of 100): 
+     Evaluate how well the resume incorporates the keywords and phrases from the job description.
+     - *Penalization Guidelines*: Penalize heavily if the resume lacks important keywords from the job description or uses terms from unrelated fields.
+     - *Detailed Recommendations*: 
+       - *If strong alignment*: Highlight the effective use of job-specific terminology and how it contributes to the resume’s alignment with the job.
+       - *If weak alignment*: Identify critical keywords that are missing and recommend specific phrases or terminology the candidate should include. If the resume uses unrelated jargon or terminology from a different field, suggest adjusting the language to better align with the job description and industry standards.
 
-#### 3. Mistakes to Avoid:
-   Highlight common mistakes found in the resume by pulling specific examples from the text. Provide clear instructions on how to avoid these mistakes in the future, using direct excerpts to illustrate ineffective language, unnecessary jargon, or areas that fail to resonate with hiring managers. Offer corrected versions or alternative phrasing that would enhance the resume's appeal.
+#### 4. *Impact of Achievements*
+   - *Achievements Relevance* (out of 100): 
+     Analyze the relevance of the achievements in the resume and how well they reflect the impact required for the role.
+     - *Penalization Guidelines*: Penalize if the achievements are unrelated to the core responsibilities or impact expected for the job. Deduct points if the accomplishments focus on tasks that do not contribute to the role's goals.
+     - *Detailed Recommendations*: 
+       - *If strong alignment*: Highlight specific achievements that directly relate to the job description and emphasize how they demonstrate the candidate’s ability to meet the job’s objectives.
+       - *If weak alignment*: Pinpoint achievements that are irrelevant or do not match the job’s responsibilities. Suggest focusing on outcomes and accomplishments that better demonstrate the candidate’s capacity to meet the job’s demands. If necessary, recommend reframing or rewording achievements to show more relevant impact.
 
-#### 4. Final Output:
-   The final response must include all the following values. No output parameters should be omitted:
+#### 5. *Format and Readability*
+   - *Resume Style and Structure* (out of 100): 
+     Evaluate the resume’s format, clarity, and overall structure, focusing on how easy it is to navigate and extract relevant information.
+     - *Penalization Guidelines*: Deduct points for poor formatting, lack of clarity, or if the structure buries relevant information under unrelated content.
+     - *Detailed Recommendations*: 
+       - *If strong alignment*: Commend the clarity and organization of the resume and how its structure makes it easy to find relevant information.
+       - *If weak alignment*: Suggest specific improvements to the resume’s format and readability. Recommend reorganizing sections to highlight relevant experiences and skills, and ensure that the most important information is easily accessible. Offer advice on improving white space, headings, and bullet points for better readability.
 
-   - A comprehensive score for each evaluation criterion, with detailed explanations and references to the resume text.
-   - Specific recommendations for each section, with actionable advice for improvements, including corrected text suggestions.
-   - A clear summary of common mistakes to avoid in future resume versions, with examples from the resume text and proposed rectifications.
+### Final Scoring:
 
-   Your response should be thorough and precise, providing clear guidance on what needs to be improved, why, and how, using direct references to the resume text to ensure full clarity and actionable advice."""
+- *Overall Alignment (out of 100)*: 
+  Provide a final score that reflects the resume’s overall alignment with the job description. The final score should emphasize mismatches in role, skills, and keywords, even if the resume is strong for other roles.
+  - *Penalization Guidelines*: Deduct substantial points for resumes that contain a significant number of irrelevant experiences, skills, or achievements. Penalize further if the resume misses essential keywords or fails to clearly communicate alignment with the job.
+  - *Detailed Recommendations*: Provide a comprehensive summary of the resume’s strengths and weaknesses. Highlight what the candidate did well in aligning with the job description, and offer actionable suggestions for improvement in any areas of mismatch. Be specific about where the resume needs adjustments to better align with the job description and how the candidate can tailor their resume more effectively for this role.
+
+### Instructions for the Model:
+
+- Your evaluation must *strictly* adhere to the job description provided. Score based solely on how well the resume aligns with the specific requirements and expectations of the job.
+- Heavily penalize resumes that contain *irrelevant experiences, skills, or achievements*. Ensure the final score reflects the job-specific relevancy, not the general quality of the resume.
+- Provide *clear, detailed recommendations* for each score. Offer precise suggestions on how to improve, including specific skills, keywords, and achievements the candidate should add or adjust to better match the job description. Be explicit about what the resume lacks and how those deficiencies can be addressed.
+
+"""
+#     return f"""You are an expert in resume evaluation with extensive experience in assessing resumes across various industries and job roles. Your expertise lies in understanding what hiring managers seek and providing precise, actionable feedback to enhance resume quality. I am submitting my resume for your evaluation and request that you analyze it in the context of the specific job position I am targeting.
+
+# Job Description: {jobDescription}
+
+# ### Instructions:
+
+# #### 1. Resume Scoring:
+#    Evaluate the resume against the following criteria and provide a comprehensive score for each. The scoring should be detailed, reflecting the resume's effectiveness in meeting the job description's requirements and tech stack. Ensure that all scores are provided, and no parameters are left out. Each criterion is scored out of 100, with an overall score out of 100. For each score, include a detailed explanation of the reasoning behind the score, and cite specific examples from the resume text where relevant.
+
+#    - Overall Score (out of 100): Provide an aggregate score that reflects the resume's overall effectiveness for the targeted job. Offer a detailed explanation of the score, outlining key strengths and weaknesses observed, referencing specific text from the resume to support your evaluation.
+#    - Brevity Score (Keywords Matching): Assess how well the resume matches the specific keywords and phrases mentioned in the job description. Highlight specific sections or lines from the resume where keywords are used effectively or missing. Suggest precise keywords from the job description that should be integrated and indicate where they could be placed.
+#    - Impact Score (Achievements and Metrics): Evaluate the relevance and impact of the achievements listed. Reference specific achievements from the resume that demonstrate quantifiable results and contributions. Suggest how these could be improved or rephrased, providing examples of revised text that better align with job responsibilities and outcomes.
+#    - Style Score (Format and Readability): Examine the resume's overall style, including its format, structure, and readability. Provide feedback with direct references to specific formatting issues, such as inconsistent bullet points, awkward layouts, or poor readability, and suggest exact changes to improve these elements.
+#    - Skills Score (Skills and Qualifications): Evaluate the relevance, strength, and presentation of both technical and soft skills. Point out specific skills mentioned in the resume that align well with the job requirements or are missing. Suggest edits or additions with references to how these changes would better match the job description.
+
+# #### 2. Detailed Recommendations:
+#    Provide a comprehensive paragraph of recommendations with full clarity on how to improve the resume. Your feedback should be highly specific, referencing the exact text from the resume that requires adjustment:
+
+#    - Keyword Integration: Identify precise areas in the resume where critical keywords from the job description could be better integrated. Use direct excerpts from the resume and provide suggestions on how to refine the language to better align with the job description.
+#    - Achievements Enhancement: Suggest specific ways to quantify achievements more effectively, using current text from the resume as a baseline. Highlight bullet points that could benefit from more detail or clearer metrics, and provide examples of how these could be rewritten.
+#    - Skills Alignment: Offer targeted advice on improving the presentation of skills by referencing specific entries from the resume. Point out any gaps between the skills listed and those required by the job, and suggest edits or removals to streamline and strengthen the skills section.
+#    - Formatting Improvements: Comment on the resume's formatting and readability by citing exact examples of problematic areas. Suggest precise changes, such as reformatting sections or adjusting layout elements, to make the document more professional and easier to read.
+#    - Content Relevance: Highlight specific parts of the resume that include outdated or irrelevant information. Advise on removing or revising these sections, citing the text and offering more relevant alternatives that better align with the job description.
+#    - Overall Alignment: Provide an overall assessment of how well the resume aligns with the job description. Mention any critical issues that could hinder the resume's effectiveness, referencing specific resume sections and providing clear guidance on how to correct these issues.
+
+# #### 3. Mistakes to Avoid:
+#    Highlight common mistakes found in the resume by pulling specific examples from the text. Provide clear instructions on how to avoid these mistakes in the future, using direct excerpts to illustrate ineffective language, unnecessary jargon, or areas that fail to resonate with hiring managers. Offer corrected versions or alternative phrasing that would enhance the resume's appeal.
+
+# #### 4. Final Output:
+#    The final response must include all the following values. No output parameters should be omitted:
+
+#    - A comprehensive score for each evaluation criterion, with detailed explanations and references to the resume text.
+#    - Specific recommendations for each section, with actionable advice for improvements, including corrected text suggestions.
+#    - A clear summary of common mistakes to avoid in future resume versions, with examples from the resume text and proposed rectifications.
+
+#    Your response should be thorough and precise, providing clear guidance on what needs to be improved, why, and how, using direct references to the resume text to ensure full clarity and actionable advice."""

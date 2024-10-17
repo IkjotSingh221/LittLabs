@@ -14,7 +14,7 @@ const PerfCard=({name,score})=>{
         } else if (score >= 40) {
             return <p className="score-label needs-improvement">Improve</p>;
         } else {
-            return <p className="score-label changes-required">Need Change</p>;
+            return <p className="score-label changes-required">Modify</p>;
         }
     };
     return(

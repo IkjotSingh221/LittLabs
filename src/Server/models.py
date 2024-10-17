@@ -96,11 +96,22 @@ class VideoAnalysis(typing.TypedDict):
 class ResetPasswordRequest(BaseModel):
     email: str
 
+# class ResumeScore(typing.TypedDict):
+#     overallScore:int
+#     brevityScore:int
+#     impactScore:int
+#     styleScore:int
+#     skillsScore:int
+#     recommendations:str
+#     highlightedResume:str
+
 class ResumeScore(typing.TypedDict):
-    overallScore:int
-    brevityScore:int
-    impactScore:int
-    styleScore:int
-    skillsScore:int
+    roleAlignmentScore:int
+    keywordTerminologyMatching:int
+    impactOfAchievements:int
+    formatAndReadability:int
+    skillsRelevancyScore:int
+    overallAlignmentScore:int
     recommendations:str
-    highlightedResume:str
+    # highlightedResume:str
+

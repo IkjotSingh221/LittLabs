@@ -636,9 +636,9 @@ async def downvote_comment(vote: VoteSchema):
 
 
 @app.post("/scorer")
-async def generate_resumeReview(file: UploadFile = File(None), jobDescription: str = ""):
+async def generate_resumeReview(file: UploadFile = File(None), jobDescription: str = Form(...)):
     print(f"Received file: {file.filename if file else 'No file'}")
-
+    print(f"Received jobDescription: {jobDescription}")
     # ResumeScorerSchema = {
     #     "type": "array",
     #     "items": {
@@ -687,11 +687,9 @@ async def generate_resumeReview(file: UploadFile = File(None), jobDescription: s
             "response_schema": ResumeScore
         }
     )
-
-    
-    
+    # print(prompt_template)
     response = model.generate_content(prompt_template)
-    print(response.text)
+    # print(response.text)
     
 
     return json.loads(response.text)

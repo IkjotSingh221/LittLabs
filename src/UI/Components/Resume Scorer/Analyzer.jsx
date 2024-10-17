@@ -11,7 +11,7 @@ import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
 // import Arcdesign from "./guage"
 // import SegmentedProgressBar from './SegmentedProgressBar';
 
-const Analyzer = ({ username, overallScore, impactScore, brevityScore, styleScore, skillsScore, recommendations }) => {
+const Analyzer = ({ username, overallScore, impactScore, brevityScore, styleScore, skillsScore, recommendations, roleAlignmentScore }) => {
     const settings = {
         width: 90,
         height: 90,
@@ -23,12 +23,13 @@ const Analyzer = ({ username, overallScore, impactScore, brevityScore, styleScor
     const [brevity, setBrevity] = useState(brevityScore);
     const [style, setStyle] = useState(styleScore);
     const [skill, setSkill] = useState(skillsScore);
+    const [relevancy, setRelevancy] = useState(roleAlignmentScore);
     const [recommend, setRecommendations] = useState(recommendations);
 
     const [cards, setCards] = useState([
         {
             "name": "Relevancy",
-            "score": overall
+            "score": relevancy
         },
         {
             "name": "Impact",
