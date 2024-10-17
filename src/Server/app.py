@@ -47,7 +47,7 @@ def read_root():
 
 
 if not firebase_admin._apps:
-    cred = credentials.Certificate(r"src\Server\serviceAccountKey.json")
+    cred = credentials.Certificate(r"C:\Users\ikjot\Documents\Coding\LittLabs\LittLabs\src\Server\serviceAccountKey.json")
     firebase_admin.initialize_app(cred)
 
 
@@ -286,7 +286,7 @@ async def delete_task_type(deleteTaskType: DeleteTaskTypeScheme):
         raise HTTPException(status_code=404, detail="Task Type not found")
 
 @app.post('/chat')
-async def chat(userPrompt:ChatSchema):
+async def chat(userPrompt: ChatSchema):
     tasks = db.collection('Users').document(userPrompt.username).collection('Todos').get()
     task_dict = {}
     print(userPrompt.username, userPrompt.question)
@@ -294,69 +294,72 @@ async def chat(userPrompt:ChatSchema):
     # Convert Firestore documents to dictionary format
     for task in tasks:
         task_data = task.to_dict()
-        if task_data['isCompleted']==False:
+        if task_data['isCompleted'] == False:
             due = datetime.strptime(task_data['dueDate'], "%d-%m-%Y")
             task_dict[task_data['taskName']] = [task_data['taskDescription'], due, task_data['taskType'], task_data['taskColor']]
-    
-    model = genai.GenerativeModel('gemini-1.5-flash')
-    chat = model.start_chat(history=[])
+
+    # Retrieve chat history from Firestore
+    chat_history_ref = db.collection('Users').document(userPrompt.username).collection('ChatHistory').document('history')
+    chat_history_doc = chat_history_ref.get()
+
+    if chat_history_doc.exists:
+        chat_history = chat_history_doc.to_dict().get('history', [])
+    else:
+        chat_history = []
+
+    # Create the chat model and pass the retrieved history
+    model = genai.GenerativeModel("gemini-1.5-flash")
+    chat = model.start_chat(history=chat_history)
 
     if "/manage my deadlines" in userPrompt.question.lower():
         today = date.today()
         prompt = generate_deadline_management_prompt(today, task_dict)
         response = chat.send_message(prompt)
+
     elif "/youtube resources" in userPrompt.question.lower():
         domain = extract_domain(userPrompt.question)
         prompt = (
-        f"Generate a list of resources to help someone learn more about {domain}. "
-        "Each resource should include the YouTube channel name, a brief description of the video, "
-        "and the YouTube link. "
-    )
+            f"Generate a list of resources to help someone learn more about {domain}. "
+            "Each resource should include the YouTube channel name, a brief description of the video, "
+            "and the YouTube link."
+        )
         response = chat.send_message(prompt)
+
     elif "/roadmap" in userPrompt.question.lower():
         generation_config = {
-    "temperature": 1,
-    "top_p": 0.95,
-    "top_k": 64,
-    "max_output_tokens": 8192*2,
-    "response_schema": content.Schema(
-        type=content.Type.ARRAY,
-        items=content.Schema(
-            type=content.Type.OBJECT,
-            enum=[],
-            required=["TaskHeading", "TaskDescription", "DueDate"],
-            properties={
-                "TaskHeading": content.Schema(
-                    type=content.Type.STRING,
+            "temperature": 1,
+            "top_p": 0.95,
+            "top_k": 64,
+            "max_output_tokens": 8192 * 2,
+            "response_schema": content.Schema(
+                type=content.Type.ARRAY,
+                items=content.Schema(
+                    type=content.Type.OBJECT,
+                    enum=[],
+                    required=["TaskHeading", "TaskDescription", "DueDate"],
+                    properties={
+                        "TaskHeading": content.Schema(type=content.Type.STRING),
+                        "TaskDescription": content.Schema(type=content.Type.STRING),
+                        "DueDate": content.Schema(type=content.Type.STRING),
+                    },
                 ),
-                "TaskDescription": content.Schema(
-                    type=content.Type.STRING,
-                ),
-                "DueDate": content.Schema(
-                    type=content.Type.STRING,
-                ),
-            },
-        ),
-    ),
-    "response_mime_type": "application/json",
-}
+            ),
+            "response_mime_type": "application/json",
+        }
 
         model = genai.GenerativeModel(
-        model_name="gemini-1.5-pro",
-        generation_config=generation_config,
-)
+            model_name="gemini-1.5-pro",
+            generation_config=generation_config,
+        )
 
-        chat_session = model.start_chat(
-        history=[]
-)
+        chat_session = model.start_chat(history=chat_history)
         print("Chat session started")
         domain = extract_domain(userPrompt.question)
         today = date.today().strftime("%d-%m-%Y")
         prompt = roadmap_prompt(domain, today)
         response = chat_session.send_message(prompt)
-        print("Chat session response received",response.text)
-   
-    
+        print("Chat session response received", response.text)
+        
         for i in json.loads(response.text):
             new_roadmap_ref = db.collection('Users').document(userPrompt.username).collection("Roadmap").document()
             new_roadmap_ref.set({
@@ -384,11 +387,18 @@ async def chat(userPrompt:ChatSchema):
         
 
         return {"response": "Roadmap created successfully! Please check your Todo Page for the updates. New tasks will be revealed as soon as you complete the previous ones.", "task": incomplete_rmap_tasks[0]}
+
     else:
         response = chat.send_message(userPrompt.question)
 
-    return {"response": response.text}
+    # Append the current user question and model response to the chat history
+    chat_history.append({"role": "user", "parts": userPrompt.question})
+    chat_history.append({"role": "model", "parts": response.text})
 
+    # Store updated chat history back in Firestore
+    chat_history_ref.set({"history": chat_history})
+
+    return {"response": response.text}
 
 
 
