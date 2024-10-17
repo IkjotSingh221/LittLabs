@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import ToDoItem from './ToDoItem'; 
 import { deleteTodo, completeTodo } from '../../API/todo.api';
 
-const ToDoList = ({ divId, listTitle, tasks, setTasks, username }) => {
+const ToDoList = ({ divId, listTitle, tasks, setTasks, username, setTaskHeading, setTaskDescription,setTaskDate, setTaskType, setShowTask, setIsAddTaskPanelVisible,setAddTask, setTaskColor  }) => {
     const [filteredTasks, setFilteredTasks] = useState([]);
 
     const filterTasksByDate = () => {
+        let filtered;
         const today = new Date();
         today.setHours(0, 0, 0, 0);
         const tomorrow = new Date(today);
@@ -18,17 +19,24 @@ const ToDoList = ({ divId, listTitle, tasks, setTasks, username }) => {
             return ParsedDate
           };
 
-        switch (divId) {
+          switch (divId) {
             case "todaytasks":
-                return tasks.filter(task => parseDate(task.dueDate) <= today);
+                filtered = tasks.filter(task => parseDate(task.dueDate) <= today);
+                break;
             case "tomorrowtasks":
-                return tasks.filter(task => parseDate(task.dueDate).toDateString() == tomorrow.toDateString());
+                filtered = tasks.filter(task => parseDate(task.dueDate).toDateString() === tomorrow.toDateString());
+                break;
             case "thisweektasks":
-                return tasks.filter(task => parseDate(task.dueDate) > tomorrow);
+                filtered = tasks.filter(task => parseDate(task.dueDate) > tomorrow);
+                break;
             default:
-                return [];
+                filtered = [];
         }
+
+        // Sort tasks by date (ascending order)
+        return filtered.sort((a, b) => parseDate(a.dueDate) - parseDate(b.dueDate));
     };
+
 
     useEffect(() => {
         setFilteredTasks(filterTasksByDate());
@@ -54,6 +62,17 @@ const ToDoList = ({ divId, listTitle, tasks, setTasks, username }) => {
         const response = await completeTodo(todo);
     };
 
+    const handleClick = (task) => {
+        setTaskHeading(task.taskName);       
+        setTaskDescription(task.taskDescription); 
+        setTaskDate(task.dueDate);            
+        setTaskType(task.taskType);               
+        setShowTask(true);  
+        setIsAddTaskPanelVisible(true);
+        setAddTask(false);
+        setTaskColor(task.taskColor)               
+    };
+
     
 
     return (
@@ -67,6 +86,7 @@ const ToDoList = ({ divId, listTitle, tasks, setTasks, username }) => {
                         task={task}
                         deleteToDo={deleteToDo}
                         toggleComplete={toggleComplete}
+                        handleClick={handleClick}
                     />
                 ))}
             </ul>

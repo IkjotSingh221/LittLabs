@@ -1,14 +1,17 @@
 import React from 'react';
 import "boxicons";
 
-const ToDoItem = ({ taskKey, task, deleteToDo, toggleComplete }) => {
+const ToDoItem = ({ taskKey, task, deleteToDo, toggleComplete, handleClick}) => {
     const handleCheckboxChange = async () => {
         toggleComplete(taskKey); 
     };
 
     return (
         <>
-            <li className="newtodo" key={taskKey}>
+            <div id="showText">
+                hello
+            </div>
+            <li className="newtodo" key={taskKey} onClick={()=>{handleClick(task)}}> 
 
                 <div className="taskTypeStrip" style={{ background: task.taskColor }}></div>
                 <input
@@ -33,7 +36,10 @@ const ToDoItem = ({ taskKey, task, deleteToDo, toggleComplete }) => {
                     </div>
                     {task.dueDate}
                 </div>
-                <div className="deletetodo" onClick={() => deleteToDo(taskKey)}>
+                <div className="deletetodo" onClick={(e) => {
+                        e.stopPropagation(); // Prevents handleClick from being triggered
+                        deleteToDo(taskKey);
+                    }}>
                     <box-icon name='trash' size='20px'></box-icon>
                 </div>
                 <div className="tododescription">

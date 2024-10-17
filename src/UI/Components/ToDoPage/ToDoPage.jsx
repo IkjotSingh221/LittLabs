@@ -17,6 +17,13 @@ const ToDoPage = ({
 }) => {
   const [currentDay, setCurrentDay] = useState(0);
   const [isAddTaskPanelVisible, setIsAddTaskPanelVisible] = useState(false);
+  const [showTask, setShowTask]=useState(false);
+  const [addTask, setAddTask] = useState(false);
+  const [heading, setTaskHeading] = useState('');
+  const [description, setTaskDescription] = useState('');
+  const [date, setTaskDate]=useState('');
+  const [type, setTaskType]=useState('');
+  const [color, setTaskColor]=useState('');
 
   useEffect(() => {
     setCurrentDay(new Date().getDate());
@@ -82,6 +89,12 @@ const ToDoPage = ({
     );
   };
 
+  const handleButton=()=>{
+    setIsAddTaskPanelVisible(true);
+    setAddTask(true);
+    setShowTask(false);
+  }
+
   return (
     <>
       <div id="todopage">
@@ -91,7 +104,7 @@ const ToDoPage = ({
             <h1 id="greeting" onClick={(e)=>console.log(tasks)}>Hello {username}!</h1>
             <div id="currentDay">{currentDay}</div>
           </div>
-          <button className="addTaskButton" onClick={toggleAddTaskPanel}>
+          <button className="addTaskButton" onClick={handleButton}>
             <span id="addTaskText">Add New Task</span>
             <div id="addTaskIconDiv"></div>
             <box-icon id="addTaskIcon" name="plus"></box-icon>
@@ -103,6 +116,14 @@ const ToDoPage = ({
             setTasks={setTasks}
             toggleComplete={toggleComplete}
             username={username}
+            setTaskHeading={setTaskHeading}
+            setTaskDescription={setTaskDescription}
+            setTaskType={setTaskType}
+            setTaskDate={setTaskDate}
+            setShowTask={setShowTask}
+            setIsAddTaskPanelVisible={setIsAddTaskPanelVisible}
+            setAddTask={setAddTask}
+            setTaskColor={setTaskColor}
           />
           <ToDoList
             divId="tomorrowtasks"
@@ -111,6 +132,14 @@ const ToDoPage = ({
             setTasks={setTasks}
             toggleComplete={toggleComplete}
             username={username}
+            setTaskHeading={setTaskHeading}
+            setTaskDescription={setTaskDescription}
+            setTaskType={setTaskType}
+            setTaskDate={setTaskDate}
+            setShowTask={setShowTask}
+            setIsAddTaskPanelVisible={setIsAddTaskPanelVisible}
+            setAddTask={setAddTask}
+            setTaskColor={setTaskColor}
           />
           <ToDoList
             divId="thisweektasks"
@@ -119,6 +148,14 @@ const ToDoPage = ({
             setTasks={setTasks}
             toggleComplete={toggleComplete}
             username={username}
+            setTaskHeading={setTaskHeading}
+            setTaskDescription={setTaskDescription}
+            setTaskType={setTaskType}
+            setTaskDate={setTaskDate}
+            setShowTask={setShowTask}
+            setIsAddTaskPanelVisible={setIsAddTaskPanelVisible}
+            setAddTask={setAddTask}
+            setTaskColor={setTaskColor}
           />
           <ScoreMeter tasks={tasks} />
 
@@ -128,14 +165,23 @@ const ToDoPage = ({
               setTasks={setTasks}
               taskTypeList={taskTypeList}
               hideTaskPanel={toggleAddTaskPanel}
-              username={username}
+              username={username} 
+              setAddTask={setAddTask}
+              setShowTask={setShowTask}
+              addTask={addTask}
+              showTask={showTask}
+              heading={heading}
+              description={description}
+              type={type}
+              date={date}
+              color={color}
             />
           </div>
         </div>
       </div>
-      <Chatbot username={username} />
+      {/* <Chatbot username={username} /> */}
     </>
   );
 };
 
-export default ToDoPage;
+export default ToDoPage; 

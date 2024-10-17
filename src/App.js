@@ -17,10 +17,12 @@ import NoteSummary from "./UI/Components/NoteSummarizer/NoteSummarizer";
 import SideNav from "./UI/Components/Common/SideNavBar/SideNav";
 import Community from "./UI/Components/Community/CommunityPage";
 import ResumeScorer from "./UI/Components/Resume Scorer/ResumeScorer";
+import Chatbot from "./UI/Components/Common/ChatBot/ChatBot";
 
 function App() {
   const location = useLocation();
   const shouldShowSideNav = !['/', '/login-signup', '/forgotpass', '/learn-more'].includes(location.pathname);
+  const noChatbotPaths = ['/', '/login-signup', '/learn-more', '/forgotpass', '/imagechat','/scorer'];
 
   const [error, setError] = useState("");
   const [successfulMessage, setSuccessfulMessage] = useState("");
@@ -43,61 +45,62 @@ function App() {
   return (
     // <Router> 
     <div className="app-container">
-    {shouldShowSideNav && (
-      <SideNav 
-        tasks={tasks} 
-        setTasks={setTasks}
-        taskTypeList={taskTypeList} 
-        setTaskTypeList={setTaskTypeList} 
-        notes={notes}
-        setNotes={setNotes}
-        username={username} 
-        setUpcoming={setUpcoming}
-        setUpcomingButton={setUpcomingButton}
-        upcoming={upcoming} 
-        upcomingButton={upcomingButton}
-        studentCorner={studentCorner}
-        setStudentCorner={setStudentCorner}
-        profCorner={profCorner}
-        setProfCorner={setProfCorner}
-      />
+      {shouldShowSideNav && (
+        <SideNav
+          tasks={tasks}
+          setTasks={setTasks}
+          taskTypeList={taskTypeList}
+          setTaskTypeList={setTaskTypeList}
+          notes={notes}
+          setNotes={setNotes}
+          username={username}
+          setUpcoming={setUpcoming}
+          setUpcomingButton={setUpcomingButton}
+          upcoming={upcoming}
+          upcomingButton={upcomingButton}
+          studentCorner={studentCorner}
+          setStudentCorner={setStudentCorner}
+          profCorner={profCorner}
+          setProfCorner={setProfCorner}
+        />
       )}
-        <div className="content-container">
+      <div className="content-container">
+        {!noChatbotPaths.includes(location.pathname) && <Chatbot username={username} />}
         <Routes>
-        <Route path="/" element={<LandingPage />} />
+          <Route path="/" element={<LandingPage />} />
           <Route
             exact
             path="/login-signup"
-            element={<LoginSignup error={error} setError={setError} successfulMessage={successfulMessage} setSuccessfulMessage={setSuccessfulMessage} showSuccess={showSuccess} setSuccess={setSuccess}/>}
+            element={<LoginSignup error={error} setError={setError} successfulMessage={successfulMessage} setSuccessfulMessage={setSuccessfulMessage} showSuccess={showSuccess} setSuccess={setSuccess} />}
           />
-          <Route path="/learn-more" element={<LearnMore/>}/>
+          <Route path="/learn-more" element={<LearnMore />} />
           <Route
             exact
             path="/forgotpass"
             element={<ForgotPassword error={error} setError={setError} setSuccessfulMessage={setSuccessfulMessage} setSuccess={setSuccess} />}
           />
-          <Route path="/dashboard" element={<Dashboard tasks = {tasks} setTasks={setTasks} taskTypeList={taskTypeList} setTaskTypeList={setTaskTypeList} notes={notes} setNotes={setNotes} username={username} setUpcoming={setUpcoming} setUpcomingButton={setUpcomingButton}/>}></Route>
+          <Route path="/dashboard" element={<Dashboard tasks={tasks} setTasks={setTasks} taskTypeList={taskTypeList} setTaskTypeList={setTaskTypeList} notes={notes} setNotes={setNotes} username={username} setUpcoming={setUpcoming} setUpcomingButton={setUpcomingButton} />}></Route>
           <Route path="/todo" element={<ToDoPage tasks={tasks} setTasks={setTasks} taskTypeList={taskTypeList} setTaskTypeList={setTaskTypeList} username={username} setUpcoming={setUpcoming} setUpcomingButton={setUpcomingButton} />}></Route>
-          <Route path="/notes" element={<Notes tasks={tasks} setTasks={setTasks} taskTypeList={taskTypeList} setTaskTypeList={setTaskTypeList} notes={notes} setNotes={setNotes} username={username}/>}></Route>
-          <Route path="/flashcard" element={<Flashcards tasks={tasks} setTasks={setTasks} taskTypeList={taskTypeList} setTaskTypeList={setTaskTypeList} notes={notes} setNotes={setNotes} username={username}/>}></Route>
-          <Route path="/imagechat" element={<ChatWithImage tasks={tasks} setTasks={setTasks} taskTypeList={taskTypeList} setTaskTypeList={setTaskTypeList} notes={notes} setNotes={setNotes} username={username}/>}></Route>
-          <Route path="/interview-prep" element={<InterviewPrepAnalyzer tasks={tasks} setTasks={setTasks} taskTypeList={taskTypeList} setTaskTypeList={setTaskTypeList} notes={notes} setNotes={setNotes} username={username}/>}></Route>
-          <Route path="/calendar" element={<Calendar tasks={tasks} setTasks={setTasks} taskTypeList={taskTypeList} setTaskTypeList={setTaskTypeList} notes={notes} setNotes={setNotes} username={username} setUpcoming={setUpcoming} setUpcomingButton={setUpcomingButton}/>}></Route>
-          <Route path="/notesummary" element={<NoteSummary tasks={tasks} setTasks={setTasks} taskTypeList={taskTypeList} setTaskTypeList={setTaskTypeList} notes={notes} setNotes={setNotes} username={username}/>}></Route>
-          <Route path="/community" element={<Community tasks={tasks} setTasks={setTasks} taskTypeList={taskTypeList} setTaskTypeList={setTaskTypeList} notes={notes} setNotes={setNotes} username={username} setUpcoming={setUpcoming} setUpcomingButton={setUpcomingButton}/>}></Route>
-          <Route path="/scorer" element={<ResumeScorer tasks={tasks} setTasks={setTasks} taskTypeList={taskTypeList} setTaskTypeList={setTaskTypeList} notes={notes} setNotes={setNotes} username={username} setUpcoming={setUpcoming} setUpcomingButton={setUpcomingButton}/>}></Route>
-          
+          <Route path="/notes" element={<Notes tasks={tasks} setTasks={setTasks} taskTypeList={taskTypeList} setTaskTypeList={setTaskTypeList} notes={notes} setNotes={setNotes} username={username} />}></Route>
+          <Route path="/flashcard" element={<Flashcards tasks={tasks} setTasks={setTasks} taskTypeList={taskTypeList} setTaskTypeList={setTaskTypeList} notes={notes} setNotes={setNotes} username={username} />}></Route>
+          <Route path="/imagechat" element={<ChatWithImage tasks={tasks} setTasks={setTasks} taskTypeList={taskTypeList} setTaskTypeList={setTaskTypeList} notes={notes} setNotes={setNotes} username={username} />}></Route>
+          <Route path="/interview-prep" element={<InterviewPrepAnalyzer tasks={tasks} setTasks={setTasks} taskTypeList={taskTypeList} setTaskTypeList={setTaskTypeList} notes={notes} setNotes={setNotes} username={username} />}></Route>
+          <Route path="/calendar" element={<Calendar tasks={tasks} setTasks={setTasks} taskTypeList={taskTypeList} setTaskTypeList={setTaskTypeList} notes={notes} setNotes={setNotes} username={username} setUpcoming={setUpcoming} setUpcomingButton={setUpcomingButton} />}></Route>
+          <Route path="/notesummary" element={<NoteSummary tasks={tasks} setTasks={setTasks} taskTypeList={taskTypeList} setTaskTypeList={setTaskTypeList} notes={notes} setNotes={setNotes} username={username} />}></Route>
+          <Route path="/community" element={<Community tasks={tasks} setTasks={setTasks} taskTypeList={taskTypeList} setTaskTypeList={setTaskTypeList} notes={notes} setNotes={setNotes} username={username} setUpcoming={setUpcoming} setUpcomingButton={setUpcomingButton} />}></Route>
+          <Route path="/scorer" element={<ResumeScorer tasks={tasks} setTasks={setTasks} taskTypeList={taskTypeList} setTaskTypeList={setTaskTypeList} notes={notes} setNotes={setNotes} username={username} setUpcoming={setUpcoming} setUpcomingButton={setUpcomingButton} />}></Route>
+
         </Routes>
-        </div>
       </div>
+    </div>
     // </Router>
   );
 }
 
 export default function AppWrapper() {
-  return(
+  return (
     <Router>
-      <App/>
+      <App />
     </Router>
   );
 }
