@@ -978,3 +978,9 @@ a {
   font-size: 0.95rem;
   cursor:pointer;
 }
+
+#listsId{
+  height: 135px;
+  overflow-y:scroll;
+  overflow-x:hidden;
+}

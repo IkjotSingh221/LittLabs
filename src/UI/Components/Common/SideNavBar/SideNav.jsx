@@ -156,6 +156,28 @@ const NavBar = ({ tasks, setTasks, taskTypeList, setTaskTypeList, notes, setNote
     console.log(response.data);
   };
 
+  const scrollMenu=()=>{
+    const menu=document.getElementById("menu");
+    const logout=document.getElementById("logoutButton");
+    menu.addEventListener('scroll', () => {
+      const scrollTop = menu.scrollTop;
+      const scrollHeight = menu.scrollHeight;
+      const clientHeight = menu.clientHeight;
+    
+      // Check if scroll is activated and move logoutButton down when scrolling
+      if (scrollTop + clientHeight < scrollHeight) {
+        logout.style.position='relative';
+        logout.style.top='50px';
+        console.log('hello');
+      } else {
+        logout.style.bottom = 'auto';
+      }
+    
+      // Ensure a 50px gap from the element above when scrolling
+      logout.style.marginTop = `${scrollTop > 0 ? '50px' : '20px'}`;
+    });
+  }
+
   return (
     <div id="menu" style={{ flex: isNavbarOpen ? 0.7 : 0.1 }}>
       <div id="userprofile">
@@ -181,10 +203,10 @@ const NavBar = ({ tasks, setTasks, taskTypeList, setTaskTypeList, notes, setNote
 
       <div id="tasks">
         <ul>
-          <NavLink to="/dashboard" activeClassName="active">
+          <NavLink to="/dashboard" activeClassName="active"> 
             <div className="tasks">
               <box-icon name="dashboard" type="solid"></box-icon>
-              <li style={{ display: isNavbarOpen ? "block" : "none" }}>
+              <li style={{ display: isNavbarOpen ? "block" : "none" }} onClick={()=>{setProfCorner(false); setStudentCorner(false)}}>
                 Dashboard
               </li>
             </div>
@@ -192,7 +214,7 @@ const NavBar = ({ tasks, setTasks, taskTypeList, setTaskTypeList, notes, setNote
           <NavLink to="/todo" activeClassName="active">
             <div className="tasks">
               <box-icon name='task'></box-icon>
-              <li style={{ display: isNavbarOpen ? "block" : "none" }}>
+              <li style={{ display: isNavbarOpen ? "block" : "none" }}  onClick={()=>{setProfCorner(false); setStudentCorner(false)}}>
                 To Do
               </li>
               <div
@@ -206,12 +228,12 @@ const NavBar = ({ tasks, setTasks, taskTypeList, setTaskTypeList, notes, setNote
           <NavLink to="/calendar" activeClassName="active">
             <div className="tasks">
               <box-icon name="calendar"></box-icon>
-              <li style={{ display: isNavbarOpen ? "block" : "none" }}>
+              <li style={{ display: isNavbarOpen ? "block" : "none" }}  onClick={()=>{setProfCorner(false); setStudentCorner(false)}}>
                 Calendar
               </li>
             </div>
           </NavLink>
-          <NavLink to="/community" activeClassName="active">
+          <NavLink to="/community" activeClassName="active"  onClick={()=>{setProfCorner(false); setStudentCorner(false)}}>
             <div className="tasks">
               <box-icon name="message-rounded-detail"></box-icon>
               <li style={{ display: isNavbarOpen ? "block" : "none" }}>
@@ -286,7 +308,7 @@ const NavBar = ({ tasks, setTasks, taskTypeList, setTaskTypeList, notes, setNote
         <div style={{ display: 'flex', cursor: 'pointer' }} onClick={() => { setProfCorner(false); setStudentCorner(false); setUpcoming(!upcoming); setUpcomingButton(!upcoming) }}>
           <box-icon name="chevrons-right"></box-icon><p>Upcoming</p>
         </div>
-        {upcoming && (<ul>
+        {upcoming && (<ul id="listsId">
           {taskTypeList.map((taskType) => (
             <SideNavTaskTypeList
               key={taskType.taskTypeKey}
@@ -320,7 +342,7 @@ const NavBar = ({ tasks, setTasks, taskTypeList, setTaskTypeList, notes, setNote
         {isCreatingTaskType && (
           <div id="inputnewlist">
             <input
-              id="selectedColor"
+              id="selectedColor" 
               type="color"
               value={newTaskTypeColor}
               onChange={handleColorChange}

@@ -25,9 +25,9 @@ const ToDoItem = ({ taskKey, task, deleteToDo, toggleComplete, handleClick}) => 
                             ? task.taskName.slice(0, 10) + "..."
                             : task.taskName
                         }
-                        <span className="task-name-full"> 
+                        {/* <span className="task-name-full"> 
                             {task.taskName}
-                        </span>
+                        </span> */}
                     </span>
                 </p>
                 <div id="todocalender">
@@ -48,9 +48,9 @@ const ToDoItem = ({ taskKey, task, deleteToDo, toggleComplete, handleClick}) => 
                             ? task.taskDescription.slice(0, 12) + "..."
                             : task.taskDescription
                         }
-                        <span className="description-full">
+                        {/* <span className="description-full">
                             {task.taskDescription}
-                        </span>
+                        </span> */}
                     </span>
                 </div>
             </li>

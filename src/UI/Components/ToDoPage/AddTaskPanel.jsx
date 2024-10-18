@@ -161,9 +161,12 @@ const AddTaskPanel = ({
     // Fill in the days of the current month
     for (let day = 1; day <= daysInMonth; day++) {
       calendarDays.push(
-          `<div class="calendar-table__col calendar-table__item" ${day === preferredDay ? 'id="ActiveDay"' : ''}>${day}</div>`
+        `<div class="calendar-table__col calendar-table__item" 
+         ${day === preferredDay ? `id="ActiveDay" style="background-color: ${color}; color: white;"` : ''}>
+         ${day}
+     </div>`
       );
-  }
+    }
 
     // Fill in the days after the last day of the month
     if (lastDay !== 6) {
@@ -232,8 +235,8 @@ const AddTaskPanel = ({
     <>
       {showTask && (
         <div id="showTask">
-          <div id="undo" onClick={hideTaskPanel}>
-            <box-icon type="solid" name="chevron-right"></box-icon>
+          <div id="undoButton" onClick={hideTaskPanel}>
+            <box-icon type="solid" name="chevron-right" color="white"></box-icon>
           </div>
           <div id="calendar-combined">
             <div id="cal_svg" style={{ backgroundImage: `url(${gifURL})` }}>
@@ -261,6 +264,20 @@ const AddTaskPanel = ({
             </div>
           </div>
           <div id="taskDetails"></div>
+          <div id="showTaskDetails">
+            <div id="thisdiv">
+              <div id="taskheading">
+                {heading}
+              </div>
+              <div id="taskdate">
+                <box-icon name='time-five'></box-icon>
+                {date}
+              </div>
+            </div>
+            <div id="taskdescription">
+              {description}
+            </div>
+          </div>
         </div>
       )}
       {addTask && (

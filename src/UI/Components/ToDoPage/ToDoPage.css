@@ -351,7 +351,7 @@ button {
   text-decoration: none;
   position: relative;
   transition: background 0.3s ease;
-  overflow: hidden;
+  overflow: hidden; 
   padding-left: 15px;
 }
 
@@ -847,7 +847,7 @@ text-align: center;
 #undo{
   opacity:0.5;
   cursor:pointer;
-  position: relative;
+  position: absolute;
   top: 5px;
   left: 5px;
 }
@@ -938,6 +938,8 @@ text-align: center;
 #showTask{
   padding:20px;
   position:relative;
+  /* overflow-y: scroll;
+  height:100%; */
 }
 
 #taskColordiv{
@@ -997,7 +999,7 @@ text-align: center;
 .calendar-container1 {
   background-color: #fff;
   padding: 16px;
-  margin-bottom: 24px;
+  margin-bottom: 10px;
 }
 
 .calendar-container__header {
@@ -1143,10 +1145,46 @@ text-align: center;
 }
 
 #calendar-combined{
-  padding-top: 30px;
+  /* padding-top: 30px; */
 }
 
-#ActiveDay{
+/* #ActiveDay{
   background-color: #F47C9D;
   color: white;
+} */
+
+#taskdate{
+  display:flex;
+  align-items: center;
+}
+
+#taskdate box-icon{
+  height:17px;
+}
+
+#showTaskDetails{
+  padding:10px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  /* overflow-y: scroll;
+  max-height: 250px; */
+}
+
+#thisdiv{
+  display:flex;
+  justify-content: space-between;
+}
+
+#taskheading{
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+#taskdescription{
+  max-height: 200px;
+  overflow-y: scroll;
+}
+
+#taskdescription::-webkit-scrollbar {
+  display: none;
 }
