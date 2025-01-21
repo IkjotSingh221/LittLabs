@@ -1,24 +1,28 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List
 import typing_extensions as typing
+
+# User Signup and Login Schemas
 class SignUpSchema(BaseModel):
-    username:str
-    email:str
-    password:str
+    username: str
+    email: str
+    password: str
 
 class LoginSchema(BaseModel):
-    email:str
-    password:str
+    email: str
+    password: str
 
+# Task Type Schemas
 class TaskTypeSchema(BaseModel):
-    username:str
-    taskTypeName:str
-    taskTypeColor:str
+    username: str
+    taskTypeName: str
+    taskTypeColor: str
 
-class DeleteTaskTypeScheme(BaseModel):
-    username:str
-    taskTypeKey:str
+class DeleteTaskTypeSchema(BaseModel):
+    username: str
+    taskTypeKey: str
 
+# Todo Schemas
 class TodoSchema(BaseModel):
     username: str
     taskName: str
@@ -26,7 +30,6 @@ class TodoSchema(BaseModel):
     dueDate: str
     taskType: str
     taskColor: str
-    isCompleted: bool
 
 class DeleteTodoSchema(BaseModel):
     username: str
@@ -37,39 +40,15 @@ class CompleteTodoSchema(BaseModel):
     taskKey: str
     isCompleted: bool
 
+# Note Schemas
 class NoteSchema(BaseModel):
-    username:str
-    noteTitle:str
-    noteText:str
-    creationDate:str
-
-class PostSchema(BaseModel):
-    postDescription: str
-    postCreatedBy: str
-    postCreatedOn: str
-    postLikesCount: int = 0
-    likedByUsers: list[str] = []
-
-class LikeSchema(BaseModel):
-    postKey: str
     username: str
-
-class CommentSchema(BaseModel):
-    commentDescription: str
-    commentCreatedBy: str
-    commentPostKey: str
-    commentUpvotes: int = 0
-    commentDownvotes: int = 0
-    upvotedByUsers: list[str] = []
-    downvotedByUsers: list[str] = []
-
-class VoteSchema(BaseModel):
-    commentKey: str
-    username: str
+    noteTitle: str
+    noteText: str
 
 class DeleteNoteSchema(BaseModel):
-    username:str
-    noteKey:str
+    username: str
+    noteKey: str
 
 class UpdateNoteSchema(BaseModel):
     username: str
@@ -77,13 +56,52 @@ class UpdateNoteSchema(BaseModel):
     noteTitle: str
     noteText: str
 
+# Post Schemas
+class PostSchema(BaseModel):
+    postDescription: str
+    postCreatedBy: str
+    postCreatedOn: str
+
+class LikeSchema(BaseModel):
+    postKey: str
+    username: str
+
+# Comment Schemas
+class CommentSchema(BaseModel):
+    commentDescription: str
+    commentCreatedBy: str
+    commentPostKey: str
+
+class VoteSchema(BaseModel):
+    commentKey: str
+    username: str
+
+# Chat Schema
 class ChatSchema(BaseModel):
     question: str
     username: str
 
+# Resume Scoring Schema
+class ResumeScore(typing.TypedDict):
+    roleAlignmentScore: int
+    keywordTerminologyMatching: int
+    impactOfAchievements: int
+    formatAndReadability: int
+    skillsRelevancyScore: int
+    overallAlignmentScore: int
+    recommendations: str
+
+# Summarizer and Flashcard Schemas
+class SummarizerSchema(BaseModel):
+    username: Optional[str]
+    noteTitle: Optional[str]
+    file: Optional[str]
+
+# Image Solver Schema
 class TextualQuestionSchema(BaseModel):
     question: Optional[str] = "Solve the questions in the image."
 
+# Interview Analysis Schema
 class VideoAnalysis(typing.TypedDict):
     vocabulary: int
     confidence_level: int
@@ -92,26 +110,20 @@ class VideoAnalysis(typing.TypedDict):
     overall_average: int
     review: str
 
-
+# Reset Password Schema
 class ResetPasswordRequest(BaseModel):
     email: str
 
-# class ResumeScore(typing.TypedDict):
-#     overallScore:int
-#     brevityScore:int
-#     impactScore:int
-#     styleScore:int
-#     skillsScore:int
-#     recommendations:str
-#     highlightedResume:str
+class EmailSchema(BaseModel):
+    email: str
+    subject: str
+    message: str
 
-class ResumeScore(typing.TypedDict):
-    roleAlignmentScore:int
-    keywordTerminologyMatching:int
-    impactOfAchievements:int
-    formatAndReadability:int
-    skillsRelevancyScore:int
-    overallAlignmentScore:int
-    recommendations:str
-    # highlightedResume:str
+class LittNoteSchema(BaseModel):
+    username: str
+    noteTitle: str
+    noteText: str
 
+class AINoteSchema(BaseModel):
+    title: str
+    content: str

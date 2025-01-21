@@ -249,6 +249,7 @@ const Notes = ({
           discardNote={discardNote}
           closeNoteWriter={closeNoteWriter}
           editingNoteKey={editingNoteKey}
+          username = {username}
         />
       )}
       {isNoteViewerVisible && (

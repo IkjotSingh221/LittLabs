@@ -39,26 +39,6 @@ const LoginSignup = ({ setError, error}) => {
     }
   };
 
-  // const handleSignup = async (event) => {
-  //   event.preventDefault();
-  //   if (signupPassword !== signupPassword2) {
-  //     setError("Passwords do not match");
-  //     return;
-  //   }
-  //   try {
-  //     const userData = {email:signupEmail,username:signupUsername, password:signupPassword};
-  //     const response = await axios.post('http://localhost:8000/signup', 
-  //       userData
-  //     );
-  //     console.log('Signup successful:', response.data);
-  //     document.cookie = `username=${response.data.username}; path=/`;
-  //     navigate('/dashboard');
-  //   } catch (err) {
-  //     console.error('Signup failed:', err);
-  //     setError('Failed to create an account. Please try again.');
-  //   }
-  // };
-
   const handleSignup = async (event) => {
     event.preventDefault();
     if (signupPassword !== signupPassword2) {

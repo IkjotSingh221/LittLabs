@@ -46,7 +46,7 @@ const Post = ({ key, post, handleLikeToggle, comments, setComments, username}) =
         const letterColor = letterColors.find((item) => item.letter === firstLetter);
         return letterColor ? letterColor.color : null;
     }
-    
+
     const [isLiked, setIsLiked] = useState(false);
     const [commentBox, openCommentBox] = useState(false);
     const [newComment, addNewComment] = useState('');
@@ -61,32 +61,31 @@ const Post = ({ key, post, handleLikeToggle, comments, setComments, username}) =
 
     const handleCommentClick = () => {
         openCommentBox(!commentBox);
-    }
+    };
 
-    useEffect(()=>{
+    useEffect(() => {
         let matchFound = false;
-        if (post.likedByUsers){
-            // console.log(post.likedByUsers);
+        if (post.likedByUsers) {
             for (const usernames of post.likedByUsers) {
                 if (usernames === username) {
-                matchFound = true;
-                break;
+                    matchFound = true;
+                    break;
                 }
-            }   
+            }
         }
         setIsLiked(matchFound);
-    },[]);
+    }, []);
 
-    useEffect(()=>{
+    useEffect(() => {
         const filteredComments = comments.filter(comment => comment.commentPostKey === post.postKey);
         setPostComments(filteredComments);
-    },[comments, post]);
+    }, [comments, post]);
 
     const handleCommentSubmit = async (event) => {
         event.preventDefault();
         if (newComment.trim()) {
             const comment = {
-                commentPostKey: post.postKey, 
+                commentPostKey: post.postKey,
                 commentCreatedBy: username,
                 commentDescription: newComment,
                 commentUpvotes: 0,
@@ -94,11 +93,11 @@ const Post = ({ key, post, handleLikeToggle, comments, setComments, username}) =
             };
 
             try {
-                const response = await createComment(comment); 
-                comment.commentKey = response.message // Save comment using API
-                setPostComments([...postComments, comment]);   // Update the state with the saved comment
-                setComments([...comments, comment]);           // Update the global comments state if needed
-                addNewComment('');                                  // Clear the input field
+                const response = await createComment(comment);
+                comment.commentKey = response.message;
+                setPostComments([...postComments, comment]);
+                setComments([...comments, comment]);
+                addNewComment('');
             } catch (error) {
                 console.error("Error creating comment:", error);
             }
@@ -109,40 +108,56 @@ const Post = ({ key, post, handleLikeToggle, comments, setComments, username}) =
         addNewComment(event.target.value);
     };
 
+    const parseDate = (dateStr) => {
+        const [day, month, year] = dateStr.split('-').map(Number);
+        return new Date(year, month - 1, day); // JavaScript months are 0-indexed
+    };
+
     const formatTimestamp = (timestamp) => {
-        const postDate = new Date(timestamp);
+        const postDate = new Date(timestamp); // Parse ISO 8601 string directly
         const now = new Date();
-
-        const diffTime = Math.abs(now - postDate);
-        const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
+    
+        const diffTime = now - postDate; // Difference in milliseconds
         const diffMinutes = Math.floor(diffTime / (1000 * 60));
-
-        if (diffHours < 1) {
-            return `${diffMinutes} minute${diffMinutes !== 1 ? 's' : ''} ago`;
+        const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    
+        if (diffMinutes < 1) {
+            return `Just now`;
+        } else if (diffMinutes < 60) {
+            return `${diffMinutes} minute${diffMinutes !== 1 ? "s" : ""} ago`;
         } else if (diffHours < 24) {
-            if (now.getDate() === postDate.getDate()) {
-                return `${diffHours} hour${diffHours !== 1 ? 's' : ''} ago`;
-            } else {
-                return 'Yesterday';
-            }
+            return `${diffHours} hour${diffHours !== 1 ? "s" : ""} ago`;
+        } else if (diffDays === 1) {
+            return `Yesterday at ${postDate.toLocaleTimeString("en-US", {
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: true,
+            })}`;
         } else {
-            return postDate.toLocaleDateString("en-US", {
+            // For posts older than a day, display both date and time
+            return postDate.toLocaleString("en-US", {
                 day: "2-digit",
                 month: "short",
-                year: "2-digit",
-              });
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: true,
+            });
         }
-    }; 
+    };
+    
+    
 
     return (
         <div id="post">
             <div id="useid">
-                <div id="userProfilePic" style={{background: getColorByUsername(post.postCreatedBy), color:'white', width:'25px', borderRadius:'50%',display:'flex', justifyContent:'center'}} >
+                <div id="userProfilePic" style={{ background: getColorByUsername(post.postCreatedBy), color: 'white', width: '25px', borderRadius: '50%', display: 'flex', justifyContent: 'center' }}>
                     {firstCharacter}
                 </div>
                 {post.postCreatedBy}
             </div>
-            <div id="timestamp" onClick={(e)=>console.log(postComments)}>{formatTimestamp(post.postCreatedOn)}</div>
+            <div id="timestamp" onClick={(e) => console.log(postComments)}>{formatTimestamp(post.postCreatedOn)}</div>
             <div id="postMessage">
                 <ReactMarkdown
                     children={post.postDescription}
@@ -186,7 +201,7 @@ const Post = ({ key, post, handleLikeToggle, comments, setComments, username}) =
                     <span>{post.postLikesCount}</span>
                 </div>
                 <div id="comment" onClick={handleCommentClick}>
-                    <box-icon name='chat' color='grey' onClick={handleCommentClick}></box-icon>
+                    <box-icon name='chat' color='grey'></box-icon>
                     <span>{postComments.length}</span>
                 </div>
             </div>
@@ -194,7 +209,7 @@ const Post = ({ key, post, handleLikeToggle, comments, setComments, username}) =
                 <div id="commentBox">
                     <div id="prevComments">
                         {postComments
-                            .sort((a, b) => b.upvotes - a.upvotes) // Sorting comments by upvotes in descending order
+                            .sort((a, b) => b.upvotes - a.upvotes)
                             .map((comment, index) => (
                                 <Comment
                                     key={index}
@@ -218,7 +233,7 @@ const Post = ({ key, post, handleLikeToggle, comments, setComments, username}) =
                                 onChange={handleInputChange}
                             />
                             <button type="submit">
-                                <box-icon name='send' type='solid' ></box-icon>
+                                <box-icon name='send' type='solid'></box-icon>
                             </button>
                         </div>
                     </form>

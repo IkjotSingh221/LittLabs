@@ -13,7 +13,7 @@ const CommunityPage = ({ username }) => {
   const [glasseffect, setglasseffect] = useState(false);
   const [addNewpost, setAddNewpost] = useState(false);
 
-  // Function to sort posts by date
+  // Function to sort posts by date using ISO 8601 timestamp format
   const sortPostsByDate = (posts) => {
     return posts.sort((a, b) => new Date(b.postCreatedOn) - new Date(a.postCreatedOn));
   };
@@ -22,7 +22,8 @@ const CommunityPage = ({ username }) => {
     const fetchPostsAndComments = async () => {
       try {
         const postsData = await readPosts();
-        setPosts(sortPostsByDate(postsData)); // Sorting posts by date
+        console.log(postsData);
+        setPosts(sortPostsByDate(postsData)); // Sort posts by date
         
         const commentsData = await readComments();
         setComments(commentsData);
@@ -49,14 +50,14 @@ const CommunityPage = ({ username }) => {
         : post
     ));
     const like = { postKey: postId, username: username };
-    const response = await like_unlike(like);
+    await like_unlike(like);
   };
 
   const handleNewPost = async (newPost) => {
     const response = await createPost(newPost);
     newPost.postKey = response.message;
     const updatedPosts = [...posts, newPost];
-    setPosts(sortPostsByDate(updatedPosts)); // Sort the posts after adding a new one
+    setPosts(sortPostsByDate(updatedPosts)); // Sort posts after adding a new one
   };
 
   return (

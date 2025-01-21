@@ -9,7 +9,7 @@ import "@react-pdf-viewer/core/lib/styles/index.css";
 import { ThreeDots } from "react-loader-spinner";
 import { generateResumeScoreWithGemini } from "../../API/resume.api";
 
-const workerUrl = 'https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
+const workerUrl = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js";
 
 const ResumeScorer = ({ username }) => {
   const [step, setStep] = useState(1); // 1 for Uploader, 2 for JobDesc, 3 for Analyzer

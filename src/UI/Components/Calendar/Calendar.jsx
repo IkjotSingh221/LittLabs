@@ -7,17 +7,24 @@ import { createTodo } from "../../API/todo.api.js";
 import { readTodos, readTaskType } from "../../API/todo.api.js";
 import Chatbot from "../Common/ChatBot/ChatBot.jsx";
 
-
 function cn(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
+const formatDate = (date) => {
+  // Format date to dd-mm-yyyy
+  const day = String(date.date()).padStart(2, "0");
+  const month = String(date.month() + 1).padStart(2, "0"); // month() is zero-indexed
+  const year = date.year();
+  return `${day}-${month}-${year}`;
+};
+
 const parseDate = (dateStr) => {
-  const [day, month, year] = dateStr.split('-').map(Number);
+  const [day, month, year] = dateStr.split("-").map(Number); // Expecting dd-mm-yyyy
   const parsedDate = new Date(year, month - 1, day);
   parsedDate.setHours(0, 0, 0, 0);
   return parsedDate;
-}
+};
 
 function EventCard({ events }) {
   console.log("EventCard events:", events);
@@ -52,7 +59,6 @@ function EventCard({ events }) {
   );
 }
 
-
 export default function Calendar({ tasks, setTasks, taskTypeList, setTaskTypeList, username }) {
   const today = dayjs();
   const [selectDate, setSelectDate] = useState(today);
@@ -63,45 +69,11 @@ export default function Calendar({ tasks, setTasks, taskTypeList, setTaskTypeLis
   const [taskType, setTaskType] = useState("");
   const [selectedDate, setSelectedDate] = useState(today);
 
-  const currentDate = dayjs().format("dddd, MMMM D, YYYY");
-
-
+  const currentDate = formatDate(today);
 
   useEffect(() => {
     setSelectedDate(selectDate);
   }, [selectDate]);
-
-  // const loadTasks = async (username) => {
-  //   try {
-  //     const todos = await readTodos(username);
-  //     const mappedTasks = todos.map((task) => ({
-  //       taskKey: task.taskKey,
-  //       taskName: task.taskName,
-  //       taskDescription: task.taskDescription,
-  //       dueDate: task.dueDate,
-  //       taskColor: task.taskColor,
-  //       taskType: task.taskType,
-  //       isCompleted: task.isCompleted,
-  //     }));
-  //     setTasks(mappedTasks);
-  //   } catch (error) {
-  //     console.error("Error loading tasks:", error);
-  //   }
-  // };
-
-  // const loadTaskTypeList = async (username) => {
-  //   try {
-  //     const taskTypes = await readTaskType(username);
-  //     const mappedTaskTypeList = taskTypes.map((taskType) => ({
-  //       taskTypeKey: taskType.taskTypeKey,
-  //       taskTypeName: taskType.taskTypeName,
-  //       taskColor: taskType.taskTypeColor,
-  //     }));
-  //     setTaskTypeList(mappedTaskTypeList);
-  //   } catch (error) {
-  //     console.error("Error loading task types:", error);
-  //   }
-  // };
 
   const openModal = () => setShowModal(true);
   const closeModal = () => {
@@ -115,8 +87,7 @@ export default function Calendar({ tasks, setTasks, taskTypeList, setTaskTypeLis
   const handleAddEvent = async (e) => {
     e.preventDefault();
 
-    let finalDueDate = dueDate || dayjs().format("YYYY-MM-DD");
-    finalDueDate = dayjs(finalDueDate).format("DD-MM-YYYY");
+    let finalDueDate = dueDate || formatDate(today);
 
     const taskColor = taskTypeList.find(
       (type) => type.taskTypeName === taskType
@@ -144,13 +115,13 @@ export default function Calendar({ tasks, setTasks, taskTypeList, setTaskTypeLis
   };
 
   const eventDots = (date) => {
-    // Filter tasks for this specific date
     const taskDots = tasks
       .filter((task) => {
         const taskDate = parseDate(task.dueDate);
         return (
-          taskDate instanceof Date && 
-          taskDate.toDateString() === date.toDate().toDateString() && task.isCompleted===false
+          taskDate instanceof Date &&
+          taskDate.toDateString() === date.toDate().toDateString() &&
+          task.isCompleted === false
         );
       })
       .map((task, index) => (
@@ -169,7 +140,6 @@ export default function Calendar({ tasks, setTasks, taskTypeList, setTaskTypeLis
     setSelectedDate(date);
   };
 
-  // Improved filtering logic using parseDate
   const filteredTasks = tasks.filter(task => {
     const taskDate = parseDate(task.dueDate);
     if (isNaN(taskDate)) {
@@ -185,8 +155,7 @@ export default function Calendar({ tasks, setTasks, taskTypeList, setTaskTypeLis
         <div className="calendar-container">
           <div className="leftCol">
             <div className="date-display">
-              <div>{currentDate.split(",")[0]}</div>
-              <div>{currentDate.split(",")[1]}</div>
+              <div>{currentDate}</div>
             </div>
             <EventCard events={filteredTasks} />
           </div>

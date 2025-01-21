@@ -94,28 +94,25 @@ def extract_domain(command):
         return None  # Return None if the format is incorrect
 
 
-def roadmap_tasktype_setter(db,username):
-# Fetch the task types for the user
-    task_types = db.collection('Users').document(username).collection('TaskType').get()
+def roadmap_tasktype_color_extractor(db, username):
+    # Fetch the task type with the name 'Roadmap' for the user
+    user = db.Users.find_one(
+        {"username": username, "taskTypes.taskTypeName": "Roadmap"},  # Query with filter
+        {"taskTypes.$": 1}  # Use $ operator to project only the matching task type
+    )
 
-    # Convert Firestore documents to dictionaries
-    task_types = [task_type.to_dict() for task_type in task_types]
-
-    # Initialize variables to hold the roadmap details
-    roadmap = None
-    roadmap_color = None
-
-    # Iterate through the task types to find the "roadmap"
-    for task_type in task_types:
-        if task_type.get('taskTypeName') == 'Roadmap':
-            roadmap = task_type.get('taskTypeName')
-            roadmap_color = task_type.get('taskTypeColor')
-            break  # Exit loop once roadmap is found
-
-    if roadmap==None:
+    # If the 'Roadmap' task type is found
+    if user and "taskTypes" in user:
+        roadmap_task_type = user["taskTypes"][0]  # Access the first matching task type
+        roadmap_color = roadmap_task_type.get("taskTypeColor", "")
+        print(f"Roadmap task type found with color: {roadmap_color}")
+        found=True
+    else:
+        # If not found, use default color
         roadmap_color = "#B8E0D2"
-    
-    return roadmap_color
+        found=False
+
+    return (roadmap_color,found)
 
 
 def parse_due_date(due_date_str):

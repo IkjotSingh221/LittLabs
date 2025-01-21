@@ -9,7 +9,7 @@ const ForgotPassword = ({ error, setError, setSuccessfulMessage, setSuccess }) =
     const navigate = useNavigate();
     const [emailId, setEmailId] = useState('');
     
-    useEffect(()=>{setError("")},[emailId])
+    useEffect(()=>{setError("")},[emailId]) 
 
     const handleForgotPass = async (event) => {
         event.preventDefault();
@@ -42,7 +42,7 @@ const ForgotPassword = ({ error, setError, setSuccessfulMessage, setSuccess }) =
             <div className="data">
                 <div className="title">
                     <h3>Forgot Password?</h3>
-                    <p>Please enter your email</p>
+                    <p>Please enter your email</p> 
                 </div>
 
                 {error && <p className="error-message" style={{color:'red', fontSize:'0.9rem', paddingBottom:'5px'}}>{error}</p>}

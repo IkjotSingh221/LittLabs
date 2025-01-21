@@ -13,24 +13,23 @@ const NewPost = ({ setAddNewpost, setglasseffect, handleNewPost, posts, username
         setglasseffect(false);
     }
 
-    const handlePostSubmit = (event)=>{
+    const handlePostSubmit = (event) => {
         event.preventDefault();
-        if(newPostText){
+        if (newPostText) {
+            const now = new Date();
             const newPost = {
                 postCreatedBy: username,
                 postDescription: newPostText,
-                postCreatedOn: new Date().toLocaleString(),
-                postLikesCount:0
+                postCreatedOn: now.toISOString(), // ISO format for exact date and time
+                postLikesCount: 0,
             };
             console.log(newPost);
-            // console.log(posts);
             handleNewPost(newPost);
-            // console.log(posts);
         }
         setNewPostText('');
         handleClose();
-        
-    }
+    };
+    
 
     return (
         <div id="addNewPost">

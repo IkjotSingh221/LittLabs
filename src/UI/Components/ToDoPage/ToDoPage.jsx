@@ -5,7 +5,7 @@ import ToDoList from "./ToDoList";
 import ScoreMeter from "./ScoreMeterHolder";
 import AddTaskPanel from "./AddTaskPanel";
 import Chatbot from "../Common/ChatBot/ChatBot";
-import { readTaskType, readTodos } from "../../API/todo.api";
+import { readTaskType, readTodos } from "../../API/todo.api"; 
 const ToDoPage = ({
   tasks,
   setTasks,
@@ -99,7 +99,7 @@ const ToDoPage = ({
     <>
       <div id="todopage">
 
-        <div id="todos">
+        <div className={isAddTaskPanelVisible ? "flex-display" : "todos"}>
           <div id="date">
             <h1 id="greeting" onClick={(e)=>console.log(tasks)}>Hello {username}!</h1>
             <div id="currentDay">{currentDay}</div>
@@ -157,7 +157,8 @@ const ToDoPage = ({
             setAddTask={setAddTask}
             setTaskColor={setTaskColor}
           />
-          <ScoreMeter tasks={tasks} />
+
+          <ScoreMeter tasks={tasks}/>
 
           <div className={`addTaskPanel ${isAddTaskPanelVisible ? 'visible' : 'hidden'}`}>
             <AddTaskPanel

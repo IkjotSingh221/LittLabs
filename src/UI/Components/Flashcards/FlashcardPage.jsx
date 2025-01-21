@@ -63,10 +63,11 @@ const Flashcards = ({ username, notes }) => {
       formData.append("noteKey", selectedNote);
       formData.append("username", username);
     }
-    console.log("FormData being sent:", formData.get("file"), formData.get("noteKey"), formData.get("username"));
+    console.log("FormData being sent:", formData.get("file"), formData.get("username"), formData.get("noteKey"));
     try {
       const response = await generateFlashcardsWithGemini(formData);
-      setFlashcards(response);
+      console.log(response);
+      setFlashcards(response.flashcards);
     } catch (error) {
       console.error("Error generating flashcards:", error);
       setShowError(error);

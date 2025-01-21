@@ -69,6 +69,7 @@ const NoteSummary = ({
         console.log("FormData being sent:", formData.get("file"), formData.get("noteKey"), formData.get("username"));
         try {
           const response = await summarizeWithGemini(formData);
+          console.log(response);
           setSummarizedContent(true)
           setSummarizedNote(response.Summary);
         } catch (error) {

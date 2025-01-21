@@ -8,10 +8,10 @@ const ToDoItem = ({ taskKey, task, deleteToDo, toggleComplete, handleClick}) => 
 
     return (
         <>
-            <div id="showText">
+            <div id="showText">  
                 hello
             </div>
-            <li className="newtodo" key={taskKey} onClick={()=>{handleClick(task)}}> 
+            <li className="newtodo" key={taskKey}> 
 
                 <div className="taskTypeStrip" style={{ background: task.taskColor }}></div>
                 <input
@@ -19,7 +19,7 @@ const ToDoItem = ({ taskKey, task, deleteToDo, toggleComplete, handleClick}) => 
                     checked={task.isCompleted}
                     onChange={handleCheckboxChange}
                 />
-                <p className="task-name">
+                <p className="task-name" onClick={()=>{handleClick(task)}}>
                     <span className="task-name-tooltip">
                         {task.taskName.length > 10
                             ? task.taskName.slice(0, 10) + "..."
@@ -30,7 +30,7 @@ const ToDoItem = ({ taskKey, task, deleteToDo, toggleComplete, handleClick}) => 
                         </span> */}
                     </span>
                 </p>
-                <div id="todocalender">
+                <div id="todocalender" onClick={()=>{handleClick(task)}}>
                     <div id="tododuedate" >
                         <box-icon name='calendar' size='15px' ></box-icon>
                     </div>
@@ -42,7 +42,7 @@ const ToDoItem = ({ taskKey, task, deleteToDo, toggleComplete, handleClick}) => 
                     }}>
                     <box-icon name='trash' size='20px'></box-icon>
                 </div>
-                <div className="tododescription">
+                <div className="tododescription" onClick={()=>{handleClick(task)}}>
                     <span className="description-tooltip">
                         {task.taskDescription.length > 15
                             ? task.taskDescription.slice(0, 12) + "..."

@@ -8,7 +8,7 @@ import { ThreeDots } from "react-loader-spinner";
 const ChatWithImage = () => {
   const [messageHistory, setMessageHistory] = useState([]);
   const [textMessage, setTextMessage] = useState("");
-  const [imageMessage, setImageMessage] = useState(null);
+  const [imageMessage, setImageMessage] = useState(null); 
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
 
@@ -67,6 +67,8 @@ const ChatWithImage = () => {
     setMessageHistory(newUserChatHistory);
 
     setLoading(true); // Show the loader
+    setTextMessage("");
+    setImageMessage(null);
 
     const chatbotResponse = await generateChatbotResponse(
       textMessage,
@@ -78,8 +80,6 @@ const ChatWithImage = () => {
     ];
     setMessageHistory(newBotChatHistory);
 
-    setTextMessage("");
-    setImageMessage(null);
   };
 
   const handleFileChange = (event) => {

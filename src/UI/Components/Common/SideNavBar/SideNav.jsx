@@ -7,7 +7,7 @@ import { readTodos, readTaskType } from "../../../API/todo.api.js";
 import { readNotes } from '../../../API/note.api.js';
 import lottie from "lottie-web";
 import { defineElement } from "@lordicon/element";
-defineElement(lottie.loadAnimation);
+defineElement(lottie.loadAnimation); 
 
 const NavBar = ({ tasks, setTasks, taskTypeList, setTaskTypeList, notes, setNotes, username, setUpcoming, setUpcomingButton, upcoming, upcomingButton, studentCorner,
   setStudentCorner,

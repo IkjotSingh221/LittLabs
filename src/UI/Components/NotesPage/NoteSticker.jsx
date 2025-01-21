@@ -58,63 +58,82 @@ const NoteSticker = ({
 
     return plainText;
   };
+
   const plainText = parseMarkdownToPlainText(noteText);
-  console.log(noteText);
 
-  const downloadNote = () => {
-    // Convert Markdown to HTML
-    const htmlContent = (
-      <ReactMarkdown
-        rehypePlugins={[rehypeRaw]}
-        components={{
-          code({ node, inline, className, children, ...props }) {
-            const match = /language-(\w+)/.exec(className || "");
-            return !inline && match ? (
-              <SyntaxHighlighter
-                style={docco}
-                language={match[1]}
-                PreTag="div"
-                {...props}
-              >
-                {String(children).replace(/\n$/, "")}
-              </SyntaxHighlighter>
-            ) : (
-              <code className={className} {...props}>
-                {children}
-              </code>
-            );
-          },
-          img({ node, ...props }) {
-            return (
-              <img
-                style={{ maxWidth: "100%", maxHeight: "400px" }}
-                {...props}
-              />
-            );
-          },
-        }}
-      >
-        {noteText}
-      </ReactMarkdown>
-    );
-
-    // Convert the React element to a string of HTML
-
-
-    // const htmlString = htmlContent.props.children;
-    // const pdfContent = htmlToPdfmake(htmlString);
-
-    const htmlString = ReactDOMServer.renderToString(htmlContent);
-    const pdfContent = htmlToPdfmake(htmlString);
-
-
+  const downloadNote = async () => {
+    // Function to convert image URLs to base64
+    const convertImagesToBase64 = async (html) => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, "text/html");
+      const images = doc.querySelectorAll("img");
+  
+      for (const img of images) {
+        const url = img.src;
+        try {
+          if (url && !url.startsWith("data:image/")) {
+            const response = await fetch(url);
+  
+            if (!response.ok) {
+              console.warn(`Failed to load image: ${url}`);
+              continue;
+            }
+  
+            const blob = await response.blob();
+            const reader = new FileReader();
+  
+            const base64 = await new Promise((resolve, reject) => {
+              reader.onloadend = () => resolve(reader.result);
+              reader.onerror = () => reject(new Error("Failed to convert image to base64"));
+              reader.readAsDataURL(blob);
+            });
+  
+            img.src = base64; // Replace the image's `src` with the base64 string
+          }
+        } catch (error) {
+          console.error(`Error processing image: ${error.message}`);
+          img.remove(); // If an image cannot be processed, remove it
+        }
+      }
+  
+      return doc.body.innerHTML;
+    };
+  
+    // Ensure all images in Quill content are converted to base64
+    const htmlWithBase64Images = await convertImagesToBase64(noteText);
+  
+    // Convert HTML to pdfMake content
+    const pdfContent = htmlToPdfmake(htmlWithBase64Images, {
+      defaultStyles: {
+        fontSize: 12,
+      },
+    });
+  
     const documentDefinition = {
       content: pdfContent,
+      styles: {
+        header: {
+          fontSize: 18,
+          bold: true,
+          margin: [0, 0, 0, 10],
+        },
+        subheader: {
+          fontSize: 14,
+          bold: true,
+          margin: [0, 10, 0, 5],
+        },
+        paragraph: {
+          margin: [0, 5, 0, 5],
+        },
+      },
+      defaultStyle: {
+        font: "Roboto", // Use Roboto font, supported by default
+      },
     };
-
+  
+    // Generate and download the PDF
     pdfMake.createPdf(documentDefinition).download(`${heading}.pdf`);
   };
-
 
   return (
     <div id="notesticker" style={{ backgroundColor: color }}>
