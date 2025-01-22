@@ -7,7 +7,7 @@ import { generateFlashcardsWithGemini } from "../../API/flashcard.api.js";
 import { ThreeDots } from "react-loader-spinner";
 import Chatbot from "../Common/ChatBot/ChatBot.jsx";
 
-const Flashcards = ({ username, notes }) => {
+const Flashcards = ({ username, notes, setTasks }) => {
   const colors = ["#ac92eb", "#4fc1e8", "#a0d568", "#ffce54", "#ed5564"];
   const darkerColors = ["#9474c4", "#41a3c0", "#88b85a", "#d4a647", "#c24651"];
   const [flashcards, setFlashcards] = useState([]);
@@ -138,7 +138,7 @@ const Flashcards = ({ username, notes }) => {
           )}
         </div>
       </div>
-      <Chatbot username={username} />
+      <Chatbot username={username} setTasks={setTasks}/>
     </div>
   );
 };

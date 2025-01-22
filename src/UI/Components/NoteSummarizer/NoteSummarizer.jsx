@@ -10,6 +10,7 @@ import SummerizedNote from "./SummarizedNote.jsx";
 const NoteSummary = ({
     notes,
     username,
+    setTasks,
 }) => {
     const [acceptedFiles, setAcceptedFiles] = useState([]);
     const [pdfName, setPdfName] = useState('');
@@ -131,7 +132,7 @@ const NoteSummary = ({
                     )}
                 </div>
             </div>
-            <Chatbot username={username} />
+            <Chatbot username={username} setTasks={setTasks}/>
         </div>
     );
 };

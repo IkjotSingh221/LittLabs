@@ -275,7 +275,7 @@ export default function Calendar({ tasks, setTasks, taskTypeList, setTaskTypeLis
           </div>
         )}
       </div>
-      <Chatbot username={username}/>
+      <Chatbot username={username} setTasks={setTasks}/>
     </div>
   );
 }

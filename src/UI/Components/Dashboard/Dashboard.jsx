@@ -195,7 +195,7 @@ export default function Dashboard({
             </div>
           </div>
         </div>
-        <Chatbot username={username} />
+        <Chatbot username={username} setTasks={setTasks} />
       </div>
     </>
   );

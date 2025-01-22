@@ -16,7 +16,7 @@ import VideoAnimation from '../../Assets/Interview Prep.json';
 
 const Notes = ({
   // tasks,
-  // setTasks,
+  setTasks,
   // taskTypeList,
   // setTaskTypeList,
   notes,
@@ -332,7 +332,7 @@ const Notes = ({
         </div>
         <SidePanel />
 
-        <Chatbot username={username} />
+        <Chatbot username={username} setTasks={setTasks}/>
       </div>
     </>
   );

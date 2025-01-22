@@ -5,7 +5,7 @@ import { readTodos, readTaskType } from "../../API/todo.api";
 import {ThreeDots} from 'react-loader-spinner';
 import Chatbot from "../Common/ChatBot/ChatBot.jsx";
 
-const InterviewPrepAnalyzer = ({ username }) => {
+const InterviewPrepAnalyzer = ({ username, setTasks }) => {
 
   // useEffect(() => { 
   //   loadTasks(username);
@@ -181,7 +181,7 @@ const InterviewPrepAnalyzer = ({ username }) => {
           </div>
         </div>
       </div>
-      <Chatbot username={username}/>
+      <Chatbot username={username} setTasks={setTasks}/>
     </div>
   );
 };

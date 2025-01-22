@@ -6,7 +6,7 @@ import { chatWithGemini } from '../../../API/chatbot.api';
 import { ThreeDots } from 'react-loader-spinner';
 
 
-const Chatbot = ({ username }) => {
+const Chatbot = ({ username, setTasks }) => {
   const [userQuestion, setUserQuestion] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -18,6 +18,9 @@ const Chatbot = ({ username }) => {
     const query = { question: question, username: username };
     console.log(query);
     const response = await chatWithGemini(query);
+    if (response.data.task) {
+      setTasks((prevTasks) => [...prevTasks, response.data.task]); // Append to the existing task list
+    }
     return response.data.response; 
   }
 

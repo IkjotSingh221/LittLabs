@@ -65,7 +65,7 @@ function App() {
         />
       )}
       <div className="content-container">
-        {!noChatbotPaths.includes(location.pathname) && <Chatbot username={username} />}
+        {!noChatbotPaths.includes(location.pathname) && <Chatbot username={username} setTasks={setTasks} />}
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route
