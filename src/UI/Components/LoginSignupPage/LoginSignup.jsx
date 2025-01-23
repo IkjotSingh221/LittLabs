@@ -25,7 +25,7 @@ const LoginSignup = ({ setError, error}) => {
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8000/login", {
+      const response = await axios.post("https://littlabs.onrender.com/login", {
         email: loginEmail,
         password: loginPassword,
       });
@@ -47,7 +47,7 @@ const LoginSignup = ({ setError, error}) => {
     }
     try {
         const userData = { email: signupEmail, username: signupUsername, password: signupPassword };
-        const response = await axios.post('http://localhost:8000/signup', userData);
+        const response = await axios.post('https://littlabs.onrender.com/signup', userData);
         console.log('Signup successful:', response.data);
         document.cookie = `username=${response.data.username}; path=/`;
         navigate('/dashboard');

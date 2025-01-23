@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8000";
+const BASE_URL = "https://littlabs.onrender.com";
 
 export const generateFlashcardsWithGemini = async (formData) => {
   try {

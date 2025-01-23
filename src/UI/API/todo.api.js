@@ -1,7 +1,7 @@
 // api.js
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:8000'; // Change to your actual API URL
+const BASE_URL = 'https://littlabs.onrender.com'; // Change to your actual API URL
 
 // Create a new Todo
 export const createTodo = async (todo) => {

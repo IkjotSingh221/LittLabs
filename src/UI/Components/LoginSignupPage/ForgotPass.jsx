@@ -16,7 +16,7 @@ const ForgotPassword = ({ error, setError, setSuccessfulMessage, setSuccess }) =
 
         try {
             // API request to reset password
-            const response = await axios.post("http://localhost:8000/reset-password", { email: emailId });
+            const response = await axios.post("https://littlabs.onrender.com/reset-password", { email: emailId });
             setError('');
             setSuccess(true);
             setSuccessfulMessage("Password reset email sent successfully. Please login after resetting your password.");

@@ -27,7 +27,7 @@ const ChatWithImage = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/imagesolver",
+        "https://littlabs.onrender.com/imagesolver",
         formData,
         {
           headers: {
