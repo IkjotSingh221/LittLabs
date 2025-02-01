@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://littlabs.onrender.com";
+const BASE_URL = "https://playwright-backend-m02j.onrender.com";
 
 export const generateResumeScoreWithGemini = async (formData) => {
   try {

@@ -27,7 +27,7 @@ const ChatWithImage = () => {
 
     try {
       const response = await axios.post(
-        "https://littlabs.onrender.com/imagesolver",
+        "https://playwright-backend-m02j.onrender.com/imagesolver",
         formData,
         {
           headers: {

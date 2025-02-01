@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://littlabs.onrender.com'; // Replace with your FastAPI server URL
+const BASE_URL = 'https://playwright-backend-m02j.onrender.com'; // Replace with your FastAPI server URL
 
 export const makeItLitt = async (note) => {
   try {

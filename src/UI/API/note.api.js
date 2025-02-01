@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://littlabs.onrender.com'; // Change to your actual API URL
+const BASE_URL = 'https://playwright-backend-m02j.onrender.com'; // Change to your actual API URL
 
 export const createNote = async (note) => {
   try {
