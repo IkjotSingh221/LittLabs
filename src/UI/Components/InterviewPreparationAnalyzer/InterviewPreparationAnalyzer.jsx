@@ -81,7 +81,7 @@ const InterviewPrepAnalyzer = ({ username, setTasks }) => {
     formData.append("file", e.target.videoFile.files[0]);
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/upload-video", {
+      const response = await fetch("https://playwright-backend-m02j.onrender.com/upload-video", {
         method: "POST",
         body: formData,
       });
